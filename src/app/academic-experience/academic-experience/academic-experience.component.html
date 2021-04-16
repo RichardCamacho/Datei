@@ -1,0 +1,97 @@
+<!-- <ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "false"></ngx-spinner> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'curriculum.exp_academica' | translate}}</h4>
+            </div>
+            <form id="horizontalFormAcademicExperience" class="form-horizontal" [formGroup]="registerAcademicExpForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.fechaInicio.errors">
+                                <label>{{'main.fecha_inicio' | translate}}*</label>
+                                <input type="date" class="form-control" name="fechaInicio"
+                                formControlName="fechaInicio" id="fechaInicio" [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }">
+                                <div *ngIf="submitted && f.fechaInicio.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.fechaInicio.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.fechaFinalizacion.errors">
+                                <label>{{'main.fecha_final' | translate}}*</label>
+                                <input type="date" class="form-control" name="fechaFinalizacion"
+                                formControlName="fechaFinalizacion" id="fechaFinalizacion" [ngClass]="{ 'is-invalid': submitted && f.fechaFinalizacion.errors }">
+                                <div *ngIf="submitted && f.fechaFinalizacion.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.fechaFinalizacion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.fechaFinalizacion.errors?.invalidDate && f.fechaFinalizacion?.dirty">{{'main.dif_fecha' | translate}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.institucion.errors">
+                                <label>{{'main.institucion' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.institucion' | translate}}"
+                                formControlName="institucion" id="institucion" [ngClass]="{ 'is-invalid': submitted && f.institucion.errors }">
+                                <div *ngIf="submitted && f.institucion.errors">
+                                    <small class="form-text text-danger" *ngIf="f.institucion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.institucion.errors?.maxlength && f.institucion?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.titulo.errors">
+                                <label>{{'main.titulo' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.titulo' | translate}}" name="titulo"
+                                formControlName="titulo" id="titulo" [ngClass]="{ 'is-invalid': submitted && f.titulo.errors }">
+                                <div *ngIf="submitted && f.titulo.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.titulo.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.titulo.errors?.maxlength && f.titulo?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.rango.errors">
+                                <label>{{'main.rango' | translate}}*</label>
+                                <ng-select [items]="RangosList" bindLabel="nombre" placeholder="{{'main.seleccione' | translate}}" loadingText="Cargando..." notFoundText="No hay items"
+                                [ngClass]="{ 'is-invalid': submitted && f.rango.errors }" formControlName="rango">
+                                </ng-select>
+                                <div *ngIf="submitted && f.rango.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.rango.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.tiempo.errors">
+                                <label>{{'main.tiempo' | translate}}*</label>
+                                <ng-select [items]="TiemposList" bindLabel="nombre" placeholder="{{'main.seleccione' | translate}}" loadingText="Cargando..." notFoundText="No hay items"
+                                [ngClass]="{ 'is-invalid': submitted && f.tiempo.errors }" formControlName="tiempo">
+                                </ng-select>
+                                <div *ngIf="submitted && f.tiempo.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.tiempo.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="form-group m-b-0 text-left"> -->
+                    <div class="row button-group">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-info "  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary " (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

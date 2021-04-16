@@ -1,0 +1,30 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"><span class="lstick"></span>Visit Separation</h4>
+        <div style="height: 220px">
+            <apx-chart [series]="visitseparationChartOptions.series" [chart]="visitseparationChartOptions.chart"
+                [dataLabels]="visitseparationChartOptions.dataLabels" [legend]="visitseparationChartOptions.legends"
+                [colors]="visitseparationChartOptions.colors" [stroke]="visitseparationChartOptions.stroke"
+                [labels]="visitseparationChartOptions.labels" [tooltip]="visitseparationChartOptions.tooltip"
+                [plotOptions]="visitseparationChartOptions.plotOptions"></apx-chart>
+        </div>
+        <table class="table vm font-14 m-b-0">
+            <tr>
+                <td class="border-0">Mobile</td>
+                <td class="text-right font-medium border-0">38.5%</td>
+            </tr>
+            <tr>
+                <td>Tablet</td>
+                <td class="text-right font-medium">30.8%</td>
+            </tr>
+            <tr>
+                <td>Desktop</td>
+                <td class="text-right font-medium">7.7%</td>
+            </tr>
+            <tr>
+                <td>Other</td>
+                <td class="text-right font-medium">23.1%</td>
+            </tr>
+        </table>
+    </div>
+</div>

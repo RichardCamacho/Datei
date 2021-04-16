@@ -1,0 +1,357 @@
+// ======================================================
+// Custom layout variables
+// ======================================================
+@import url("https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600");
+
+// ======================================================
+// Theme Global setting colors
+// ======================================================
+$themecolor: #398bf7;
+$themecolor-dark: #028ee1;
+$themecolor-alt: #26c6da;
+$theme-light: #fff;
+$theme-dark: #212529;
+
+$skin1: rgb(0, 0, 0);
+$skin2: #00acc1;
+$skin3: #f62d51;
+$skin4: #1976d2;
+$skin5: #d8a61e;
+$skin6: #fff;
+
+// ======================================================
+// Topbar settings
+// ======================================================
+
+$topbar: $theme-light;
+$topbar-height: 60px;
+$topbar-navlink-padding: 0px 0.75rem;
+$topbar-navlink-font-size: 15px;
+$topbar-navlink-height: 60px;
+$topbar-navbrand-padding: 0 10px 0 10px;
+
+// ======================================================
+// Sidebar settings
+// ======================================================
+
+$sidebar: $theme-light;
+$sidebar-alt: #edf0f5;
+$sidebar-text: #fff;
+$sidebar-icons: #fff;
+$sidebar-text-dark: #687384;
+$sidebar-icons-dark: #555f6d;
+
+$sidebar-width-full: 240px;
+$sidebar-width-iconbar: 180px;
+$sidebar-width-mini: 70px;
+
+// ======================================================
+// Layout settings
+// ======================================================
+$boxed-width: 1200px;
+
+// ======================================================
+// Common settings
+// ======================================================
+$shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+$transitions: 0.2s ease-in;
+$transparent-dark-bg: rgba(0, 0, 0, 0.05);
+$lft: left;
+$rgt: right;
+$card-alt: #e4e9ef;
+
+// ======================================================
+// Mixin settings
+// ======================================================
+%square {
+  border-radius: 0px;
+}
+
+%rotate45 {
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+}
+
+// ======================================================
+// Bootstrap override colors
+// ======================================================
+$white: #fff !default;
+$gray-100: #ebf3f5 !default;
+$gray-200: #e9edf2 !default;
+$gray-300: #a6b7bf !default;
+$gray-400: #ced4da !default;
+$gray-500: #99abb4 !default;
+$gray-600: #cccccc !default;
+$gray-700: #4f5467 !default;
+$gray-800: #263238 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$blue: #398bf7 !default;
+$indigo: #6610f2 !default;
+$purple: #745af2 !default;
+$pink: #e83e8c !default;
+$red: #ef5350 !default;
+$orange: #fb8c00 !default;
+$yellow: #ffb22b !default;
+$green: #06d79c !default;
+$teal: #20c997 !default;
+$cyan: #4fc3f7 !default;
+$primary: #7460ee !default;
+$text-muted: $gray-500 !default;
+
+$colors: (
+  "blue": $blue,
+  "indigo": $indigo,
+  "purple": $purple,
+  "pink": $pink,
+  "red": $red,
+  "orange": $orange,
+  "yellow": $yellow,
+  "green": $green,
+  "teal": $teal,
+  "cyan": $cyan,
+  "white": $white,
+  "gray": $gray-600,
+  "gray-dark": $gray-800,
+);
+
+$primary: $blue !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $blue !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-200 !default;
+$dark: $gray-800 !default;
+$muted: $gray-500 !default;
+$cyan: $cyan !default;
+$orange: $orange !default;
+
+//
+// Light Colors
+//
+$light-danger: #f9e7eb;
+$light-success: #e8fdeb;
+$light-warning: #fff8ec;
+$light-primary: #f1effd;
+$light-info: #cfecfe;
+$light-inverse: #f6f6f6;
+$light-megna: #e0f2f4;
+
+//
+// Dark Colors
+//
+$danger-dark: #e6294b;
+$success-dark: #1eacbe;
+$warning-dark: #e9ab2e;
+$primary-dark: #6352ce;
+$info-dark: #028ee1;
+$red-dark: #d61f1f;
+$inverse-dark: #232a37;
+$dark-transparent: rgba(0, 0, 0, 0.05);
+
+$theme-colors: () !default;
+
+$theme-colors: map-merge(
+  (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $light,
+    "dark": $dark,
+    "muted": $muted,
+    "cyan": $cyan,
+    "orange": $orange,
+    "purple": $purple,
+    "light-danger": $light-danger,
+    "light-success": $light-success,
+    "light-warning": $light-warning,
+    "light-primary": $light-primary,
+    "light-info": $light-info,
+    "light-inverse": $light-inverse,
+    "light-megna": $light-megna,
+  ),
+  $theme-colors
+);
+
+// ======================================================
+// Dark Theme Colors Settings
+// ======================================================
+$theme-dark-bg-layout: #323743;
+$theme-dark-text-color: #b2b9bf !default;
+$theme-dark-border-color: rgba(255, 255, 255, 0.2) !default;
+$theme-dark-focus-border-color: rgba(255, 255, 255, 0.4) !default;
+$theme-dark-card-bg: #272b34;
+$theme-dark-bg-light: #3c424e;
+$main-body-bg-dark: $gray-900 !default;
+$background-alt: #2b2b2b !default;
+
+// ======================================================
+// Enable optional
+// ======================================================
+$enable-caret: true !default;
+$enable-rounded: true !default;
+$enable-shadows: false !default;
+$enable-gradients: false !default;
+$enable-transitions: true !default;
+$enable-hover-media-query: false !default;
+$enable-grid-classes: true !default;
+$enable-print-styles: true !default;
+
+// ======================================================
+// Body
+// ======================================================
+$main-body-bg: #fff !default;
+$body-bg: #f4f6f9;
+$body-color: #67757c !default;
+$grid-gutter-width: 20px !default;
+
+// ======================================================
+// Typography
+// ======================================================
+$font-size-base: 0.8rem;
+$font-weight-base: 400 !default;
+$font-family-sans-serif: "Montserrat", sans-serif !default;
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-bold: 600 !default;
+$h1-font-size: 34px !default;
+$h2-font-size: 22px !default;
+$h3-font-size: 19px !default;
+$h4-font-size: 16px !default;
+$h5-font-size: 14px !default;
+$h6-font-size: 12px !default;
+$headings-margin-bottom: (1rem / 2) !default;
+$headings-font-weight: 200 !default;
+$headings-color: #455a64 !default;
+
+// ======================================================
+// Breadcrumb
+// ======================================================
+$breadcrumb-bg: $body-bg;
+$breadcrumb-margin-bottom: 1.5rem;
+
+// ======================================================
+// Cards
+// ======================================================
+$card-border-width: 0px !default;
+$card-border-color: transparent !default;
+$card-border-radius: 4px !default;
+
+// ======================================================
+// Dropdowns
+// ======================================================
+$dropdown-item-padding-x: 1rem !default;
+$dropdown-item-padding-y: 0.65rem !default;
+$dropdown-border-color: $gray-200;
+$dropdown-divider-bg: $gray-100;
+$dropdown-color: #212529 !default;
+$dropdown-link-color: #67757c !default;
+
+// ======================================================
+// Buttons
+// ======================================================
+$btn-secondary-border: $gray-300;
+
+// ======================================================
+// Progressbar
+// ======================================================
+$progress-bg: $gray-100;
+
+// ======================================================
+// Tables
+// ======================================================
+$table-color: #212529 !default;
+$table-bg-accent: $gray-100;
+$table-bg-hover: $gray-100;
+$table-hover-bg: $gray-100 !default;
+$table-cell-padding: 0.75rem !default;
+$table-bg-level: -10 !default;
+$table-bg-level2: 1 !default;
+$table-bg-level3: -5 !default;
+
+// ======================================================
+// Components
+// ======================================================
+$component-active-color: $white !default;
+$component-active-bg: $themecolor !default;
+$badge-pill-padding-x: 0.2em !default;
+$badge-pill-padding-y: 1em !default;
+
+// ======================================================
+// Forms
+// ======================================================
+$input-group-addon-bg: $gray-100;
+$input-border-color: $gray-200;
+$input-group-addon-border-color: $gray-200;
+$input-btn-focus-color: rgba(0, 0, 0, 0.25) !default;
+$input-focus-border-color: rgba(0, 0, 0, 0.25) !default;
+$input-btn-focus-box-shadow: transparent !default;
+$custom-select-focus-box-shadow: transparent !default;
+$border-width: 1px !default;
+$border-color: rgba(0, 0, 0, 0.1) !default;
+$border-radius: 2px !default;
+$border-radius-lg: 2px !default;
+$border-radius-sm: 1px !default;
+
+// ======================================================
+// Progressbars
+// ======================================================
+$progress-height: 5px !default;
+
+// ======================================================
+// Tabs
+// ======================================================
+$nav-tabs-link-active-bg: $white !default;
+
+// ======================================================
+// Grid breakpoints
+// ======================================================
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1600px,
+) !default;
+
+// ======================================================
+// Navbar
+// ======================================================
+$navbar-dark-color: rgba($white, 0.8) !default;
+$navbar-dark-hover-color: rgba($white, 1) !default;
+
+$navbar-light-color: rgba($black, 0.3) !default;
+$navbar-light-hover-color: rgba($black, 0.8) !default;
+
+// ======================================================
+// Badges
+// ======================================================
+$badge-padding-y: 3px !default;
+$badge-padding-x: 10px !default;
+$badge-font-weight: 400 !default;
+$badge-border-radius: 4px !default;
+
+// ======================================================
+// Button shadow & hover
+// ======================================================
+$enable-shadows: true !default;
+$btn-box-shadow: 0 1px 0 rgba($white, 0.15) !default;
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color},
+  .btn-outline-#{$color} {
+    box-shadow: 0 2px 2px rgba($value, 0.05);
+    &:hover {
+      box-shadow: 0 8px 15px rgba($value, 0.3);
+    }
+  }
+}

@@ -1,0 +1,73 @@
+<!-- <ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "false"></ngx-spinner> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'cursos.libros' | translate}}</h4>
+            </div>
+            <form id="horizontalFormBook" class="form-horizontal" [formGroup]="registerBookForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.titulo.errors">
+                                <label>{{'main.titulo' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.titulo' | translate}}" name="titulo"
+                                formControlName="titulo" id="titulo" [ngClass]="{ 'is-invalid': submitted && f.titulo.errors }">
+                                <div *ngIf="submitted && f.titulo.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.titulo.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.titulo.errors?.maxlength && f.titulo?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.autor.errors">
+                                <label>{{'main.autor' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.autor' | translate}}" name="autor"
+                                formControlName="autor" id="autor" [ngClass]="{ 'is-invalid': submitted && f.autor.errors }">
+                                <div *ngIf="submitted && f.autor.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.autor.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.autor.errors?.maxlength && f.autor?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-8">
+                            <div class="form-group" [class.has-error]="submitted && f.editorial.errors">
+                                <label>{{'main.editorial' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.editorial' | translate}}" name="editorial"
+                                formControlName="editorial" id="editorial" [ngClass]="{ 'is-invalid': submitted && f.editorial.errors }">
+                                <div *ngIf="submitted && f.editorial.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.editorial.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.editorial.errors?.maxlength && f.editorial?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="form-group" [class.has-error]="submitted && f.anio.errors">
+                                <label>{{'main.anio' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.anio' | translate}}" name="anio"
+                                formControlName="anio" id="anio" [ngClass]="{ 'is-invalid': submitted && f.anio.errors }" (keypress)="keyPress($event)">
+                                <div *ngIf="submitted && f.anio.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.anio.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.anio.errors?.maxlength && f.anio?.dirty">{{'main.caracteres' | translate:param20}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="form-group m-b-0 text-left"> -->
+                    <div class="row button-group">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-info waves-effect waves-light"  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary waves-effect waves-light" (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

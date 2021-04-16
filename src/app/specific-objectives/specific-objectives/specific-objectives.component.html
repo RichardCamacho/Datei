@@ -1,0 +1,40 @@
+<!-- <ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "false"></ngx-spinner> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span><i class="fa fa-picture-o" aria-hidden="true"></i>{{'cursos.objetivos' | translate}}</h4>
+            </div>
+            <form id="horizontalFormObjective" class="form-horizontal" [formGroup]="registerObjectiveForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group" [class.has-error]="submitted && f.nombre.errors">
+                                <label>{{'main.nombre' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.nombre' | translate}}" name="nombre"
+                                formControlName="nombre" id="nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
+                                <div *ngIf="submitted && f.nombre.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.nombre.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.nombre.errors?.maxlength && f.nombre?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="form-group m-b-0 text-left"> -->
+                    <div class="row button-group">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-info"  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary" (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,61 @@
+<!-- <ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "false"></ngx-spinner> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'carpeta_so.compromisos' | translate}}</h4>
+            </div>
+            <form id="horizontalFormActivity" class="form-horizontal" [formGroup]="registerActivityForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group" [class.has-error]="submitted && f.descripcion.errors">
+                                <label>{{'main.descripcion' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.descripcion' | translate}}" name="descripcion"
+                                formControlName="descripcion" id="descripcion" [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }">
+                                <div *ngIf="submitted && f.descripcion.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.descripcion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.descripcion.errors?.maxlength && f.descripcion?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="form-group" [class.has-error]="submitted && f.fecha.errors">
+                                <label>{{'main.fecha' | translate}}*</label>
+                                <input type="date" class="form-control" name="{{'main.fecha' | translate}}"
+                                formControlName="fecha" id="fecha" [ngClass]="{ 'is-invalid': submitted && f.fecha.errors }">
+                                <div *ngIf="submitted && f.fecha.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.fecha.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-8">
+                            <div class="form-group" [class.has-error]="submitted && f.responsable.errors">
+                                <label>{{'carpeta_so.responsable' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'carpeta_so.responsable' | translate}}" name="responsable"
+                                formControlName="responsable" id="responsable" [ngClass]="{ 'is-invalid': submitted && f.responsable.errors }">
+                                <div *ngIf="submitted && f.responsable.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.responsable.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.responsable.errors?.maxlength && f.responsable?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="form-group m-b-0 text-left"> -->
+                    <div class="row button-group">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-info"  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary" (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

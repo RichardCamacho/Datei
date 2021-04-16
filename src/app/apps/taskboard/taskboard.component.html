@@ -1,0 +1,89 @@
+<div class="card">
+  <div class="card-body" cdkDropListGroup>
+    <div class="taskboard page-height">
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+          <h6 class="taskboard-header">Todos</h6>
+          <div
+            class="taskboard-cards"
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListData]="todos"
+          >
+            <div
+              class="{{ todo.class }} taskboard-task cursor-pointer"
+              cdkDrag
+              *ngFor="let todo of todos"
+            >
+              <div class="taskboard-task-title">{{ todo.title }}</div>
+              <small class="card-text text-muted">{{ todo.desc }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+          <h6 class="taskboard-header">In Process</h6>
+          <div
+            class="taskboard-cards"
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListData]="process"
+          >
+            <div
+              class="{{ inprocess.class }} taskboard-task cursor-pointer"
+              cdkDrag
+              *ngFor="let inprocess of process"
+            >
+              <div class="taskboard-task-title">{{ inprocess.title }}</div>
+              <small class="card-text text-muted">{{ inprocess.desc }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+          <h6 class="taskboard-header">Pending todos</h6>
+          <div
+            class="taskboard-cards"
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListData]="pendings"
+          >
+            <div
+              class="{{ pendingtask.class }} taskboard-task cursor-pointer"
+              cdkDrag
+              *ngFor="let pendingtask of pendings"
+            >
+              <div class="taskboard-task-title">{{ pendingtask.title }}</div>
+              <small class="card-text text-muted">{{ pendingtask.desc }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="taskboard-wrapper">
+        <div class="taskboard-list">
+          <h6 class="taskboard-header">Task Done</h6>
+          <div
+            class="taskboard-cards"
+            cdkDropList
+            (cdkDropListDropped)="drop($event)"
+            [cdkDropListData]="done"
+          >
+            <div
+              class="{{ taskdone.class }} taskboard-task cursor-pointer"
+              cdkDrag
+              *ngFor="let taskdone of done"
+            >
+              <div class="taskboard-task-title">{{ taskdone.title }}</div>
+              <small class="card-text text-muted">{{ taskdone.desc }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

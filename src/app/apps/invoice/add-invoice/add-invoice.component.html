@@ -1,0 +1,154 @@
+<div class="card">
+    <div class="card-body">
+        <form #invoiceForm='ngForm'>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h4 class="mb-0">Invoice Id : # <span name="id" [(ngModel)]='invoice.id' ngDefaultControl>
+                            {{invoice.id}}</span></h4>
+                </div>
+                <div class="col-md-6 mt-3 mt-md-0">
+                    <div class="row justify-content-end">
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <a routerLink='/apps/invoice'
+                                class="btn btn-outline-danger shadow-sm font-medium btn-block">
+                                Cancel
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <button type="button" class="btn btn-outline-success shadow-sm font-medium btn-block"
+                                (click)=saveDetail() [disabled]="addForm.invalid">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center border-top pt-3 pb-3 border-bottom">
+                <div>
+                    <h5>Order Status : </h5>
+                    <select class="form-control mt-2" name="satus" [(ngModel)]='invoice.status'>
+                        <option value="Pending">Pending</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                    </select>
+                </div>
+                <div class="ml-auto">
+                    <h5>Order Date</h5>
+                    <span name="date" [(ngModel)]='invoice.orderDate'
+                        ngDefaultControl>{{invoice.orderDate | date: 'dd-MM-yyyy'}}</span>
+                </div>
+            </div>
+
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Bill From" name="from"
+                            [(ngModel)]='invoice.billFrom'>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Bill To" name="to"
+                            [(ngModel)]='invoice.billTo'>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" placeholder="Enter From Address" name="fromAddress"
+                            [(ngModel)]='invoice.billFromAddress'></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" placeholder="Enter To Address" name="toAddress"
+                            [(ngModel)]='invoice.billToAddress'></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div [formGroup]="addForm">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered no-wrap v-middle">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom-0">#</th>
+                            <th class="border-bottom-0">Item Name</th>
+                            <th class="border-bottom-0">Unit Price</th>
+                            <th class="border-bottom-0">Units</th>
+                            <th class="border-bottom-0">Unit Total Price</th>
+                            <th class="border-bottom-0"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of addForm.get('rows')?.controls;let index = index;">
+                            <td>
+                                {{index+1}}
+                            </td>
+
+                            <td>
+                                <input type="text" class="form-control" [formControl]="row.get('itemName')"
+                                    (input)="itemsChanged()">
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" min=1 [formControl]="row.get('unitPrice')"
+                                    (input)="itemsChanged()">
+                            </td>
+
+                            <td>
+                                <input type="number" class="form-control" min=1 [formControl]="row.get('units')"
+                                    (input)="itemsChanged()">
+                            </td>
+
+                            <td>
+                                <input disabled class="form-control" [formControl]="row.get('itemTotal')"
+                                    [value]="row.get('unitPrice').value * row.get('units').value">
+                            </td>
+
+                            <td>
+                                <span *ngIf='index > 0'>
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="onRemoveRow(index)">Remove</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="text-right">
+                <button type="button" class="btn btn-info" (click)="onAddRow()" [disabled]="addForm.invalid"
+                    *ngIf="addForm.get('rows')">Add row</button>
+
+                <div class="border-top mt-3 pt-3">
+                    <h5><span>Sub total </span> : {{subTotal}}</h5>
+                </div>
+                <div class="border-top mt-3 pt-3">
+                    <h5>Total Vat:</h5>
+                    <div class="row justify-content-end">
+                        <div class="col-lg-2 col-md-4">
+                            <div class="input-group mb-3">
+                                <input type="number" class="form-control" value="10">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                    <span class="input-group-text bg-white font-medium">: {{vat}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr />
+                <h3><span class="font-weight-bold mr-2">Total:</span>${{grandTotal}} </h3>
+            </div>
+
+        </div>
+
+    </div>
+</div>

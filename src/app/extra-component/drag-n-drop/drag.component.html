@@ -1,0 +1,154 @@
+<div class="card">
+  <div class="card-body pb-0">
+    <h4 class="card-title">Basic Drag n Drop</h4>
+  </div>
+  <ul
+    class="list-group pl-0 shadow-sm"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+    *ngIf="movies.length"
+  >
+    <li
+      class="list-group-item border-bottom border-top-0 border-right-0 border-left-0 cursor-pointer d-flex align-items-center"
+      *ngFor="let mname of movies"
+      cdkDrag
+    >
+      <i class="mdi mdi-arrow-right font-medium text-info mr-2 font-18"></i>
+      <h6 class="mb-0">{{ mname }}</h6>
+    </li>
+  </ul>
+</div>
+
+<h4 class="card-title mt-4 pt-2">Transferring items between lists</h4>
+
+<div class="row mt-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="bg-info py-2 px-3">
+        <h4 class="text-white mb-0">Todo</h4>
+      </div>
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="todo"
+        (cdkDropListDropped)="onDrop($event)"
+      >
+        <div
+          class="py-3 cursor-pointer mb-1 d-flex align-items-center border-bottom"
+          *ngFor="let item of todo"
+          cdkDrag
+        >
+          <span class="todo-border"></span>
+          <h6 class="mb-0 ml-3">{{ item }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="bg-success py-2 px-3">
+        <h4 class="text-white mb-0">Done</h4>
+      </div>
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="done"
+        (cdkDropListDropped)="onDrop($event)"
+      >
+        <div
+          class="py-3 cursor-pointer mb-1 d-flex align-items-center border-bottom"
+          *ngFor="let item of done"
+          cdkDrag
+        >
+          <span class="done-border"></span>
+          <h6 class="mb-0 ml-3">{{ item }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">List orientation</h4>
+    <ul
+      class="list-group list-group-horizontal-lg pl-0 mt-4"
+      cdkDropList
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="orientationDrop($event)"
+      *ngIf="horizontalOrientation.length"
+    >
+      <li
+        class="list-group-item cursor-pointer text-center"
+        *ngFor="let hname of horizontalOrientation"
+        cdkDrag
+      >
+        <i
+          class="mdi mdi-cube-outline font-medium text-info mr-2 font-18 d-block"
+        ></i>
+        <h6 class="mb-0">{{ hname }}</h6>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<h4 class="card-title mt-4 pt-2">Drag&Drop enter predicate</h4>
+<div class="row mt-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="bg-info py-2 px-3">
+        <h4 class="text-white mb-0">Available numbers</h4>
+      </div>
+      <div
+        id="all"
+        cdkDropList
+        cdkDropList
+        [cdkDropListData]="all"
+        cdkDropListConnectedTo="even"
+        (cdkDropListDropped)="oddevenDrop($event)"
+        [cdkDropListEnterPredicate]="noReturnPredicate"
+        class="todo"
+      >
+        <div
+          class="py-3 cursor-pointer mb-1 d-flex align-items-center border-bottom"
+          *ngFor="let number of all"
+          [cdkDragData]="number"
+          cdkDrag
+        >
+          <span class="todo-border"></span>
+          <h6 class="mb-0 ml-3">{{ number }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="bg-success py-2 px-3">
+        <h4 class="text-white mb-0">Even numbers</h4>
+      </div>
+      <div
+        id="even"
+        cdkDropList
+        [cdkDropListData]="even"
+        cdkDropListConnectedTo="all"
+        (cdkDropListDropped)="oddevenDrop($event)"
+        [cdkDropListEnterPredicate]="evenPredicate"
+        class="done"
+      >
+        <div
+          class="py-3 cursor-pointer mb-1 d-flex align-items-center border-bottom"
+          *ngFor="let number of even"
+          [cdkDragData]="number"
+          cdkDrag
+        >
+          <span class="done-border"></span>
+          <h6 class="mb-0 ml-3">{{ number }}</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

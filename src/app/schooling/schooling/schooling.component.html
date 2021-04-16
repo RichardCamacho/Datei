@@ -1,0 +1,70 @@
+<!-- <ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "false"></ngx-spinner> -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'curriculum.estudios' | translate}}</h4>
+            </div>
+            <form id="horizontalFormSchooling" class="form-horizontal" [formGroup]="registerSchoolingForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.curso.errors">
+                                <label>{{'curriculum.nombre_estudio' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'curriculum.nombre_estudio' | translate}}" name="curso"
+                                formControlName="curso" id="curso" [ngClass]="{ 'is-invalid': submitted && f.curso.errors }">
+                                <div *ngIf="submitted && f.curso.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.curso.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.curso.errors?.maxlength && f.curso?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.disciplina.errors">
+                                <label>{{'curriculum.disciplina' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'curriculum.disciplina' | translate}}" name="disciplina"
+                                formControlName="disciplina" id="disciplina" [ngClass]="{ 'is-invalid': submitted && f.disciplina.errors }">
+                                <div *ngIf="submitted && f.disciplina.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.disciplina.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.disciplina.errors?.maxlength && f.disciplina?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-3">
+                            <div class="form-group" [class.has-error]="submitted && f.anioTerminacion.errors">
+                                <label>{{'main.anio_terminacion' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.anio_terminacion' | translate}}"
+                                formControlName="anioTerminacion" id="anioTerminacion" [ngClass]="{ 'is-invalid': submitted && f.anioTerminacion.errors }" (keypress)="keyPress($event)">
+                                <div *ngIf="submitted && f.anioTerminacion.errors">
+                                    <small class="form-text text-danger" *ngIf="f.anioTerminacion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.anioTerminacion.errors?.maxlength && f.anioTerminacion?.dirty">{{'main.caracteres' | translate:param10}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-9">
+                            <div class="form-group" [class.has-error]="submitted && f.institucion.errors">
+                                <label>{{'main.institucion' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.institucion' | translate}}"
+                                formControlName="institucion" id="institucion" [ngClass]="{ 'is-invalid': submitted && f.institucion.errors }">
+                                <div *ngIf="submitted && f.institucion.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.institucion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.institucion.errors?.maxlength && f.institucion?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row button-group">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-info "  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary " (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

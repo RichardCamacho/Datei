@@ -1,0 +1,199 @@
+<div *ngIf='ms.selectedMail' 
+class="d-flex align-items-center px-3 py-2 border-bottom bg-light">
+    <div class="d-flex align-items-center">
+        <button class="mr-3 d-block d-lg-none btn btn-info btn-sm">
+            <i class="fas fa-arrow-left" (click)="removeClass()"></i>
+        </button>
+        <span> <i class="fas fa-bookmark"
+                [ngStyle]="{'color':ms.selectedMail.filter.indexOf('Important') != -1 ? '#ffbc34' : '' }"
+                (click)='iconsClick("Important")'></i></span>
+
+        <span class="ml-3"> <i class="fas fa-star"
+                [ngStyle]="{'color':ms.selectedMail.filter.indexOf('Star') != -1 ? '#ffbc34' : '' }"
+                (click)='iconsClick("Star")'></i></span>
+
+
+    </div>
+    <div class="ml-auto">
+        <div ngbDropdown class="d-inline-block">
+
+            <button class="btn btn-secondary btn-sm" id="dropdownBasic1" ngbDropdownToggle><i class="mdi mdi-tag"></i><i
+                    class="fas fa-caret-down ml-1"></i></button>
+
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <label ngbDropdownItem>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Personal') != -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                (click)="labelClick('Personal')" checked>
+                            <label class="custom-control-label" for="customCheck1">Personal</label>
+                        </div>
+                    </span>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Personal') === -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                (click)="labelClick('Personal')">
+                            <label class="custom-control-label" for="customCheck1">Personal</label>
+                        </div>
+                    </span>
+                </label>
+                <label ngbDropdownItem>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Work') != -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2"
+                                (click)="labelClick('Work')" checked>
+                            <label class="custom-control-label" for="customCheck2">Work</label>
+                        </div>
+                    </span>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Work') === -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck2"
+                                (click)="labelClick('Work')">
+                            <label class="custom-control-label" for="customCheck2">Work</label>
+                        </div>
+                    </span>
+                </label>
+                <label ngbDropdownItem>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Payment') != -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3"
+                                (click)="labelClick('Payment')" checked>
+                            <label class="custom-control-label" for="customCheck3">Payment</label>
+                        </div>
+                    </span>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Payment') === -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck3"
+                                (click)="labelClick('Payment')">
+                            <label class="custom-control-label" for="customCheck3">Payment</label>
+                        </div>
+                    </span>
+                </label>
+                <label ngbDropdownItem>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Invoice') != -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck4"
+                                (click)="labelClick('Invoice')" checked>
+                            <label class="custom-control-label" for="customCheck4">Invoice</label>
+                        </div>
+                    </span>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Invoice') == -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck4"
+                                (click)="labelClick('Invoice')">
+                            <label class="custom-control-label" for="customCheck4">Invoice</label>
+                        </div>
+                    </span>
+                </label>
+                <label ngbDropdownItem>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Account') != -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck5"
+                                (click)="labelClick('Account')" checked>
+                            <label class="custom-control-label" for="customCheck5">Accounts</label>
+                        </div>
+                    </span>
+                    <span *ngIf="ms.selectedMail.label.indexOf('Account') == -1">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customCheck5"
+                                (click)="labelClick('Account')">
+                            <label class="custom-control-label" for="customCheck5">Accounts</label>
+                        </div>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+
+
+        <div ngbDropdown class="d-inline-block ml-1">
+            <button class="btn btn-sm" id="dropdownBasic1" ngbDropdownToggle>
+                <i class="fa fa-ellipsis-v"></i>
+            </button>
+
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem (click)="ddlRemoveClick('Read')">
+                    <i class="far fa-envelope mr-1 text-info font-14"></i>
+                    <span *ngIf='ms.selectedMail.seen'>Mark as unread</span>
+                    <span *ngIf='!ms.selectedMail.seen'>Mark as read</span>
+
+                </button>
+                <button ngbDropdownItem (click)="ddlRemoveClick('Spam')"><i
+                        class="fas fa-history text-primary mr-1 font-14"></i>
+                    Spam</button>
+                <button ngbDropdownItem (click)="ddlRemoveClick('Trash')"><i
+                        class="ti-trash fas text-danger mr-1 font-14"></i>Trash</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<spam *ngIf='ms.selectedMail'>
+    <div class="d-flex align-items-center p-3 border-bottom">
+    <h4 class="mb-0">{{ms.selectedMail.Subject}}
+        <span *ngFor="let l of ms.selectedMail.label" class="ml-2">
+            <span *ngIf='l==="Personal"' class="badge badge-pill badge-danger ml-1 font-12 font-medium"> PERSONAL
+            </span>
+            <span *ngIf='l==="Work"' class="badge badge-pill badge-info ml-1 font-12 font-medium"> WORK </span>
+            <span *ngIf='l==="Payment"' class="badge badge-pill badge-primary ml-1 font-12 font-medium"> PAYMENTS
+            </span>
+            <span *ngIf='l==="Invoice"' class="badge badge-pill badge-warning text-white ml-1 font-12 font-medium">
+                INVOICES
+            </span>
+            <span *ngIf='l==="Account"' class="badge badge-pill badge-cyan  text-white ml-1 font-12 font-medium">
+                ACCOUNTS
+            </span>
+        </span></h4>
+</div>
+<div class="p-3">
+    <div class="mb-3 d-flex align-items-center">
+        <img [src]="ms.selectedUser.imagePath" class="rounded-circle" alt="userimg" width="35" height="35">
+        <div class="ml-2">
+            <h5 class="mb-0">{{ms.selectedUser.name}}</h5>
+            <span class="text-muted">To me,</span>
+        </div>
+
+    </div>
+    <div class="mb-4">
+        {{ms.selectedMail.Message}}
+    </div>
+    <div class="mb-3">
+        <div *ngIf='ms.replyShow'>
+            <textarea id="w3mission" rows="4" class="form-control" placeholder="Type your reply here"> </textarea>
+            <div class="d-flex align-items-center justify-content-between py-2 px-3 bg-light">
+                <div>
+                    <a href="javascript:void(0)" class="link"><i class="icon-link font-16"></i></a>
+                    <a href="javascript:void(0)" class="link"><i class="fas fa-smile font-16 ml-3"></i></a>
+                    <a href="javascript:void(0)" class="link"><i class="fas fa-camera font-16 ml-3"></i></a>
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-info" (click)='sendButtonClick()'><i
+                            class="fas fa-arrow-left"></i></button>
+                    <button type="button" class="btn btn-danger ml-2"><i class="fas fa-trash mr-1"></i></button>
+                    <button type="button" class="btn btn-secondary ml-2"><i class=" fas fa-share mr-1"></i>Send</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf='!ms.replyShow'>
+            <button type="button" class="btn btn-outline-info btn-sm" (click)='reply()'>
+                <i class="fas fa-reply"></i> Reply
+            </button>
+            <button type="button" class="btn btn-outline-info ml-1 btn-sm" (click)='reply()'>
+                <i class="fas fa-reply-all"></i> Reply All
+            </button>
+            <button type="button" class="btn btn-outline-info ml-1 btn-sm" (click)='reply()'>
+                <i class="fas fa-share"></i> Forward
+            </button>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+</spam>

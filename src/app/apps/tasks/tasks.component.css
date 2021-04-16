@@ -1,0 +1,42 @@
+.cursor{
+    cursor: pointer;
+}
+
+.custom-checkbox-width {
+	width: 16px;
+	height: 16px;
+}
+
+.text-decoration-linethrougth {
+	text-decoration: line-through;
+}
+
+.border-md-left {
+    border-left: 3px solid blue;
+}
+
+.border-md-left-none {
+    border-left: 0;
+}
+
+.drag-list .drag-icon {
+    visibility: hidden;
+}
+
+.drag-list:hover .drag-icon {
+    visibility: visible;
+}
+
+@media (max-width: 767px) {
+    .drag-list .drag-icon {
+        visibility: visible;
+    }
+}
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+
+}
+.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  
+}

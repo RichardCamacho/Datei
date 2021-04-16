@@ -1,0 +1,28 @@
+.detail-title {
+  width: 80px;
+  position: relative;
+
+  &:after {
+    content: ":";
+    position: absolute;
+    right: 0px;
+  }
+}
+
+.contact-list {
+  .contact-item {
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.active {
+      background-color: #e9ecef;
+    }
+  }
+}
+
+#btnAddContact {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}

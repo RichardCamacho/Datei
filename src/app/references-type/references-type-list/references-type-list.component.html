@@ -1,0 +1,88 @@
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "true"></ngx-spinner>
+<div class="row">
+    <div class="col-md-12">
+        <!--- Complete Table -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'ref_type.tipos_ref' | translate}}</h4>
+                <span class="card-subtitle">{{'ref_type.gest_tipos_ref' | translate}}</span>
+                <br>
+                <div class="row button-group mt-3">
+                    <div class="col-lg-6 col-sm-12" style=" padding-top: 1px !important; margin-bottom: 5px">
+                        <input type="text" class="col-md-12 form-control" id="search_user_list" placeholder="{{'main.buscar' | translate}}" #searchId (input)="dt.filterGlobal($event.target.value, 'contains')" >
+                    </div>
+                    <div class="col-lg-3 col-sm-12">
+                        <!-- <button type="button" class="btn btn-block btn-info" id="new_user_button" (click)="onAddReferenceType()" ><i class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'ref.nuevo_registro' | translate}}</button>           -->
+                        <button type="button" class="btn btn-block btn-info" id="new_user_button" (click)="onAddReferenceType()" ><i class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>   
+                    </div>
+                </div>
+                <br>
+                <p-table #dt [columns]="referencesTypeColumns" [value]="referencesTypeList" selectionMode="single"
+                    dataKey="id" [paginator]="referencesTypeTablePaginator" [rows]="referencesTypeTableRows"
+                    [responsive]="true" [resizableColumns]="true" [(selection)]="selectedReferenceTypeRow"
+                    class="table table-striped">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.width"
+                                pResizableColumn>
+                                {{ col.header | translate}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </th>
+                            <th style="width:7em">{{'main.acciones' | translate}}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.typeField">
+                                <div *ngSwitchCase="'object'">
+                                    <span class="p-column-title">{{ col.header | translate}}</span>{{
+                                    rowData[col.field][col.fieldChild] }}
+                                </div>
+                                <div *ngSwitchCase="'standard'">
+                                    <span class="p-column-title">{{ col.header | translate}}</span>{{ rowData[col.field] | translate}}
+                                </div>
+                            </td>
+                            <td>
+                                <button type="button" id="edit_reference_type_button"
+                                    class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
+                                    (click)="onEditReferenceType(rowData.id)"><i class="fa fa-pencil-alt"
+                                        aria-hidden="true"></i></button>
+                                <button type="button" id="delete_reference_type_button"
+                                    class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
+                                    (click)="confirmModal(confirmation, rowData.id)"><i class="fa fa-trash-alt"
+                                        aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage" let-columns>
+                        <tr>
+                            <td [attr.colspan]="columns.length">
+                                {{'main.no_registros' | translate}}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                <!-- MODAL DE CONFIRMACIÓN -->
+                <ng-template #confirmation let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
+                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="text-align: center;">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
+                        <p>{{'main.conf_mensaje' | translate}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light btn-sm"
+                            (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
+                        <button type="button" class="btn  btn-light btn-sm"
+                            (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

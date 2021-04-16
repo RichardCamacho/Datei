@@ -1,0 +1,16 @@
+.ticket-desc {
+  width: 500px;
+}
+
+.ticket-desc p {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.ticket-desc small {
+  width: 400px;
+  display: block;
+}
+.cursor-pointer{
+	cursor: pointer;
+}

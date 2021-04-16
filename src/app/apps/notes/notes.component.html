@@ -1,0 +1,57 @@
+<a [ngClass]="(showSidebar)?'ti-close':'ti-menu'" class="btn btn-success show-left-part d-block d-md-none"
+		href="javascript:void(0)" (click)="mobileSidebar()"></a>
+<div class="main-part">
+	<div class="left-part bg-white overflow-auto fixed-left-part" [ngClass]="{'show-panel': showSidebar}">
+		
+		<div class="position-relative">
+			<div class="p-l-15 p-r-25 py-3 d-flex align-items-center border-bottom">
+				<input class="form-control" type="text" name="search" placeholder="Search Notes" [(ngModel)]="searchText" />
+			</div>
+			<div>
+				<div class="notes-list" *ngIf="notes.length > 0; else elseBlock">
+					<div *ngFor='let note of notes | filter:searchText' class="notes-item" (click)="onSelect(note);"
+						[class.selected]="note === selectedNote">
+						<div class="d-flex py-3 border-bottom pr-3 position-relative">
+							<div>
+								<span class="note-color bg-{{note.color}}"></span>
+								<span class="note-title text-truncate">{{note.title}}</span>
+								<small class="note-time">{{note.datef | date}}</small>
+							</div>
+							<span (click)="removenote(note)" class="ml-auto remove-note">x</span>
+						</div>
+					</div>
+				</div>
+				<ng-template #elseBlock>
+					<p class="mb-0 text-center font-18 font-bold mt-5">No Notes Found</p>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+	<div class="right-part bg-white overflow-auto">
+		<div class="card mb-0">
+			<div class="p-l-15 p-r-25 py-3 d-flex align-items-center border-bottom">
+				<div class="w-50" *ngIf="selectedNote">
+					<button type="button" class="btn btn-{{clrName}} mr-2" placement="right" [ngbPopover]="popContent"
+						[autoClose]="'outside'" popoverTitle="Choose colors">
+					</button>
+					<span>Choose color for note</span>
+				</div>
+				<ng-template #popContent>
+					<ul class="pl-0 mb-0">
+						<li *ngFor="let c of colors" class="btn btn-sm rounded btn-{{c.colorName}} mr-2"
+							(click)="onSelectColor(c.colorName);">&nbsp;</li>
+					</ul>
+				</ng-template>
+				<div class="ml-auto">
+					<button type="button" id="btnAddNote" class="btn btn-primary" (click)="addNoteClick()">Add Notes</button>
+				</div>
+			</div>
+			<div class="bg-white">
+				<div class="" *ngIf="notes.length > 0">
+					<textarea [(ngModel)]="selectedNote.title" rows="5" class="form-control note-content"
+						placeholder="name"> </textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

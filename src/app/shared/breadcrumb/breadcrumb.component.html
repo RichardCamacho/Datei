@@ -1,0 +1,23 @@
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="page-breadcrumb">
+    <div class="d-md-flex align-items-center">
+        <h3 class="page-title">{{pageInfo?.title | translate}}</h3>
+        <div class="ml-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <ng-template ngFor let-url [ngForOf]="pageInfo?.urls" let-last="last">
+                        <li class="breadcrumb-item" *ngIf="!last" [routerLink]="url.url">
+                            <a href='javascript:void(0)'>{{url.title | translate}}</a>
+                        </li>
+                        <li class="breadcrumb-item active" *ngIf="last">{{url.title | translate}}</li>
+                    </ng-template>
+                </ol>
+            </nav>
+        </div>
+    </div>  
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->

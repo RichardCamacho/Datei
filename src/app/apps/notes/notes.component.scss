@@ -1,0 +1,35 @@
+.note-color {
+  position: absolute;
+  width: 5px;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.notes-item.selected {
+  background-color: #e9ecef;
+}
+
+.note-title {
+  width: 200px;
+  font-size: 16px;
+}
+
+.note-title,
+.note-time {
+  margin-left: 15px;
+  display: block;
+}
+
+.note-content {
+  border: none;
+  resize: none;
+  padding-top: 15px;
+  padding-left: 15px;
+  height: 100%;
+}
+
+.remove-note,
+.notes-item {
+  cursor: pointer;
+}

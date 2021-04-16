@@ -1,0 +1,134 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 col-lg-3 col-xl-2">
+            <input type="text" class="form-control form-control-lg" type="text" name="search" [(ngModel)]="searchText"
+              autocomplete="off" placeholder="Search here...">
+          </div>
+          <div class="col-md-6 col-lg-9 col-xl-10 text-md-right mt-4 mt-md-0">
+            <button class="btn btn-lg btn-cyan text-white" (click)="open(addContactModal)">
+              <i class="fa fa-plus-square mr-2"></i>Add Contact</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center" *ngIf='contact && contact.length'>
+  <div class="col-md-4" *ngFor="let c of contact | filter:searchText">
+    <div class="card">
+      <div class="card-body text-center">
+        <img src="{{ c.img }}" class="rounded-circle border p-1" width="100">
+        <h4 class="card-title mt-3 mb-0">{{ c.name }}</h4>
+        <small class="text-muted">{{ c.post }}</small>
+        <div class="mt-3">
+          <button class="btn btn-info">Chat</button>
+          <button class="btn btn-light">Follow</button>
+        </div>
+        <div class="mt-3 pt-3">
+          <address>
+            {{ c.address }}
+            <br />
+            <br />
+            <i class="fas fa-mobile-alt mr-2"></i>{{ c.contactno }}</address>
+        </div>
+      </div>
+      <div class="d-flex text-center justify-content-md-center bg-light border-top">
+        <div class="col-4 border-right border-bottom py-2">
+          <a href="javascript:void(0)" class="link">
+            <i class="icon-social-instagram m-r-10"></i>
+            {{ c.insta }}
+          </a>
+        </div>
+        <div class="col-4 border-right border-bottom py-2">
+          <a href="javascript:void(0)" class="link">
+            <i class="icon-social-linkedin m-r-10"></i>
+            {{ c.linkedin }}
+          </a>
+        </div>
+        <div class="col-4 py-2 border-bottom">
+          <a href="javascript:void(0)" class="link">
+            <i class="icon-social-facebook m-r-10"></i>
+            {{ c.facebook }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<ng-template #addContactModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="contacts">
+      <div class="form-group" [ngClass]="{'has-error':formsErrors.name}">
+        <label for="contactname">Enter Name Here</label>
+        <input type="text" class="form-control" required id="contactname" formControlName="name"
+          (blur)='logValidationErrors(contacts)' placeholder="name here">
+        <span class="help-block text-danger font-14" *ngIf="formsErrors.name">
+          {{formsErrors.name}}
+        </span>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':formsErrors.post}">
+        <label for="contactpost">Enter Post Here</label>
+        <input type="text" class="form-control" required id="contactpost" formControlName="post"
+          (blur)='logValidationErrors(contacts)' placeholder="post here">
+        <span class="help-block text-danger font-14" *ngIf="formsErrors.post">
+          {{formsErrors.post}}
+        </span>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':formsErrors.address}">
+        <label for="contactadd">Enter Address Here</label>
+        <input type="text" class="form-control" required id="contactadd" formControlName="address"
+          (blur)='logValidationErrors(contacts)' placeholder="address here">
+        <span class="help-block text-danger font-14" *ngIf="formsErrors.address">
+          {{formsErrors.address}}
+        </span>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':formsErrors.contactno}">
+        <label for="contactno">Enter Number Here</label>
+        <input type="text" class="form-control" required id="contactno" formControlName="contactno"
+          (blur)='logValidationErrors(contacts)' placeholder="Number here">
+        <span class="help-block text-danger font-14" *ngIf="formsErrors.contactno">
+          {{formsErrors.contactno}}
+        </span>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':formsErrors.insta}">
+        <label for="contactinsta">Enter Instagram Follower Here</label>
+        <input type="text" class="form-control" required id="contactinsta" formControlName="insta"
+          (blur)='logValidationErrors(contacts)' placeholder="Instagram Follower here">
+        <span class="help-block text-danger font-14" *ngIf="formsErrors.insta">
+          {{formsErrors.insta}}
+        </span>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':formsErrors.linkedin}">
+        <label for="contactlinked">Enter Linkedin Follower Here</label>
+        <input type="text" class="form-control" required id="contactlinked" formControlName="linkedin"
+          (blur)='logValidationErrors(contacts)' placeholder="Linkedin Follower here">
+        <span class="help-block text-danger font-14" *ngIf="formsErrors.linkedin">
+          {{formsErrors.linkedin}}
+        </span>
+      </div>
+      <div class="form-group" [ngClass]="{'has-error':formsErrors.facebook}">
+        <label for="contactfacebook">Enter Facebook Follower Here</label>
+        <input type="text" class="form-control" required id="contactfacebook" formControlName="facebook"
+          (blur)='logValidationErrors(contacts)' placeholder="Facebook Follower here">
+        <span class="help-block text-danger font-14" *ngIf="formsErrors.facebook">
+          {{formsErrors.facebook}}
+        </span>
+      </div>
+      <div class="form-group">
+        <button type="submit" [disabled]="contacts.invalid" (click)="addContact(); modal.dismiss('Cross click');"
+          class="btn btn-outline-dark">Add Contact</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>

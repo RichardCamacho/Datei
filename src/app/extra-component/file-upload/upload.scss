@@ -1,0 +1,36 @@
+img {
+    max-width: 200px;
+}
+
+file-upload.ng-touched.ng-invalid {
+    outline-color: #ff0000;
+    background-color: #fdf4f4;
+}
+
+.message-wrapper textarea {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.file-list svg {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+}
+
+.file-list {
+    padding: 10px 0 5px;
+}
+
+.custom-zone .file-list {
+    overflow: hidden;
+    padding: 20px;
+    width: auto;
+}
+
+.custom-zone file-upload {
+    float: left;
+    max-width: 400px;
+    width: 50%;
+}

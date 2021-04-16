@@ -1,0 +1,167 @@
+<ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "true"></ngx-spinner>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'carpeta_so.registrar_acta_mej' | translate}}</h4>
+                <span class="card-subtitle">{{'main.formulario_registro' | translate}}</span>
+                <br>
+                <span class="card-subtitle"></span>
+            </div>
+            <form id="horizontalFormContinuousImprovement" class="form-horizontal" [formGroup]="registerContinuousImprovementForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group" [class.has-error]="submitted && f.accionId.errors">
+                                        <label>{{'carpeta_so.id_accion' | translate}}*</label>
+                                        <input type="text" class="form-control" placeholder="{{'carpeta_so.id_accion' | translate}}"
+                                            name="accionId" formControlName="accionId" id="accionId"
+                                            [ngClass]="{ 'is-invalid': submitted && f.accionId.errors }">
+                                        <div *ngIf="submitted && f.accionId.errors">
+                                            <small class="form-text text-danger" *ngIf="f.accionId.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.accionId.errors?.maxlength && f.accionId?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group" [class.has-error]="submitted && f.responsable.errors">
+                                        <label>{{'carpeta_so.responsable' | translate}}*</label>
+                                        <input type="text" class="form-control" placeholder="{{'carpeta_so.responsable' | translate}}"
+                                            name="responsable" formControlName="responsable" id="responsable"
+                                            [ngClass]="{ 'is-invalid': submitted && f.responsable.errors }">
+                                        <div *ngIf="submitted && f.responsable.errors">
+                                            <small class="form-text text-danger" *ngIf="f.responsable.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.responsable.errors?.maxlength && f.responsable?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" [class.has-error]="submitted && f.objetivoEstr.errors">
+                                        <label>{{'carpeta_so.objetivo_estrategico' | translate}}*</label>
+                                        <input type="text" class="form-control" placeholder="{{'carpeta_so.objetivo_estrategico' | translate}}"
+                                            name="objetivoEstr" formControlName="objetivoEstr" id="objetivoEstr"
+                                            [ngClass]="{ 'is-invalid': submitted && f.objetivoEstr.errors }">
+                                        <div *ngIf="submitted && f.objetivoEstr.errors">
+                                            <small class="form-text text-danger" *ngIf="f.objetivoEstr.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.objetivoEstr.errors?.maxlength && f.objetivoEstr?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" [class.has-error]="submitted && f.motivacion.errors">
+                                        <label>{{'carpeta_so.motivacion' | translate}}*</label>
+                                        <textarea class="form-control" rows="3" placeholder="{{'carpeta_so.motivacion' | translate}}" name="motivacion"
+                                            formControlName="motivacion" id="motivacion"
+                                            [ngClass]="{ 'is-invalid': submitted && f.motivacion.errors }">
+                                        </textarea>
+                                        <div *ngIf="submitted && f.motivacion.errors">
+                                            <small class="form-text text-danger" *ngIf="f.motivacion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.motivacion.errors?.maxlength && f.motivacion?.dirty">{{'main.caracteres' | translate:param10000}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" [class.has-error]="submitted && f.accionesPropuestas.errors">
+                                        <label>{{'carpeta_so.acciones_prop' | translate}}*</label>
+                                        <textarea class="form-control" rows="3" placeholder="{{'carpeta_so.acciones_prop' | translate}}" name="accionesPropuestas"
+                                            formControlName="accionesPropuestas" id="accionesPropuestas"
+                                            [ngClass]="{ 'is-invalid': submitted && f.accionesPropuestas.errors }">
+                                        </textarea>
+                                        <div *ngIf="submitted && f.accionesPropuestas.errors">
+                                            <small class="form-text text-danger" *ngIf="f.accionesPropuestas.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.accionesPropuestas.errors?.maxlength && f.accionesPropuestas?.dirty">{{'main.caracteres' | translate:param10000}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" [class.has-error]="submitted && f.resultadoEvaluacion.errors">
+                                        <label>{{'carpeta_so.resultados' | translate}}*</label>
+                                        <textarea class="form-control" rows="3" placeholder="{{'carpeta_so.resultados' | translate}}" name="resultadoEvaluacion"
+                                            formControlName="resultadoEvaluacion" id="resultadoEvaluacion"
+                                            [ngClass]="{ 'is-invalid': submitted && f.resultadoEvaluacion.errors }">
+                                        </textarea>
+                                        <div *ngIf="submitted && f.resultadoEvaluacion.errors">
+                                            <small class="form-text text-danger" *ngIf="f.resultadoEvaluacion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.resultadoEvaluacion.errors?.maxlength && f.resultadoEvaluacion?.dirty">{{'main.caracteres' | translate:param10000}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" [class.has-error]="submitted && f.otrasAcciones.errors">
+                                        <label>{{'carpeta_so.otras_acciones' | translate}}*</label>
+                                        <textarea class="form-control" rows="3" placeholder="{{'carpeta_so.otras_acciones' | translate}}" name="otrasAcciones"
+                                            formControlName="otrasAcciones" id="otrasAcciones"
+                                            [ngClass]="{ 'is-invalid': submitted && f.otrasAcciones.errors }">
+                                        </textarea>
+                                        <div *ngIf="submitted && f.otrasAcciones.errors">
+                                            <small class="form-text text-danger" *ngIf="f.otrasAcciones.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.otrasAcciones.errors?.maxlength && f.otrasAcciones?.dirty">{{'main.caracteres' | translate:param10000}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group" [class.has-error]="submitted && f.accionesControl.errors">
+                                        <label>{{'carpeta_so.acciones_control' | translate}}*</label>
+                                        <textarea class="form-control" rows="3" placeholder="{{'carpeta_so.acciones_control' | translate}}" name="accionesControl"
+                                            formControlName="accionesControl" id="accionesControl"
+                                            [ngClass]="{ 'is-invalid': submitted && f.accionesControl.errors }">
+                                        </textarea>
+                                        <div *ngIf="submitted && f.accionesControl.errors">
+                                            <small class="form-text text-danger" *ngIf="f.accionesControl.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                        </div>
+                                        <small class="form-text text-danger"
+                                            *ngIf="f.accionesControl.errors?.maxlength && f.accionesControl?.dirty">{{'main.caracteres' | translate:param10000}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row button-group">
+                        <div class="col-lg-2 col-md-6">
+                            <button type="submit" class="btn btn-block btn-info"
+                                (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary"
+                                (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="card-body">
+                <div class="row button-group">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <button type="submit"
+                            class="btn btn-block btn-info"
+                            (click)="onDownloadContImprovement()">{{'main.descargar_pdf' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

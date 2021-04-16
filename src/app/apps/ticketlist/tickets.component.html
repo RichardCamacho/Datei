@@ -1,0 +1,188 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xlg-3">
+            <div class="card card-hover">
+              <div class="box bg-info cursor-pointer text-center" (click)="filterByStatus('All')">
+                <h1 class="font-light text-white">{{ticketsList.length}}</h1>
+                <h6 class="text-white">Total Tickets</h6>
+              </div>
+            </div>
+          </div>
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xlg-3">
+            <div class="card card-hover">
+              <div class="box bg-warning cursor-pointer text-center" (click)="filterByStatus('Pending')">
+                <h1 class="font-light text-white">{{pending}}</h1>
+                <h6 class="text-white">Pending</h6>
+              </div>
+            </div>
+          </div>
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xlg-3">
+            <div class="card card-hover">
+              <div class="box bg-success cursor-pointer text-center" (click)="filterByStatus('Open')">
+                <h1 class="font-light text-white">{{open}}</h1>
+                <h6 class="text-white">Open</h6>
+              </div>
+            </div>
+          </div>
+          <!-- Column -->
+          <div class="col-md-6 col-lg-3 col-xlg-3">
+            <div class="card card-hover">
+              <div class="box bg-danger cursor-pointer text-center" (click)="filterByStatus('Closed')">
+                <h1 class="font-light text-white">{{closed}}</h1>
+                <h6 class="text-white">Closed</h6>
+              </div>
+            </div>
+          </div>
+          <!-- Column -->
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6 col-lg-3 col-xl-2">
+            <input type="text" class="form-control form-control-lg" type="text" name="search" [(ngModel)]='searchTerm'
+              autocomplete="off" placeholder="Search here...">
+          </div>
+          <div class="col-md-6 col-lg-9 col-xl-10 text-md-right mt-4 mt-md-0">
+            <button class="btn btn-lg btn-cyan text-white" (click)="openModal(editTicketModal, null)">
+              <i class="fa fa-plus-square mr-2"></i>Add Ticket</button>
+          </div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table mb-0 no-wrap v-middle">
+          <tbody>
+            <tr *ngFor='let ticket of filterTickets|slice: (page-1) * pageSize : (page-1) * pageSize + pageSize'>
+              <td width="50" class="text-center">{{ticket.Id}}</td>
+              <td class="text-center" width="150">
+                <span class="label label-{{ ticket.Label }}">{{ ticket.Status }}</span>
+              </td>
+              <td class="ticket-desc">
+                <p class="mb-1">
+                  <ngb-highlight [result]="ticket.ticketTitle" [term]="searchTerm"></ngb-highlight>
+                </p>
+                <small class="text-truncate">
+                  <ngb-highlight [result]="ticket.ticketDescription" [term]="searchTerm"></ngb-highlight>
+                </small>
+              </td>
+              <td><small>Assign to:</small><br /> <strong>{{ticket.AgentName}}</strong></td>
+              <td>{{ticket.Date | timeAgo }}</td>
+              <td>
+                <a href="javascript: void(0);" (click)="openModal(editTicketModal, ticket)" class="link mr-2"
+                  placement="top" ngbTooltip="Edit">
+                  <!-- <i class="mdi mdi-pencil"></i> -->
+                  <i-feather name="edit" class="feather-sm"></i-feather>
+                </a>
+                <a href="javascript: void(0);" class="link" (click)="deleteTicket(ticket.Id)" placement="top"
+                  ngbTooltip="Delete">
+                  <i-feather name="trash-2" class="feather-sm text-danger"></i-feather>
+                  <!-- <i class="mdi mdi-delete"></i> -->
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center mt-5">
+        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalLengthOfCollection">
+        </ngb-pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #editTicketModal let-modal>
+
+  <div class="modal-header">
+
+    <h5 class="modal-title" id="editUserLabel">Edit Ticket</h5>
+
+    <button type="button" class="close" (click)="closeBtnClick()" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+  </div>
+
+  <div class="modal-body">
+
+    <form [formGroup]="editTicket" (ngSubmit)="onSubmit()">
+
+      <div class="form-group row">
+        <label for="title" class="col-sm-4 col-form-label">Title</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="ticketTitle" id="title"
+            (input)=logValidationErrors(editTicket)>
+          <span class="help-block" *ngIf="formsErrors.ticketTitle">
+            {{formsErrors.ticketTitle}}
+          </span>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label for="description" class="col-sm-4 col-form-label">Ticket Description</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="ticketDescription" id="description"
+            (input)=logValidationErrors(editTicket)>
+          <span class="help-block" *ngIf="formsErrors.ticketDescription">
+            {{formsErrors.ticketDescription}}
+          </span>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="date" class="col-sm-4 col-form-label">Date</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" formControlName="Date" id="date" [(ngModel)]="ticketDate"
+            (input)=logValidationErrors(editTicket)>
+          <span class="help-block" *ngIf="formsErrors.Date">
+            {{formsErrors.Date}}
+          </span>
+
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="status" class="col-sm-4 col-form-label">Status</label>
+        <div class="col-sm-8">
+          <select class="form-control" formControlName="Status" (blur)=logValidationErrors(editTicket)>
+            <option selected>Closed</option>
+            <option>Open</option>
+            <option>In Process</option>
+          </select>
+          <span class="help-block" *ngIf="formsErrors.Status">
+            {{formsErrors.Status}}
+          </span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="agent" class="col-sm-4 col-form-label">Assign To</label>
+        <div class="col-sm-8">
+          <select class="form-control" formControlName="AgentName" (blur)=logValidationErrors(editTicket)>
+            <option>Steve</option>
+            <option>Jack</option>
+            <option>John</option>
+            <option>Liam</option>
+          </select>
+          <span class="help-block" *ngIf="formsErrors.AgentName">
+            {{formsErrors.AgentName}}
+          </span>
+        </div>
+      </div>
+      <div class="form-group row mt-4">
+        <span class="col-sm-4 col-form-label"></span>
+        <div class="col-sm-8">
+          <button type="button" class="btn btn-secondary mr-2" (click)="closeBtnClick()">Close</button>
+
+          <button type="submit" class="btn btn-primary" [disabled]="editTicket.invalid">Save</button>
+        </div>
+      </div>
+      <div class="text-center"><small>New ticket will be shown on second page.</small></div>
+    </form>
+  </div>
+</ng-template>

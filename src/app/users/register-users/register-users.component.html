@@ -1,0 +1,146 @@
+<ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "true"></ngx-spinner>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'users.registrar_usuario' | translate}}</h4>
+                <span class="card-subtitle">{{'users.desc_reg_usuario' | translate}}</span>
+            </div>
+            <form id="horizontalFormUsers" class="form-horizontal" [formGroup]="registerUsersForm">
+                <div class="card-body">
+                    <h4 class="card-title">{{'users.inf_personal' | translate}}</h4>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="form-group" [class.has-error]="submitted && f.primerNombre.errors">
+                                <label>{{'users.primer_nombre' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'users.primer_nombre' | translate}}" name="primerNombre"
+                                formControlName="primerNombre" id="primerNombre" [ngClass]="{ 'is-invalid': submitted && f.primerNombre.errors }">
+                                <div *ngIf="submitted && f.primerNombre.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.primerNombre.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.primerNombre.errors?.maxlength && f.primerNombre?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="form-group" [class.has-error]="submitted && f.segundoNombre.errors">
+                                <label>{{'users.seg_nombre' | translate}}</label>
+                                <input type="text" class="form-control" placeholder="{{'users.seg_nombre' | translate}}"
+                                formControlName="segundoNombre" id="segundoNombre" [ngClass]="{ 'is-invalid': submitted && f.segundoNombre.errors }">
+                                <small class="form-text text-danger" *ngIf="f.segundoNombre.errors?.maxlength && f.segundoNombre?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="form-group" [class.has-error]="submitted && f.primerApellido.errors">
+                                <label>{{'users.primer_apell' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'users.primer_apell' | translate}}"
+                                formControlName="primerApellido" id="primerApellido" [ngClass]="{ 'is-invalid': submitted && f.primerApellido.errors }">
+                                <div *ngIf="submitted && f.primerApellido.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.primerApellido.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.primerApellido.errors?.maxlength && f.primerApellido?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-3">
+                            <div class="form-group" [class.has-error]="submitted && f.segundoApellido.errors">
+                                <label>{{'users.seg_apellido' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'users.seg_apellido' | translate}}"
+                                formControlName="segundoApellido" id="segundoApellido" [ngClass]="{ 'is-invalid': submitted && f.segundoApellido.errors }">
+                                <div *ngIf="submitted && f.segundoApellido.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.segundoApellido.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.segundoApellido.errors?.maxlength && f.segundoApellido?.dirty">{{'main.caracteres' | translate:param200}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="form-group" [class.has-error]="submitted && f.programa.errors">
+                                <label>{{'main.programa' | translate}}*</label>
+                                <ng-select [items]="ProgramasList" bindLabel="nombre" placeholder="{{'main.seleccione' | translate}}" loadingText="Cargando..." notFoundText="{{'main.no_items' | translate}}"
+                                [ngClass]="{ 'is-invalid': submitted && f.programa.errors }" formControlName="programa">
+                                </ng-select>
+                                <div *ngIf="submitted && f.programa.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.programa.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="form-group" [class.has-error]="submitted && f.rango.errors">
+                                <label>{{'main.rango' | translate}}*</label>
+                                <ng-select [items]="RangosList" bindLabel="nombre" placeholder="{{'main.seleccione' | translate}}" loadingText="Cargando..." notFoundText="{{'main.no_items' | translate}}"
+                                [ngClass]="{ 'is-invalid': submitted && f.rango.errors }" formControlName="rango">
+                                </ng-select>
+                                <div *ngIf="submitted && f.rango.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.rango.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="form-group" [class.has-error]="submitted && f.rol.errors">
+                                <label>{{'main.rol' | translate}}*</label>
+                                <ng-select [items]="RolesList" bindLabel="nombre" placeholder="{{'main.seleccione' | translate}}" loadingText="Cargando..." notFoundText="{{'main.no_items' | translate}}"
+                                [ngClass]="{ 'is-invalid': submitted && f.rol.errors }" formControlName="rol">
+                                </ng-select>
+                                <div *ngIf="submitted && f.rol.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.rol.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <h4 class="card-title">{{'users.credenciales' | translate}}</h4>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-4">
+                            <div class="form-group" [class.has-error]="submitted && f.email.errors">
+                                <label>{{'users.correo' | translate}}*</label>
+                                <input type="email" class="form-control" placeholder="{{'users.correo' | translate}}"
+                                formControlName="email" id="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                                <div *ngIf="submitted && f.email.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.email.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.email.errors?.email">{{'main.email_val' | translate}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-4" *ngIf="mode==='CREATE'">
+                            <div class="form-group" [class.has-error]="submitted && f.password.errors">
+                                <label>{{'users.contrasenia' | translate}}*</label>
+                                <input type="password" class="form-control" placeholder="{{'users.contrasenia' | translate}}" name="password"
+                                formControlName="password" id="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                                <div *ngIf="submitted && f.password.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.password.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.password.errors?.minlength">{{'main.min_caracteres' | translate:param8}}</small>
+                                <small class="form-text text-danger" *ngIf="f.password.errors?.maxlength && f.password?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-4" *ngIf="mode==='CREATE'">
+                            <div class="form-group" [class.has-error]="submitted && f.repPassword.errors">
+                                <label>{{'users.rep_contrasenia' | translate}}*</label>
+                                <input type="password" class="form-control" placeholder="{{'users.rep_contrasenia' | translate}}"
+                                formControlName="repPassword" id="repPassword" [ngClass]="{ 'is-invalid': submitted && f.repPassword.errors }">
+                                <div *ngIf="submitted && f.repPassword.errors">
+                                    <small class="form-text text-danger" *ngIf="f.repPassword.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="camposIguales()">{{'main.contr_val' | translate}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="form-group m-b-0 text-left"> -->
+                    <div class="row button-group">
+                        <div class="col-lg-2 col-md-6">
+                            <button type="submit" class="btn btn-block btn-info"  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-2 col-md-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary" (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- [disabled]="!form.valid" -->

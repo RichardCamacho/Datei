@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span>{{'curriculum.act_servicio' | translate}}</h4>
+            </div>
+            <form id="horizontalFormServiceActiv" class="form-horizontal" [formGroup]="registerServiceActivForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.fechaInicio.errors">
+                                <label>{{'main.fecha_inicio' | translate}}*</label>
+                                <input type="date" class="form-control" name="fechaInicio"
+                                formControlName="fechaInicio" id="fechaInicio" [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }">
+                                <div *ngIf="submitted && f.fechaInicio.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.fechaInicio.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.fechaFinalizacion.errors">
+                                <label>{{'main.fecha_final' | translate}}*</label>
+                                <input type="date" class="form-control" name="fechaFinalizacion"
+                                formControlName="fechaFinalizacion" id="fechaFinalizacion" [ngClass]="{ 'is-invalid': submitted && f.fechaFinalizacion.errors }">
+                                <div *ngIf="submitted && f.fechaFinalizacion.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.fechaFinalizacion.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.fechaFinalizacion.errors?.invalidDate && f.fechaFinalizacion?.dirty">{{'main.dif_fecha' | translate}}</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.nombre.errors">
+                                <label>{{'curriculum.nombre_act' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'curriculum.nombre_act' | translate}}" name="nombre"
+                                formControlName="nombre" id="nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
+                                <div *ngIf="submitted && f.nombre.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.nombre.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.nombre.errors?.maxlength && f.nombre?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.entidad.errors">
+                                <label>{{'main.entidad' | translate}}*</label>
+                                <input type="text" class="form-control" placeholder="{{'main.entidad' | translate}}" name="entidad"
+                                formControlName="entidad" id="entidad" [ngClass]="{ 'is-invalid': submitted && f.entidad.errors }">
+                                <div *ngIf="submitted && f.entidad.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.entidad.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.entidad.errors?.maxlength && f.entidad?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="form-group m-b-0 text-left"> -->
+                    <div class="row button-group">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-info"  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary" (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

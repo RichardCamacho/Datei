@@ -1,0 +1,91 @@
+<div class="card mb-0">
+    <div class="card-body">
+        <div class="d-md-flex align-items-center">
+            <div class="form-group mb-0">
+                <input type="text" placeholder="Search Invoice" class="form-control" [(ngModel)]='searchTerm'>
+            </div>
+            <div class="ml-auto mt-4 mt-md-0">
+                <a routerLink='/apps/addinvoice'>
+                    <button type="button" class="btn btn-info"> <i class="mr-2 mdi mdi-plus"></i> Add Invoice</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card pt-3">
+    <div class="table-responsive">
+        <table class="table table-borderless table-hover v-middle no-wrap">
+            <thead>
+                <tr class="border-bottom">
+                    <th scope="col">
+                        <input type="checkbox" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+                            (change)="checkUncheckAll()" />
+                    </th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Bill From</th>
+                    <th scope="col">Bill To</th>
+                    <th scope="col">Total Cost</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-bottom "
+                    *ngFor="let invoice of compInvoice|slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; index as i">
+
+                    <td class="py-4">
+                        <input type="checkbox" [(ngModel)]="invoice.isSelected" name="list_name" value="{{invoice.id}}"
+                            (change)="isAllSelected()" />
+                    </td>
+
+                    <td class="py-4">{{ invoice.id }} </td>
+
+                    <td class="py-4">
+                        <ngb-highlight [result]="invoice.billFrom" [term]="searchTerm"></ngb-highlight>
+                    </td>
+                    <td class="py-4">
+                        <ngb-highlight [result]="invoice.billTo" [term]="searchTerm"></ngb-highlight>
+                    </td>
+                    <td class="py-4">
+                        <ngb-highlight [result]="invoice.grandTotal | number" [term]="searchTerm"></ngb-highlight>
+                    </td>
+
+                    <td class="py-4">
+                        <span class="badge badge-info px-3 font-medium" *ngIf="invoice.status==='Shipped'">
+                            <ngb-highlight [result]="invoice.status" [term]="searchTerm"></ngb-highlight>
+                        </span>
+                        <span class="badge badge-danger px-3 font-medium" *ngIf="invoice.status==='Pending'">
+                            <ngb-highlight [result]="invoice.status" [term]="searchTerm"></ngb-highlight>
+                        </span>
+                        <span class="badge badge-success px-3 font-medium" *ngIf="invoice.status==='Delivered'">
+                            <ngb-highlight [result]="invoice.status" [term]="searchTerm"></ngb-highlight>
+                        </span>
+                    </td>
+
+                    <td class="py-4">
+                        <!-- <a routerLink='/apps/viewinvoice/'>View</a> -->
+
+                        <a [routerLink]="['/apps/viewinvoice/',invoice.id]" class="text-info mx-2">
+                            <i-feather name="eye" class="feather-sm"></i-feather>
+                        </a>
+
+                        <a href="javascript:void(0)" class="text-danger mx-2 pl-3 border-left"
+                            (click)="deleteInvoice(invoice.id)">
+                            <i-feather name="trash-2" class="feather-sm"></i-feather>
+                        </a>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-body">
+        <div class="d-flex justify-content-center">
+            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalLengthOfCollection">
+            </ngb-pagination>
+        </div>
+    </div>
+
+</div>

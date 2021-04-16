@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span><i class="fa fa-picture-o" aria-hidden="true"></i>Portada de texto</h4>
+            </div>
+            <form id="horizontalFormCover" class="form-horizontal" [formGroup]="registerCoverForm">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.nombre.errors">
+                                <label>Nombre*</label>
+                                <input type="text" class="form-control" placeholder="Nombre" name="nombre"
+                                formControlName="nombre" id="nombre" [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
+                                <div *ngIf="submitted && f.nombre.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.nombre.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                                <small class="form-text text-danger" *ngIf="f.nombre.errors?.maxlength && f.nombre?.dirty">Máximo 100 caracteres</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group" [class.has-error]="submitted && f.filename.errors">
+                                <label>Portada*</label>
+                                <div class="input-group mb-3">
+                                    <div class="custom-file">
+                                        <input type="file" formControlName="filename" class="custom-file-input" id="inputGroupFile01">
+                                        <label class="custom-file-label" *ngIf="f.filename.value" for="inputGroupFile01">Archivo Seleccionado</label>
+                                        <label class="custom-file-label" *ngIf="!f.filename.value" for="inputGroupFile01">Seleccionar Archivo</label>
+                                    </div>
+                                </div>
+                                <div *ngIf="submitted && f.filename.errors" >
+                                    <small class="form-text text-danger" *ngIf="f.filename.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="form-group m-b-0 text-left"> -->
+                    <div class="row button-group">
+                        <div class="col-lg-6">
+                            <button type="submit" class="btn btn-block btn-primary waves-effect waves-light"  (click)="onSubmit()">{{'main.guardar' | translate}}</button>
+                        </div>
+                        <div class="col-lg-6">
+                            <button type="button" class="btn btn-block btn-outline-secondary waves-effect waves-light" (click)="onCancel()">{{'main.cancelar' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

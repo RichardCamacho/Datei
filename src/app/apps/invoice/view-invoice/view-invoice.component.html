@@ -1,0 +1,92 @@
+<div class="card">
+
+    <!-- card Header-->
+    <div class="p-3">
+        <div class="d-md-flex align-items-center">
+            <div class="btn-group">
+                <a routerLink='/apps/invoice'
+                    class="btn btn-default bg-white text-info d-flex align-items-center shadow-sm mr-2">
+                    <i class="mdi mdi-chevron-left font-20 mr-1"></i> <span>Back</span>
+                </a>
+                <a [routerLink]="['/apps/editinvoice/',invoiceDetail.id]"
+                    class="btn btn-default bg-white text-info d-flex align-items-center shadow-sm mr-2">
+                    <i class="mdi mdi-note-plus-outline font-20"></i>
+                    <span class="ml-2">Edit</span>
+                </a>
+            </div>
+            <div class="ml-auto mt-3 mt-md-0">
+                <h4 class="mb-0">Invoice Id : #{{invoiceDetail.id}}</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- card Body-->
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <h5>Order Status:</h5>
+                <span class="badge badge-info font-medium px-3">{{invoiceDetail.status}}</span>
+            </div>
+            <div class="col-md-6 text-left text-md-right">
+                <h5 class="mt-2">Order Date:</h5>
+                <span>
+                    <i class="mdi mdi-calendar mr-1 text-dark font-18"></i>
+                    {{invoiceDetail.orderDate| date:'fullDate'}}
+                </span>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <h5>Bill From:</h5>
+                <span>{{invoiceDetail.billFrom}}</span>
+                <span class="d-block">{{invoiceDetail.billFromEmail}}</span>
+                <span class="d-block">{{invoiceDetail.billFromAddress}}</span>
+                <span class="d-block">{{invoiceDetail.billFromPhone}}</span>
+            </div>
+            <div class="col-md-6 text-right">
+                <h5>Bill To:</h5>
+                <span class="d-block">{{invoiceDetail.billTo}}</span>
+                <span class="d-block">
+                    {{invoiceDetail.billToEmail}}
+                </span>
+                <span class="d-block">
+                    {{invoiceDetail.billToAddress}}
+                </span>
+                <span class="d-block">{{invoiceDetail.billToPhone}}</span>
+            </div>
+        </div>
+        <div class="mt-4">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover no-wrap v-middle">
+                    <thead>
+                        <tr>
+                            <th class="border-bottom-0">Item Name</th>
+                            <th class="border-bottom-0 text-center">Unit Price</th>
+                            <th class="border-bottom-0 text-center">Unit</th>
+                            <th class="border-bottom-0 text-info text-center">Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let order of invoiceDetail.orders">
+                        <tr>
+                            <td>{{ order.itemName }} </td>
+                            <td class="text-center">{{ order.unitPrice }} </td>
+                            <td class="text-center">{{ order.units }}</td>
+                            <td class="text-center">{{ order.unitTotalPrice }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="text-right mt-4">
+            <h5><span>Subtotal amount: $</span> {{invoiceDetail.totalCost}}</h5>
+            <h5><span>Vat: $</span>{{invoiceDetail.vat}}</h5>
+            <hr />
+            <h3><span class="font-weight-bold mr-2">Total:</span>${{invoiceDetail.grandTotal}} </h3>
+        </div>
+    </div>
+
+
+</div>

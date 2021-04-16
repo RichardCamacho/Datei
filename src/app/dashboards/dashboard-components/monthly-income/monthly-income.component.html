@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-wrap m-b-30">
+            <div>
+                <h4 class="card-title"><span class="lstick"></span>Monthly Earning</h4>
+            </div>
+            <div class="ml-auto">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <h6 class="text-success"><i class="fa fa-circle font-10 m-r-10 "></i>Sales</h6>
+                    </li>
+                    <li class="list-inline-item">
+                        <h6 class="text-info"><i class="fa fa-circle font-10 m-r-10"></i>Earning (k)</h6>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div style="height:370px;" class="d-flex flex-column">
+            <apx-chart [series]="monthlyearningsChartOptions.series" [chart]="monthlyearningsChartOptions.chart"
+                [xaxis]="monthlyearningsChartOptions.xaxis" [yaxis]="monthlyearningsChartOptions.yaxis"
+                [grid]="monthlyearningsChartOptions.grid" [stroke]="monthlyearningsChartOptions.stroke"
+                [tooltip]="monthlyearningsChartOptions.tooltip" [dataLabels]="monthlyearningsChartOptions.dataLabels"
+                [legend]="monthlyearningsChartOptions.legend" [colors]="monthlyearningsChartOptions.colors"
+                [fill]="monthlyearningsChartOptions.fill" [markers]="monthlyearningsChartOptions.markers">
+            </apx-chart>
+        </div>
+    </div>
+</div>

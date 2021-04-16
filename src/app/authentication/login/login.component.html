@@ -1,0 +1,97 @@
+<ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "true"></ngx-spinner>
+<div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(assets/images/background/login-register.jpg) no-repeat center center;">
+    <div class="auth-box m-3 m-md-0">
+        <div id="loginform" [ngClass]="{'d-none': recoverform}">
+            <div class="logo">
+                <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span>
+                <br>
+                <h5 class="font-medium m-b-20">Iniciar sesión</h5>
+            </div>
+            <!-- Form -->
+            <div class="row">
+                <div class="col-12">
+                    <form class="form-horizontal m-t-20" id="loginform" [formGroup]="loginForm">
+                        <div class="input-group mb-3" [class.has-error]="submitted && f.email.errors">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="ti-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1"
+                            formControlName="email" id="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                <label *ngIf="f.email.errors.required">Ingrese un email</label>
+                                <label *ngIf="f.email.errors.email">Formato incorrecto</label>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3" [class.has-error]="submitted && f.password.errors">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2"><i class="ti-pencil"></i></span>
+                            </div>
+                            <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1"
+                            formControlName="password" id="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <label *ngIf="f.password.errors.required">Ingrese la contraseña</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="custom-control custom-checkbox d-flex">
+                                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label font-14" for="customCheck1">Recordarme</label>
+                                    <!-- <a (click)="showRecoverForm()" href="javascript:void(0)" id="to-recover" class="text-dark font-14 ml-auto"><i class="fa fa-lock m-r-5"></i> Olvidó su contraseña?</a> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <div class="col-xs-12 p-b-20">
+                                <button class="btn btn-block btn-lg btn-info" (click)="login(loginForm.value)" type="submit"
+                                            title="Ingresar" label="Ingresar">Ingresar</button>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
+                                <div class="social">
+                                    <a href="javascript:void(0)" class="btn btn-facebook mr-2" data-toggle="tooltip" title="" data-original-title="Login with Facebook"> <i aria-hidden="true" class="fab fa-facebook"></i> </a>
+                                    <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="" data-original-title="Login with Google"> <i aria-hidden="true" class="fab fa-google-plus"></i> </a>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="form-group m-b-0 m-t-10">
+                            <div class="col-sm-12 text-center">
+                                Don't have an account? <a href="authentication/signup" class="text-info m-l-5"><b>Sign Up</b></a>
+                            </div>
+                        </div> -->
+                        <div class="form-group m-b-0 m-t-10">
+                            <div class="col-sm-12 text-center">
+                                <a (click)="showRecoverForm()" href="javascript:void(0)" id="to-recover" class="text-dark font-14 ml-auto"><i class="fa fa-lock m-r-5"></i> ¿Olvidó su contraseña?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="recoverform" [ngClass]="{'d-block': recoverform}">
+            <div class="logo">
+                <span class="db"><img src="assets/images/logo-icon.png" alt="logo" /></span>
+                <h5 class="font-medium m-b-20">Recuperar contraseña</h5>
+                <span>Ingrese su email y las instrucciones se le serán enviadas!</span>
+            </div>
+            <div class="row m-t-20">
+                <!-- Form -->
+                <form class="col-12">
+                    <!-- email -->
+                    <div class="form-group row">
+                        <div class="col-12">
+                            <input class="form-control form-control-lg" type="email" required="" placeholder="Username">
+                        </div>
+                    </div>
+                    <!-- pwd -->
+                    <div class="row m-t-20">
+                        <div class="col-12">
+                            <button class="btn btn-block btn-lg btn-danger" type="submit" name="action">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

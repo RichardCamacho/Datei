@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title mb-0"><span class="lstick"></span><i class="fa fa-picture-o" aria-hidden="true"></i>Subir Archivo</h4>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <div class="input-group mb-3">
+                        <!-- <div class="input-group-prepend">
+                            <span class="input-group-text" (click)="onSubmit($event, formCtrl)" >Upload</span>
+                        </div>
+                        <div class="custom-file">
+                            <input #formCtrl type="file" class="custom-file-input" id="inputFile">
+                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                        </div> -->
+                    </div>
+                    <!-- PESO MAXIMO 1MB -->
+                    <p-fileUpload #formCtrl  name="imageUpload[]" [accept]="accept" maxFileSize="1000000"
+                    chooseLabel = "Seleccione un archivo" uploadLabel = "Subir archivo" cancelLabel = "{{'main.cancelar' | translate}}" 
+                    [multiple]="multiple" 
+                    customUpload="true" (uploadHandler)="onSubmit($event, formCtrl)">
+                    
+                    </p-fileUpload>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

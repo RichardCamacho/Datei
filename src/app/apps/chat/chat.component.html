@@ -1,0 +1,102 @@
+<!-- Mobile toggle button -->
+<a [ngClass]="(showSidebar)?'ti-close':'ti-menu'" class="btn btn-success show-left-part d-block d-md-none"
+	href="javascript:void(0)" (click)="mobileSidebar()"></a>
+<div class="main-part">
+	<div class="left-part bg-white fixed-left-part" [ngClass]="{'show-panel': showSidebar}">
+		<div class="position-relative" style="height:100%;">
+			<div class="p-l-15 p-r-25 py-3 d-flex align-items-center mt-1 border-bottom">
+				<div>
+					<img src="assets/images/users/8.jpg" width="45" alt="user" class="rounded-circle">
+				</div>
+				<div class="text-dark m-b-0 m-l-15 font-18">
+					Bruce Banner
+					<p class="m-b-0 font-12">
+						<i class="fa fa-circle text-success font-10 m-r-5"></i>
+						<span>Online</span>
+					</p>
+				</div>
+			</div>
+			<ul class="mailbox list-style-none">
+				<li>
+					<div class="message-center" style="height: calc(100vh - 267px);" [perfectScrollbar]="config">
+						<div *ngFor="let contact of contactList">
+							<a class="message-item" [class.active]="activeChatUserId === contact.id"
+								(click)="setActive(contact.id)">
+								<span class="user-img">
+									<img src={{contact.imagePath}} alt="user" class="rounded-circle" width="100">
+									<span class="profile-status online pull-right"></span>
+								</span>
+								<div class="mail-contnet">
+									<h5 class="message-title">{{contact.name}}</h5>
+									<span class="mail-desc">{{contact.signature}}</span>
+									<p class="time text-uppercase">{{contact.time}}</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="right-part">
+		<div class="card mb-0">
+			<div class="p-l-15 p-r-25 py-3 d-flex align-items-center border-bottom bg-info">
+				<div class="mr-3">
+					<img [src]="[activeChatUserImg]" alt="user" class="rounded-circle" width="50" />
+				</div>
+				<div>
+					<h5 class="text-white mb-0">{{ activeChatUser }}</h5>
+					<p class="mb-0 text-white">{{ activeChatUserStatus }}</p>
+				</div>
+			</div>
+			<div class="card-body py-0 pr-0">
+				<div class="chat-box p-r-15" #scrollMe [scrollTop]="scrollMe.scrollHeight"
+					style="height:calc(100vh - 350px); overflow-y: auto;">
+					<!--chat Row -->
+					<ul class="chat-list">
+						<li class="chat-item" [ngClass]="[chat.chatClass]" *ngFor="let chat of savedMessages">
+							<div class="chat-img">
+								<img [src]="[chat.imagePath]" alt="avatar" />
+							</div>
+
+							<div class="chat-content" *ngFor="let message of chat.messages">
+								<div class="box bg-light-info">
+									{{ message }}
+								</div>
+							</div>
+
+							<div class="chat-time text-lowercase" *ngIf="chat.time !='' ">{{chat.time}}</div>
+						</li>
+						<li class="chat-item odd type-msg" *ngIf="messages.length > 0">
+							<div class="chat-img" data-toggle="tooltip" data-placement="right" title=""
+								data-original-title="">
+								<img src="assets/images/users/8.jpg" alt="user-images" />
+							</div>
+							<div class="chat-messages">
+								<div class="chat-content" *ngFor="let message of messages">
+									<div class="box bg-light-info">{{ message }}</div>
+								</div>
+							</div>
+							<div class="chat-time">{{ now | date: 'hh.mm a' }}</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="card-body border-top">
+				<form class="chat-app-input row">
+					<div class="col-9">
+						<input type="text" class="form-control border-0" id="iconLeft4"
+							placeholder="Type your message and enter"
+							(keydown.enter)="onAddMessage();$event.preventDefault()" #messageInput>
+					</div>
+					<div class="col-3">
+						<button type="button" class="btn-circle btn-lg btn-cyan float-right text-white border-0"
+							(click)="onAddMessage()">
+							<i class="fas fa-paper-plane"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
