@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReferencesTypeService } from 'src/app/references-type/references-type/references-type.service';
 import { CONFIG } from 'src/app/_config/config';
@@ -22,16 +22,19 @@ export class CoversService {
 
   //obtener registro de portada por curso
   getCoverByC(idC) {
-    return this.http.get(`${this.gateway.url}/api/subject-cover/${idC}`);
+    let headers = new HttpHeaders({
+      'Accept': '*/*'
+    });
+    return this.http.get(`${this.gateway.url}/api/subject-cover/${idC}`, { headers: headers, responseType: 'blob'});
   }
 
   getFileList(idS, tipo){
     return this.http.get(`${this.gateway.url}/api/list-file/${idS}/${tipo}`);
   }
 
-  //obtener un portada por id
-  getCoverById(id) {
-    return this.http.get(`${this.gateway.url}/api/get-cover/${id}`);
+  //obtener la informacion de una portada
+  getCoverInfo(id) {
+    return this.http.get(`${this.gateway.url}/api/cover/${id}`);
   }
 
   //editar la informacion de una portada

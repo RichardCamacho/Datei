@@ -123,6 +123,9 @@ export class SubjectInformationService {
   deleteCover(id){
     return this.coverService.deleteCover(id);
   }
+  getCoverInfo(id){
+    return this.coverService.getCoverInfo(id);
+  }
 
   getUrlFileUpload(){
     return `${this.gateway.url}/api/upload-cover`;

@@ -51,6 +51,7 @@ export class SpecificObjectivesComponent implements OnInit {
     this.SelectedId = this.selectedObjectiveId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
+      this.spinner.hide();
       } else {
         this.mode = 'UPDATE' ;
         this.getObjective(this.SelectedId);

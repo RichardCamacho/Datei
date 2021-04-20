@@ -53,6 +53,7 @@ export class StudentOutcomesComponent implements OnInit {
     this.SelectedId = this.selectedStudentOutcomeId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
+      this.spinner.hide();
       } else {
         this.mode = 'UPDATE' ;
         this.getStudentOutcome(this.SelectedId);

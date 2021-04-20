@@ -72,7 +72,6 @@ export class FileUploadComponent implements OnInit {
       console.log({ files: event.files , res});
       if ( this.showNotificacionSuccess ) {
         this.spinner.hide();
-        this.toastr.success('Carga exitosa');
       }
       },
       err => {

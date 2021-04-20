@@ -52,6 +52,7 @@ export class TopicsComponent implements OnInit {
     this.SelectedId = this.selectedTopicId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
+      this.spinner.hide();
       } else {
         this.mode = 'UPDATE' ;
         this.getTopic(this.SelectedId);

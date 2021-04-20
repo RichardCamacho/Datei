@@ -10,6 +10,7 @@ import { DialogLookupComponent } from 'src/app/dialog-lookup/dialog-lookup.compo
 import { SubjectInformation } from './subject-information.model';
 import { SubjectInformationService } from './subject-information.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-subject-information',
@@ -32,7 +33,7 @@ export class SubjectInformationComponent implements OnInit {
   modalComponetActive = '';
 
   portada: any;
-  cover: any;
+  cover: any = '';
   
   param20 = {value: '20'};
   param100 = {value: '100'};
@@ -119,7 +120,7 @@ export class SubjectInformationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router,
               private toastr: ToastrService, private subjectInformationService: SubjectInformationService,
               private modalService: NgbModal, private translate: TranslateService,  public dialogService: DialogService,
-              private spinner: NgxSpinnerService) { 
+              private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) { 
 
               this.spinner.show();
 
@@ -186,11 +187,8 @@ export class SubjectInformationComponent implements OnInit {
   getSubject(id) {
     this.subjectInformationService.getSubjectDetailsById(id).subscribe((res: any) => {
       this.subject = res;
-      console.log(res)
       this.registerSubjectInformationForm.patchValue(this.subject);
-      this.cover = (res.filename)? res.filename:"../../../assets/images/default.jpg";
-      this.getDocentes(res.idCurso);
-      this.getDetailsList();
+      this.getDetails();
     },
     err => {
       this.spinner.hide();
@@ -198,8 +196,10 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
-  getDetailsList(){
+  getDetails(){
     this.spinner.show();
+    this.getDocentes();
+    this.getCover();
     this.getBooks();
     this.getPrerequisites();
     this.getObjectives();
@@ -217,7 +217,6 @@ export class SubjectInformationComponent implements OnInit {
     
     this.subject = this.registerSubjectInformationForm.value;
     this.subject.idUsuario =  this.idUsuario;
-    console.log(this.subject)
     this.onRegisterSubject();
   }
 
@@ -286,7 +285,6 @@ export class SubjectInformationComponent implements OnInit {
 
   getCursos(){
     this.subjectInformationService.getCourses().subscribe((res: any) => {
-      console.log(res)
       this.cursosList = res;
       this.photosBuffer = this.cursosList.slice(0, this.bufferSize);
       //spinner
@@ -332,8 +330,7 @@ export class SubjectInformationComponent implements OnInit {
       this.f.horasSemestre.setValue(data.horasSemestre);
       this.f.tipoCurso.setValue(data.tipo_curso);
       this.f.informacion.setValue(data.informacion);
-
-      this.getDocentes(data.id);
+      this.getDocentes();
     }else{
       this.f.codigo.setValue('');
       this.f.nombreEspaniol.setValue('');
@@ -345,9 +342,9 @@ export class SubjectInformationComponent implements OnInit {
     }
   }
 
-  getDocentes(idCurso){
+  getDocentes(){
     this.spinner.show();
-    this.subjectInformationService.getFaculty(idCurso).subscribe((res: any) => {
+    this.subjectInformationService.getFaculty(this.subject.idCurso).subscribe((res: any) => {
       this.facultyList = res.map((data) => ({
         id: data.id,
         nombre: data.nombre,
@@ -600,46 +597,62 @@ export class SubjectInformationComponent implements OnInit {
   }
 
   //Portada-------------------------------------------------------------------------------------------------------
-  getCover(){
-    this.subjectInformationService.getCover(this.subject.id).subscribe((res: any) => {
-    //  this.cover = res;
-    console.log(res);
+  transformBase64(blob){//procesa el blob para convertirlo en una imagen para mostrar
+    var reader = new FileReader();
+    var base64data
+    var fn = this;
+    reader.readAsDataURL(blob); 
+    reader.onloadend = function() {
+      base64data = reader.result;
+      fn.cover = base64data;
+      fn.spinner.hide();
+    }
+  }
+
+  getCover(){//recupera los datos de la imagen del repositorio
+    this.spinner.show();
+    if(!this.f.filename.value){//si no hay portada
+      this.cover = "../../../assets/images/default.jpg";//setea la imagen por defecto
+    }else{//hay portada
+      this.subjectInformationService.getCover(this.subject.id).subscribe((res: any) => {//busca el registro de la imagen de portada
+        this.transformBase64(res);
+      },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(`Error, ${err.error.message}`);
+      });
+    }
+  }
+
+  setCover(){//guarda en la propiedad filename
+    this.subjectInformationService.getCoverInfo(this.subject.id).subscribe((res: any) => {
+      this.f.filename.setValue(res.nombre);
+      this.getCover();
+      this.onSubmit();//Guardar
     },
     err => {
-      //spinner
-      console.log('error');
+      this.spinner.hide();
       this.toastr.error(`Error, ${err.error.message}`);
     });
-    //spinner
   }
 
   onNewCover() {
     this.mdStickUp.show();
     this.modalComponetActive = 'cover';
-    // this.selectedCoverId = null;
   }
 
   onSaveCover() {
-    //spinner
     this.mdStickUp.hide();
-    //spinner
-    this.getCover();
-  }
-
-  onEditCover(id) {
-    // edicion de detalle
-    this.mdStickUp.show();
-    this.modalComponetActive = 'cover';
-    this.selectedCoverId = id;
+    this.setCover();
   }
 
   //borrar un registro de objetivo
-  onDeleteCover(id) {
-    this.subjectInformationService.deleteCover(id).subscribe((res: any) => {
+  onDeleteCover() {
+    this.subjectInformationService.deleteCover(this.subject.id).subscribe((res: any) => {
       this.spinner.hide();
-      this.translate.get('success_delete').subscribe((res: string) => {
-        this.toastr.success(res);
-      });
+      this.f.filename.setValue(null);
+      this.getCover();
+      this.onSubmit();
     },
     err => {
       this.spinner.hide();
@@ -672,7 +685,7 @@ export class SubjectInformationComponent implements OnInit {
           this.onDeleteTopic(id);
           break;
         case 'cover':
-            this.onDeleteCover(id);
+            this.onDeleteCover();
           break;
         default:
           break;

@@ -325,7 +325,7 @@ export class SectionsComponent implements OnInit {
           break;
       }
 		}, (reason) => {
-			// console.log("pasado");
+      
 		});
   }
 }

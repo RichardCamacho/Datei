@@ -51,6 +51,7 @@ export class BooksComponent implements OnInit {
     this.SelectedId = this.selectedBookId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
+      this.spinner.hide();
       } else {
         this.mode = 'UPDATE' ;
         this.getBook(this.SelectedId);

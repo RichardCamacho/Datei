@@ -201,19 +201,23 @@
                         <div class="col-lg-4 col-md-12">
                             <div class="row">
                                 <div class="col-lg-12 text-center p-b-10">
-                                    <img id="portada" width="180px" height="250px" src={{cover}}>
+                                    <img id="portada" width="180px" height="250px" [src]='cover'>
                                 </div>
                             </div>
                             <div>
                                 <div class="row button-group">
-                                    <div class="col-lg-6">
-                                        <button type="submit" class="btn btn-block btn-info"
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-block btn-info" *ngIf="!f.filename.value"
                                             (click)="onNewCover()">{{'main.agregar' | translate}}</button>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-block btn-info" *ngIf="f.filename.value"
+                                            (click)="onDeleteCover()">{{'main.eliminar' | translate}}</button>
+                                    </div>
+                                    <!-- <div class="col-lg-6">
                                         <button type="button" class="btn btn-block btn-outline-secondary"
                                             (click)="onCancel()">{{'main.cancelar' | translate}}</button>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- <div class="input-group mb-3">
                                           <input type="file" formControlName="filename" class="form-control-file" id="exampleFormControlFile1">

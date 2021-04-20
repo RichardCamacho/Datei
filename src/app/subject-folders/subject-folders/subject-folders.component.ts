@@ -326,7 +326,8 @@ export class SubjectFoldersComponent implements OnInit {
     this.spinner.show();
     var facultad, sistemas, acreditacion, docentes, cod_nombre_curso,
     creditos, credito, horas, por_semestre, libro, materiales, inf_esp_curso,
-    prereq_coreq, tipo_curso, tipo_curso_c, objetivo, temas, apendice_a;
+    prereq_coreq, tipo_curso, tipo_curso_c, objetivo, temas, apendice_a,
+    autor, titulo, editorial, anio;
 
     //facultad
     this.translate.get('main.facultad').subscribe((res: string) => {
@@ -396,6 +397,10 @@ export class SubjectFoldersComponent implements OnInit {
       temas = res;
     });
     
+    autor = (this.subject.autor)? this.subject.autor:'';
+    titulo = (this.subject.titulo)? this.subject.titulo:'';
+    editorial = (this.subject.editorial)? this.subject.editorial:'';
+    anio = (this.subject.anio)? this.subject.anio:'';
 
     this.spinner.hide();
     return {
@@ -462,7 +467,7 @@ export class SubjectFoldersComponent implements OnInit {
           style: 'subtitle'
         },
         {
-          text: this.subject.autor + ', ' + this.subject.titulo + ', ' + this.subject.editorial + ', ' + this.subject.anio,
+          text: autor + ', ' + titulo + ', ' + editorial + ', ' + anio,
           fontSize: 9,
         },
         //Otros materiales
