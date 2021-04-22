@@ -23,7 +23,7 @@ export class LoginService {
       password:user.password,
       grant_type:'password',
       client_id:2,
-      client_secret:'AYDVLGK37OXtaBrKYDL8fnd0bB6iCk5lX1tMoNSm',
+      client_secret:'f963psQYD2NvKoFXHLPrK1HDQdP7N0FB77h4CtDm',
       scope:'*',
     }
 

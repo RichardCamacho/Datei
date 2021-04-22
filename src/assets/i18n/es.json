@@ -170,7 +170,8 @@
 
     "success_create_update":"Información registrada satisfactoriamente",
     "success_delete":"Registro Eliminado",
-    
+    "success_upload":"El archivo se ha subido Exitosamente",
+
     "main": {
       "buscar": "Buscar",
       "nuevo_registro": "Nuevo Registro",
@@ -244,6 +245,10 @@
 
       "facultad":"FACULTAD DE INGENIERÍA",
       "sistemas":"PROGRAMA DE INGENIERÍA EN SISTEMAS",
+      "civil":"PROGRAMA DE INGENIERÍA CIVIL",
+      "quimica":"PROGRAMA DE INGENIERÍA QUÍMICA",
+      "alimentos":"PROGRAMA DE INGENIERÍA DE ALIMENTOS",
+      "farmaceutica":"PROGRAMA DE QUÍMICA FARMACÉUTICA",
       "acreditacion":"PROCESO DE ACREDITACIÓN INTERNACIONAL ABET"
     },
 

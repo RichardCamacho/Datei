@@ -66,7 +66,7 @@ export class ProfessionalActivitiesComponent implements OnInit {
       id: [],
       fechaFinalizacion: [null, [Validators.required]],
       fechaInicio: [null, [Validators.required]],
-      nombre: ["", [Validators.required, Validators.maxLength(100)]],
+      nombre: ["", [Validators.required, Validators.maxLength(200)]],
       hoja_vida: [null],
     },
     {

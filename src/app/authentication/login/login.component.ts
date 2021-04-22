@@ -68,8 +68,8 @@ export class LoginComponent implements OnInit {
 
   getUserData(){
     this.loginService.gettingUser().subscribe((res:any) => {
-      console.log(res);
       sessionStorage.setItem('user', res.id);//guarda id del usuario en un objeto de sesion
+      sessionStorage.setItem('programa', res.programa)
     }, 
     err => {
       this.toastr.error(`Error: ${err.error.message}`);

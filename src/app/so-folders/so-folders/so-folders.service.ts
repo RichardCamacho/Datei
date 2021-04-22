@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ContinuousImprovementService } from 'src/app/continuous-improvement/continuous-improvement/continuous-improvement.service';
 import { MinutesService } from 'src/app/minutes/minutes/minutes.service';
+import { ReferencesTypeDetailService } from 'src/app/references-type/references-type-detail/references-type-detail.service';
 import { CONFIG } from 'src/app/_config/config';
 
 @Injectable({
@@ -13,7 +14,8 @@ export class SoFoldersService {
 
   constructor(private http: HttpClient, 
               private continuousImprovementService: ContinuousImprovementService,
-              private minutesService: MinutesService
+              private minutesService: MinutesService,
+              private referencesTypeDetailService: ReferencesTypeDetailService
               ) { }
 
   //registrar carpeta de student outcome
@@ -65,5 +67,10 @@ export class SoFoldersService {
   }
   deleteContImprovement(id){
     return this.continuousImprovementService.deleteContImprovement(id);
+  }
+
+  //buscar el curso
+  getCursoInfo(id){
+    return this.referencesTypeDetailService.getReferenceTypeDetailById(id);
   }
 }

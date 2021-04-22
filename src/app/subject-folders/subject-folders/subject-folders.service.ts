@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CurriculumVitaeService } from 'src/app/curriculum-vitae/curriculum-vitae/curriculum-vitae.service';
+import { ReferencesTypeDetailService } from 'src/app/references-type/references-type-detail/references-type-detail.service';
 import { SectionsService } from 'src/app/sections/sections/sections.service';
 import { SubjectInformationService } from 'src/app/subject-information/subject-information/subject-information.service';
 import { CONFIG } from 'src/app/_config/config';
@@ -15,7 +16,8 @@ export class SubjectFoldersService {
   constructor(private http: HttpClient, 
               private curriculumViateService: CurriculumVitaeService,
               private subjectService: SubjectInformationService,
-              private sectionService: SectionsService) { }
+              private sectionService: SectionsService, 
+              private referencesTypeDetailService: ReferencesTypeDetailService) { }
 
   //registrar carpeta de asignatura
   registerSubjectFolder(dataArgs) {
@@ -78,4 +80,8 @@ export class SubjectFoldersService {
     return this.sectionService.deleteSection(id);
   }
   
+  //buscar el curso
+  getCursoInfo(id){
+    return this.referencesTypeDetailService.getReferenceTypeDetailById(id);
+  }
 }

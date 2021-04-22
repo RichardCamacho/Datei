@@ -12,7 +12,8 @@
                 [formGroup]="registerSubjectInformationForm">
                 <div class="card-body">
                     <h4 class="card-title ">{{'cursos.inf_basica' | translate}}</h4>
-                    <div class="row" *ngIf="mode==='CREATE'">
+                    <div class="row">
+                    <!-- <div class="row" *ngIf="mode==='CREATE'"> -->
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
@@ -194,8 +195,8 @@
                         </ngb-panel>
                     </ngb-accordion>
                 </div>
-                <hr>
-                <div class="card-body">
+                <hr *ngIf="mode === 'UPDATE'">
+                <div class="card-body" *ngIf="mode === 'UPDATE'">
                     <h4 class="card-title ">{{'cursos.texto' | translate}}</h4>
                     <div class="row">
                         <div class="col-lg-4 col-md-12">

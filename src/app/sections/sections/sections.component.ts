@@ -113,6 +113,9 @@ export class SectionsComponent implements OnInit {
 
   onSaveAssesstmen() {
     this.mdStickUp.hide();
+    this.translate.get('success_upload').subscribe((res: string) => {
+      this.toastr.success(res);
+    });
     this.getFileAssesstmenList();
   }
 
@@ -167,6 +170,9 @@ export class SectionsComponent implements OnInit {
 
   onSaveStatementSamples() {
     this.mdStickUp.hide();
+    this.translate.get('success_upload').subscribe((res: string) => {
+      this.toastr.success(res);
+    });
     this.getFileStatementSamplesList();
   }
 
@@ -219,6 +225,9 @@ export class SectionsComponent implements OnInit {
 
   onSaveStudentSamples() {
     this.mdStickUp.hide();
+    this.translate.get('success_upload').subscribe((res: string) => {
+      this.toastr.success(res);
+    });
     this.getFileStudentSamplesList();
   }
 
@@ -271,6 +280,9 @@ export class SectionsComponent implements OnInit {
 
   onSaveFeedback() {
     this.mdStickUp.hide();
+    this.translate.get('success_upload').subscribe((res: string) => {
+      this.toastr.success(res);
+    });
     this.getFileFeedbackList();
   }
 

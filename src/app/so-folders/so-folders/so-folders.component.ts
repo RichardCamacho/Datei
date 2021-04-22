@@ -24,6 +24,7 @@ export class SoFoldersComponent implements OnInit {
   soFolder = new soFolder;
 
   idUsuario;
+  programaTr;
 
   modalComponetActive = '';
 
@@ -70,6 +71,8 @@ export class SoFoldersComponent implements OnInit {
                 this.selectedSoFolderId = params.id; // argumento enviado en la ruta
                 if (this.selectedSoFolderId === undefined || this.selectedSoFolderId == null) {
                   this.mode = 'CREATE';
+                  this.getProgramaInfo();
+                  this.spinner.hide();
                 } else {
                   this.mode = 'UPDATE';
                   this.getSoFolder(this.selectedSoFolderId);
@@ -84,10 +87,45 @@ export class SoFoldersComponent implements OnInit {
       id: [],
       nombre: ["", [Validators.required, Validators.maxLength(100)]],
       codigo: ["", [Validators.required, Validators.maxLength(100)]],
+      indicador: ["", [Validators.required, Validators.maxLength(10)]],
       idUsuario: [null]
     });
 
     this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
+  }
+
+  getProgramaInfo(){
+    var idCurso = parseInt(sessionStorage.getItem('programa'));
+    this.soFolderService.getCursoInfo(idCurso).subscribe((res: any) => {
+      switch (res.nombre) {
+        case 'Ingeniería de Sistemas':
+          this.f.indicador.setValue('220');
+          this.programaTr = 'main.sistemas';
+          break;
+        case 'Ingeniería de Alimentos':
+          this.f.indicador.setValue('221');
+          this.programaTr = 'main.alimentos';
+          break;
+        case 'Ingeniería Química':
+          this.f.indicador.setValue('222');
+          this.programaTr = 'main.quimica';
+          break;
+        case 'Ingeniería Civil':
+          this.f.indicador.setValue('223');
+          this.programaTr = 'main.civil';
+          break;
+        case 'Química Farmacéutica':
+          this.f.indicador.setValue('224');
+          this.programaTr = 'main.farmaceutica';
+          break;
+        default:
+          break;
+      }
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`);
+    });
   }
 
   getSoFolder(id){

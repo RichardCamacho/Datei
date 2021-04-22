@@ -39,7 +39,7 @@
                                 <div *ngIf="submitted && f.nombre.errors" >
                                     <small class="form-text text-danger" *ngIf="f.nombre.errors.required">{{'main.campo_requerido' | translate}}</small>
                                 </div>
-                                <small class="form-text text-danger" *ngIf="f.nombre.errors?.maxlength && f.nombre?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                                <small class="form-text text-danger" *ngIf="f.nombre.errors?.maxlength && f.nombre?.dirty">{{'main.caracteres' | translate:param200}}</small>
                             </div>
                         </div>
                     </div>

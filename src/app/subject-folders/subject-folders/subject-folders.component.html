@@ -34,17 +34,27 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 col-lg-6">
-                                                <div class="form-group" [class.has-error]="submitted && f.codigo.errors">
-                                                    <label>{{'main.codigo' | translate}}*</label>
-                                                    <input type="text" class="form-control" placeholder="{{'main.codigo' | translate}}"
-                                                        name="codigo" formControlName="codigo" id="codigo"
-                                                        [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
-                                                    <div *ngIf="submitted && f.codigo.errors">
-                                                        <small class="form-text text-danger"
-                                                            *ngIf="f.codigo.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                                <label>{{'main.codigo' | translate}}*</label>
+                                                <div class="row">
+                                                    <div class="col-sm-2 col-md-2 col-lg-2">
+                                                        <div class="form-group">
+                                                            <input readonly type="text" class="form-control"
+                                                                name="indicador" formControlName="indicador" id="indicador">
+                                                        </div>
                                                     </div>
-                                                    <small class="form-text text-danger"
-                                                        *ngIf="f.codigo.errors?.maxlength && f.codigo?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                                                    <div class="col-sm-10 col-md-10 col-lg-10">
+                                                        <div class="form-group" [class.has-error]="submitted && f.codigo.errors">
+                                                            <input type="text" class="form-control" placeholder="{{'main.codigo' | translate}}"
+                                                                name="codigo" formControlName="codigo" id="codigo"
+                                                                [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+                                                            <div *ngIf="submitted && f.codigo.errors">
+                                                                <small class="form-text text-danger"
+                                                                    *ngIf="f.codigo.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                                            </div>
+                                                            <small class="form-text text-danger"
+                                                                *ngIf="f.codigo.errors?.maxlength && f.codigo?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -102,7 +112,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-12 d-flex justify-content-center">
-                                                                <p class="m-1">{{'main.sistemas' | translate}}</p>
+                                                                <p class="m-1">{{programaTr | translate}}</p>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -253,7 +263,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body">
+                                                    <div class="card-body" *ngIf="mode === 'UPDATE'">
                                                         <div class="row button-group">
                                                             <div class="col-lg-4 col-md-12 col-sm-12">
                                                                 <button type="submit"
@@ -293,7 +303,7 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-lg-12 d-flex justify-content-center">
-                                                                    <p class="m-1">{{'main.sistemas' | translate}}</p>
+                                                                    <p class="m-1">{{ programaTr | translate}}</p>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -459,7 +469,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body">
+                                                    <div class="card-body" *ngIf="mode === 'UPDATE'">
                                                         <div class="row button-group">
                                                             <div class="col-lg-4 col-md-12 col-sm-12">
                                                                 <button type="submit"
@@ -477,7 +487,7 @@
                         </ng-template>
                     </ngb-tab>
                     <!-- SECCIONES DE CARPETA -->
-                    <ngb-tab>
+                    <ngb-tab *ngIf="mode === 'UPDATE'">
                         <ng-template ngbTabTitle><b>{{'carpeta_asig.secciones' | translate}}</b></ng-template>
                         <ng-template ngbTabContent>
                             <div class="card-body">

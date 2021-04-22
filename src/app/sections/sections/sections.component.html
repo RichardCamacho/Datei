@@ -416,7 +416,6 @@
                     </div>
                     <div class="modal-body">
                         <ng-container *ngIf="modalComponetActive === 'assesstmen'">
-                            <p>Assesstmen</p>
                             <app-file-upload  (onEventCancel) ="mdStickUp.hide()" (onEventSave) ="onSaveAssesstmen($event)" 
                             [urlFileUpload]="getUrlFileUpload()" 
                             [ownerFileId]="selectedSectionId" 
@@ -428,7 +427,6 @@
                         </ng-container>
 
                         <ng-container *ngIf="modalComponetActive === 'statementSamples'">
-                            <p>statementSamples</p>
                             <app-file-upload  (onEventCancel) ="mdStickUp.hide()" (onEventSave) ="onSaveStatementSamples($event)" 
                             [urlFileUpload]="getUrlFileUpload()" 
                             [ownerFileId]="selectedSectionId" 
@@ -440,7 +438,6 @@
                         </ng-container>
 
                         <ng-container *ngIf="modalComponetActive === 'studentSamples'">
-                            <p>onNewStudentSamples</p>
                             <app-file-upload  (onEventCancel) ="mdStickUp.hide()" (onEventSave) ="onSaveStudentSamples($event)" 
                             [urlFileUpload]="getUrlFileUpload()" 
                             [ownerFileId]="selectedSectionId" 
@@ -452,7 +449,6 @@
                         </ng-container>
 
                         <ng-container *ngIf="modalComponetActive === 'feedback'">
-                            <p>onNewFeedback</p>
                             <app-file-upload  (onEventCancel) ="mdStickUp.hide()" (onEventSave) ="onSaveFeedback($event)" 
                             [urlFileUpload]="getUrlFileUpload()" 
                             [ownerFileId]="selectedSectionId" 

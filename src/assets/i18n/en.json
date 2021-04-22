@@ -170,6 +170,7 @@
 
   "success_create_update":"Information successfully registered",
   "success_delete":"Record Deleted",
+  "success_upload":"File was uploaded successfully",
 
   "main": {
     "buscar": "Search",
@@ -244,6 +245,10 @@
 
     "facultad":"COLLEGE OF ENGINEERING",
     "sistemas":"SYSTEMS ENGINEERING PROGRAM",
+    "civil":"CIVIL ENGINEERING PROGRAM",
+    "quimica":"CHEMICAL ENGINEERING PROGRAM",
+    "alimentos":"FOOD ENGINEERING PROGRAM",
+    "farmaceutica":"PHARMACEUTICAL CHEMISTRY PROGRAM",
     "acreditacion":"ABET INTERNATIONAL ACCREDITATION PROCESS"
   },
 

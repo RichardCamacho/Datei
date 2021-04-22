@@ -35,6 +35,7 @@ export class SubjectFoldersComponent implements OnInit {
   cursosList: any[];
   subject: any = null;
   idUsuario;
+  programaTr;
   timeLocale:any;
   lenguaje: string = 'es';
 
@@ -72,6 +73,7 @@ export class SubjectFoldersComponent implements OnInit {
               this.selectedSubjectFolderId = params.id; // argumento enviado en la ruta
               if (this.selectedSubjectFolderId === undefined || this.selectedSubjectFolderId == null) {
                 this.mode = 'CREATE';
+                this.getCursoInfo();
               } else {
                 this.mode = 'UPDATE';
                 this.getSubjectFolder(this.selectedSubjectFolderId);
@@ -86,6 +88,7 @@ export class SubjectFoldersComponent implements OnInit {
       id: [],
       nombre: ["", [Validators.required, Validators.maxLength(100)]],
       codigo: ["", [Validators.required, Validators.maxLength(200)]],
+      indicador: ["", [Validators.required, Validators.maxLength(10)]],
       curriculum: [null, [Validators.required]],
       curso: [null, [Validators.required]],
       idUsuario: [null]
@@ -107,6 +110,65 @@ export class SubjectFoldersComponent implements OnInit {
 
     this.translate.onLangChange.subscribe(res => {
       this.lenguaje = res.lang;
+      this.getProgram();
+    });
+    
+  }
+
+  getProgram(){
+    //nombre del programa
+    switch (this.f.indicador.value) {
+      case '220':
+        this.programaTr = 'main.sistemas';
+        break;
+      case '221':
+        this.programaTr = 'main.alimentos';
+        break;
+      case '222':
+        this.programaTr = 'main.quimica';
+        break;
+      case '223':
+        this.programaTr = 'main.civil';
+        break;
+      case '224':
+        this.programaTr = 'main.farmaceutica';
+        break;
+      default:
+        break;
+    }
+  }
+
+  getCursoInfo(){
+    var idCurso = parseInt(sessionStorage.getItem('programa'));
+    this.subjectFolderService.getCursoInfo(idCurso).subscribe((res: any) => {
+      switch (res.nombre) {
+        case 'Ingeniería de Sistemas':
+          this.f.indicador.setValue('220');
+          this.programaTr = 'main.sistemas';
+          break;
+        case 'Ingeniería de Alimentos':
+          this.f.indicador.setValue('221');
+          this.programaTr = 'main.alimentos';
+          break;
+        case 'Ingeniería Química':
+          this.f.indicador.setValue('222');
+          this.programaTr = 'main.quimica';
+          break;
+        case 'Ingeniería Civil':
+          this.f.indicador.setValue('223');
+          this.programaTr = 'main.civil';
+          break;
+        case 'Química Farmacéutica':
+          this.f.indicador.setValue('224');
+          this.programaTr = 'main.farmaceutica';
+          break;
+        default:
+          break;
+      }
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
@@ -114,6 +176,7 @@ export class SubjectFoldersComponent implements OnInit {
     this.subjectFolderService.getSubjectFolderById(id).subscribe((res: any) => {
       this.subjectFolder = res;
       this.registerSubjectFolderForm.patchValue(this.subjectFolder);
+      this.getProgram();
       this.getSubject(res.curso);
       this.getSections();
       this.spinner.hide();
@@ -134,7 +197,6 @@ export class SubjectFoldersComponent implements OnInit {
       }else{
         this.curriculumstate = true;
       }
-      this.spinner.hide();
     },
     err => {
       this.spinner.hide();
@@ -181,7 +243,6 @@ export class SubjectFoldersComponent implements OnInit {
     }
     this.f.curso.setValue(this.subject.id);
     this.submittedUp = true;
-    console.log(this.registerSubjectFolderForm.value)
     this.subjectFolder = this.registerSubjectFolderForm.value;
     this.subjectFolder.idUsuario =  this.idUsuario;
     this.onRegisterSubjectFolder();
@@ -324,7 +385,7 @@ export class SubjectFoldersComponent implements OnInit {
 
   buildingPDFApendixA(){
     this.spinner.show();
-    var facultad, sistemas, acreditacion, docentes, cod_nombre_curso,
+    var facultad, programa, acreditacion, docentes, cod_nombre_curso,
     creditos, credito, horas, por_semestre, libro, materiales, inf_esp_curso,
     prereq_coreq, tipo_curso, tipo_curso_c, objetivo, temas, apendice_a,
     autor, titulo, editorial, anio;
@@ -334,9 +395,35 @@ export class SubjectFoldersComponent implements OnInit {
       facultad = res;
     });
     //nombre del programa
-    this.translate.get('main.sistemas').subscribe((res: string) => {
-      sistemas = res;
-    });
+    switch (this.subjectFolder.indicador) {
+      case '220':
+        this.translate.get('main.sistemas').subscribe((res: string) => {
+          programa = res;
+        });
+        break;
+      case '221':
+        this.translate.get('main.alimentos').subscribe((res: string) => {
+          programa = res;
+        });
+        break;
+      case '222':
+        this.translate.get('main.quimica').subscribe((res: string) => {
+          programa = res;
+        });
+        break;
+      case '223':
+        this.translate.get('main.civil').subscribe((res: string) => {
+          programa = res;
+        });
+        break;
+      case '224':
+        this.translate.get('main.farmaceutica').subscribe((res: string) => {
+          programa = res;
+        });
+        break;
+      default:
+        break;
+    }
     //acreditación
     this.translate.get('main.acreditacion').subscribe((res: string) => {
       acreditacion = res;
@@ -415,7 +502,7 @@ export class SubjectFoldersComponent implements OnInit {
           style: 'encabezado'
         },
         {
-          text: sistemas,//debo modificar
+          text: programa,
           style: 'encabezado'
         },
         {
@@ -604,20 +691,33 @@ export class SubjectFoldersComponent implements OnInit {
 
   getOtherMaterialsList(otherMaterialsList){
     const content = [];
-    otherMaterialsList.forEach(book => {
-      content.push(
-        {
-          text: book.autor + ', ' + book.titulo + ', ' + book.editorial + ', ' + book.anio,
-          fontSize: 9,
-          margin: [0, 0, 0, 2]
-        }
-      )
-    });
 
-    return{
-      ul:[
-        ...content
-      ]
+    if(otherMaterialsList.length !== 0){
+      otherMaterialsList.forEach(book => {
+        content.push(
+          {
+            text: book.autor + ', ' + book.titulo + ', ' + book.editorial + ', ' + book.anio,
+            fontSize: 9,
+            margin: [0, 0, 0, 2]
+          }
+        )
+      });
+  
+      return{
+        ul:[
+          ...content
+        ]
+      }
+    }else{
+      var ninguno
+      this.translate.get('main.ninguno').subscribe((res: string) => {
+        ninguno = res;
+      });
+
+      return{
+          text: ninguno,
+          fontSize: 9,
+      }
     }
   }
 
@@ -655,58 +755,94 @@ export class SubjectFoldersComponent implements OnInit {
 
   getObjectivesList(objectivesList){
     const content = [];
-    objectivesList.forEach(objective => {
-      content.push(
-        {
-          text: objective.nombre,
-          fontSize: 9,
-          margin: [0, 0, 0, 2]
-        }
-      )
-    });
+    if(objectivesList.length !== 0){
+      objectivesList.forEach(objective => {
+        content.push(
+          {
+            text: objective.nombre,
+            fontSize: 9,
+            margin: [0, 0, 0, 2]
+          }
+        )
+      });
+  
+      return{
+        ul:[
+          ...content
+        ]
+      }
+    }else{
+      var ninguno
+      this.translate.get('main.ninguno').subscribe((res: string) => {
+        ninguno = res;
+      });
 
-    return{
-      ul:[
-        ...content
-      ]
+      return{
+          text: ninguno,
+          fontSize: 9,
+      }
     }
   }
 
   getSOList(soList){
     const content = [];
-    soList.forEach(so => {
-      content.push(
-        {
-          text: so.nombre + ': ' + so.descripcion,
-          fontSize: 9,
-          margin: [0, 0, 0, 2]
-        }
-      )
-    });
+    if(soList.length !== 0){
+      soList.forEach(so => {
+        content.push(
+          {
+            text: so.nombre + ': ' + so.descripcion,
+            fontSize: 9,
+            margin: [0, 0, 0, 2]
+          }
+        )
+      });
+  
+      return{
+        ul:[
+          ...content
+        ]
+      }
+    }else{
+      var ninguno
+      this.translate.get('main.ninguno').subscribe((res: string) => {
+        ninguno = res;
+      });
 
-    return{
-      ul:[
-        ...content
-      ]
+      return{
+          text: ninguno,
+          fontSize: 9,
+      }
     }
   }
 
   getTopicsList(topicsList){
     const content = [];
-    topicsList.forEach(topic => {
-      content.push(
-        {
-          text: topic.nombre,
-          fontSize: 9,
-          margin: [0, 0, 0, 2]
-        }
-      )
-    });
+    if(topicsList.length !== 0){
+      topicsList.forEach(topic => {
+        content.push(
+          {
+            text: topic.nombre,
+            fontSize: 9,
+            margin: [0, 0, 0, 2]
+          }
+        )
+      });
+  
+      return{
+        ul:[
+          ...content
+        ]
+      }
+    }else{
+      var ninguno
+      this.translate.get('main.ninguno').subscribe((res: string) => {
+        ninguno = res;
+      });
 
-    return{
-      ul:[
-        ...content
-      ]
+      return{
+          text: ninguno,
+          fontSize: 9,
+      }
     }
   }
 

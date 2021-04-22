@@ -13,30 +13,42 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="row">
-                                <div class="col-sm-12 col-lg-6">
+                                <div class="col-sm-12 col-md-6 col-lg-6">
                                     <div class="form-group" [class.has-error]="submitted && f.nombre.errors">
                                         <label>{{'main.nombre' | translate}}*</label>
                                         <input type="text" class="form-control" placeholder="{{'main.nombre' | translate}}"
                                             name="nombre" formControlName="nombre" id="nombre"
                                             [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
                                         <div *ngIf="submitted && f.nombre.errors">
-                                            <small class="form-text text-danger" *ngIf="f.nombre.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                            <small class="form-text text-danger"
+                                                *ngIf="f.nombre.errors.required">{{'main.campo_requerido' | translate}}</small>
                                         </div>
                                         <small class="form-text text-danger"
                                             *ngIf="f.nombre.errors?.maxlength && f.nombre?.dirty">{{'main.caracteres' | translate:param100}}</small>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group" [class.has-error]="submitted && f.codigo.errors">
-                                        <label>{{'main.codigo' | translate}}*</label>
-                                        <input type="text" class="form-control" placeholder="{{'main.codigo' | translate}}"
-                                            name="codigo" formControlName="codigo" id="codigo"
-                                            [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
-                                        <div *ngIf="submitted && f.codigo.errors">
-                                            <small class="form-text text-danger" *ngIf="f.codigo.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                    <label>{{'main.codigo' | translate}}*</label>
+                                    <div class="row">
+                                        <div class="col-sm-2 col-md-2 col-lg-2">
+                                            <div class="form-group">
+                                                <input readonly type="text" class="form-control"
+                                                    name="indicador" formControlName="indicador" id="indicador">
+                                            </div>
                                         </div>
-                                        <small class="form-text text-danger"
-                                            *ngIf="f.codigo.errors?.maxlength && f.codigo?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                                        <div class="col-sm-10 col-md-10 col-lg-10">
+                                            <div class="form-group" [class.has-error]="submitted && f.codigo.errors">
+                                                <input type="text" class="form-control" placeholder="{{'main.codigo' | translate}}"
+                                                    name="codigo" formControlName="codigo" id="codigo"
+                                                    [ngClass]="{ 'is-invalid': submitted && f.codigo.errors }">
+                                                <div *ngIf="submitted && f.codigo.errors">
+                                                    <small class="form-text text-danger"
+                                                        *ngIf="f.codigo.errors.required">{{'main.campo_requerido' | translate}}</small>
+                                                </div>
+                                                <small class="form-text text-danger"
+                                                    *ngIf="f.codigo.errors?.maxlength && f.codigo?.dirty">{{'main.caracteres' | translate:param100}}</small>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +69,7 @@
                 </div>
             </form>
 
-            <div class="card-body" *ngIf="mode==='UPDATE'"><!-- *ngIf="mode==='UPDATE'" -->
+            <div class="card-body" *ngIf="mode==='UPDATE'">
                 <h4 class="card-title ">{{'main.detalles' | translate}}</h4>
                 <!--- TABLA DE ACTAS DE SO -->
                 <div class="row">

@@ -198,7 +198,7 @@ export class SubjectInformationComponent implements OnInit {
 
   getDetails(){
     this.spinner.show();
-    this.getDocentes();
+    this.getDocentes(this.subject.id);
     this.getCover();
     this.getBooks();
     this.getPrerequisites();
@@ -330,7 +330,7 @@ export class SubjectInformationComponent implements OnInit {
       this.f.horasSemestre.setValue(data.horasSemestre);
       this.f.tipoCurso.setValue(data.tipo_curso);
       this.f.informacion.setValue(data.informacion);
-      this.getDocentes();
+      this.getDocentes(data.id);
     }else{
       this.f.codigo.setValue('');
       this.f.nombreEspaniol.setValue('');
@@ -342,9 +342,9 @@ export class SubjectInformationComponent implements OnInit {
     }
   }
 
-  getDocentes(){
+  getDocentes(id){
     this.spinner.show();
-    this.subjectInformationService.getFaculty(this.subject.idCurso).subscribe((res: any) => {
+    this.subjectInformationService.getFaculty(id).subscribe((res: any) => {
       this.facultyList = res.map((data) => ({
         id: data.id,
         nombre: data.nombre,

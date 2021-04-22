@@ -610,7 +610,7 @@ export class CurriculumVitaeComponent implements OnInit {
   onSavePublication() {
     // salvado de detalle
     //spinner
-    // this.mdStickUp.hide();
+    this.mdStickUp.hide();
     this.getPublicaciones();
   }
 
