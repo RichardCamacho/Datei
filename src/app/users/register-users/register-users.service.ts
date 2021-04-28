@@ -29,6 +29,16 @@ export class RegisterUsersService {
     return this.http.get(`${this.gateway.url}/api/list-users`);
   }
 
+  //obtener lista de usuarios por programa
+  getAllUsersByProgram(id) {
+    return this.http.get(`${this.gateway.url}/api/list-users-details/${id}`);
+  }
+
+  //obtener lista de usuarios con hoja de vida por programa
+  getAllUsersCurriculum(id) {
+    return this.http.get(`${this.gateway.url}/api/list-users-curriculum/${id}`);
+  }
+
   //obtener usuario por id
   getUserById(id) {
     return this.http.get(`${this.gateway.url}/api/user/${id}`);

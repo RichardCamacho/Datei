@@ -337,8 +337,10 @@
       "inf_especifica": "Información Específica",
       "inf_especifica_tooltip": "Breve descripción del contenido del curso",
       "texto": "Texto del Curso",
+      "portada":"Portada",
       "otros_textos": "Otros materiales de apoyo",
       "libros": "Libros",
+      "prereq":"Prerequisitos",
       "prereq_coreq": "Prerequisitos y Corequisitos",
       "objetivos": "Objetivos Específicos",
       "nuevo_objetivo": "Nuevo Objetivos Específico",
@@ -371,6 +373,7 @@
       "tipo_curso": "Tipo de curso",
       "objetivo": "Objetivos específicos del curso",
       "so": "Student Outcomes",
+      "_temas":"Temas",
       "temas": "Lista breve de temas a ser cubiertos",
   
       "apendice_b": "APENDICE B - HOJA DE VIDA",

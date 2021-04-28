@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.recoverform = !this.recoverform;
   }
 
-  login(user: UserModel) {
+  async login(user: UserModel) {
     this.spinner.show();
     this.submitted = true;
     if (this.loginForm.invalid) {
@@ -53,26 +53,29 @@ export class LoginComponent implements OnInit {
 
     this.loginService.authLogin(user).subscribe((res:any) => {
       sessionStorage.setItem('token', res.access_token);//guarda datos del token valido mientras no se cierre la pestaña
-      this.router.navigateByUrl('/app/dashboard/dashboard1');
       this.getUserData();
       this.spinner.hide();
       this.toastr.success('Credenciales correctas'); 
-      
     }, 
     err => {
       this.spinner.hide();
-      this.toastr.error(`Error: ${err.error.error}`);
+      // this.toastr.error(`Error: ${err.error.error}`);
       this.toastr.error('Credenciales Incorrectas');
     });
   }
 
-  getUserData(){
+  async getUserData(){
     this.loginService.gettingUser().subscribe((res:any) => {
       sessionStorage.setItem('user', res.id);//guarda id del usuario en un objeto de sesion
-      sessionStorage.setItem('programa', res.programa)
+      sessionStorage.setItem('programa', res.programa);
+      sessionStorage.setItem('nombre', res.primerNombre + ' ' + res.primerApellido + ' ' + res.segundoApellido);
+      sessionStorage.setItem('email', res.email);
+      this.router.navigateByUrl('/app/dashboard/dashboard1');
     }, 
     err => {
-      this.toastr.error(`Error: ${err.error.message}`);
+      this.spinner.hide();
+      // this.toastr.error(`Error: ${err.error.error}`);
+      this.toastr.error('Credenciales Incorrectas');
     });
   }
 }

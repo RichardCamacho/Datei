@@ -39,6 +39,11 @@ export class SubjectInformationService {
     return this.http.get(`${this.gateway.url}/api/list-subject/${idUsuario}`);
   }
 
+  //obtener lista de cursos con detalles por programa
+  getAllSubjectsDetail(idPrograma) {
+    return this.http.get(`${this.gateway.url}/api/list-subject-details-program/${idPrograma}`);
+  }
+
   //obtener curso por id
   getSubjectById(id) {
     return this.http.get(`${this.gateway.url}/api/subject/${id}`);

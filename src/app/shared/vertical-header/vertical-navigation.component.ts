@@ -114,10 +114,12 @@ export class VerticalNavigationComponent implements AfterViewInit {
   // }
 ]
 
-
+  nombre; email;
 
   constructor(private modalService: NgbModal, private translate: TranslateService, private loginService: LoginService) {
     translate.setDefaultLang('es');
+    this.nombre = sessionStorage.getItem('nombre');
+    this.email = sessionStorage.getItem('email');
   }
 
   changeLanguage(lang: any) {
@@ -125,7 +127,9 @@ export class VerticalNavigationComponent implements AfterViewInit {
     this.selectedLanguage = lang;
   }
 
-  ngAfterViewInit() { }
+  ngAfterViewInit() { 
+    
+  }
 
   userLogOut(){
     this.loginService.logOut();

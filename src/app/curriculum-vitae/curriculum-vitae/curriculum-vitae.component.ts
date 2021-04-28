@@ -175,7 +175,6 @@ export class CurriculumVitaeComponent implements OnInit {
     });
 
     this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
-    console.log(this.idUsuario);
     this.getCurriculumViate();
   }
 
@@ -202,8 +201,7 @@ export class CurriculumVitaeComponent implements OnInit {
   //obtiene la informacion de un usuario en caso de que aun no se haya hecho una hoja de vida
   getUser(){
     this.curriculumVitaeService.getUser(this.idUsuario).subscribe((res: any) => {
-      this.user = res;
-      console.log(this.user);
+      this.user = res
       this.registerCurriculumVitaeForm.patchValue(this.user);
       this.mode = 'CREATE';
       this.fechaActaulizacion = 'Nunca';
@@ -230,7 +228,6 @@ export class CurriculumVitaeComponent implements OnInit {
   onSubmit(){
     this.submitted = true;
     if (this.registerCurriculumVitaeForm.invalid) {
-      console.log('no enviado');
       return;
     }
     this.submittedUp = true;
@@ -243,8 +240,6 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculum.rol = this.f.rol.value;
     this.curriculum.programa =  this.f.programa.value;
     this.curriculum.idUsuario =  this.idUsuario;
-    
-    console.log(this.curriculum);
     this.onRegisterCurriculum();
   }
 
@@ -283,18 +278,6 @@ export class CurriculumVitaeComponent implements OnInit {
       );
     }
   }
-
-  // updateDate(){
-  //   this.today = formatDate(Date.now(), "yyyy-MM-dd HH:mm:ss", this.timeLocale); 
-  //   console.log(new Date(this.today));
-  //   this.curriculumVitaeService.updateDateCurriculum(this.today, this.curriculum.id).subscribe((res:any) => {
-  //     //spinner
-  //   },
-  //   err => {
-  //     //spinner
-  //     this.toastr.error(`Error, ${err.error.message}`);
-  //   });
-  // }
 
   onCancel(){
     this.submitted = false;
@@ -564,7 +547,6 @@ export class CurriculumVitaeComponent implements OnInit {
   }
 
   onEditOrganization(id) {
-    console.log(id)
     // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'organization';
@@ -715,7 +697,6 @@ export class CurriculumVitaeComponent implements OnInit {
   }
 
   onEditAward(id) {
-    console.log(id)
     // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'award';
@@ -766,7 +747,6 @@ export class CurriculumVitaeComponent implements OnInit {
   }
 
   onEditServiceActivity(id) {
-    console.log(id)
     // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'serviceActv';

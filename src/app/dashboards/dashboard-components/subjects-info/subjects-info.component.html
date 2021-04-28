@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"><span class="lstick"></span>Cursos registrados</h4>  
+    </div>
+    <div class="card-body">
+        <p-table #dt [columns]="subjectInfoColumns" [value]="subjectInfoList"
+                selectionMode="single" dataKey="id" [paginator]="subjectInfoTablePaginator"
+                [rows]="subjectInfoTableRows" [responsive]="true" [resizableColumns]="true"
+                [(selection)]="selectedSubjectInfoRow" class="table table-striped">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                            [style.width]="col.width" pResizableColumn>
+                            {{ col.header | translate}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                        <td *ngFor="let col of columns" class="ui-resizable-column"
+                            [ngSwitch]="col.typeField">
+                            <div *ngSwitchCase="'object'">
+                                <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                rowData[col.field][col.fieldChild] }}
+                            </div>
+                            <div *ngSwitchCase="'standard'">
+                                <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                rowData[col.field]}}
+                            </div>
+                            <div *ngSwitchCase="'tag'">
+                                <span class="p-column-title">{{ col.header | translate }}</span>
+                                <span *ngIf="rowData[col.field] === 'Subida'" class="label label-success">{{rowData[col.field]}}</span>
+                                <span *ngIf="rowData[col.field] === 'No subida'" class="label label-danger">{{rowData[col.field]}}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            {{'main.no_registros' | translate}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+    </div>
+</div>

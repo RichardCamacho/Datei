@@ -336,11 +336,14 @@
     "inf_especifica": "Specific course information",
     "inf_especifica_tooltip": "Brief description of the content of the course",
     "texto": "Text book",
+    "portada":"Cover",
     "otros_textos": "Other supplemental materials",
     "libros": "Books",
+    "prereq":"Prerequisites",
     "prereq_coreq": "Prerequisites or co-requisites",
     "objetivos": "Specific goals",
     "nuevo_objetivo": "New specific goal",
+    "_temas":"Topics",
     "temas":"Topics"
   },
 
