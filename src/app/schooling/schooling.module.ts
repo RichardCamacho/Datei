@@ -14,8 +14,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [
     ConfirmationService,
-    TranslateService,
-    NgxSpinnerModule
+    TranslateService
   ]
 })
 export class SchoolingModule { }

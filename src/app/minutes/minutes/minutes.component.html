@@ -422,7 +422,7 @@
                         <div class="col-lg-4 col-md-12 col-sm-12">
                             <button type="submit"
                                 class="btn btn-block btn-info"
-                                (click)="onDownloadMinute()">{{'main.descargar_pdf' | translate}}</button>
+                                (click)="addSignatures()">{{'main.descargar_pdf' | translate}}</button>
                         </div>
                     </div>
                 </div>
@@ -457,6 +457,9 @@
                                 [selectedActivityId]="selectedActivityId" (onEventCancel)="mdStickUp.hide()"
                                 (onEventSave)="onSaveActivity()">
                             </app-activities>
+                        </ng-container>
+                        <ng-container *ngIf="modalComponetActive === 'signatures'">
+                            <app-signatures (onEventCancel)="mdStickUp.hide()" (onEventSave)="onSaveSignatures($event)"></app-signatures>
                         </ng-container>
                     </div>
                 </div>

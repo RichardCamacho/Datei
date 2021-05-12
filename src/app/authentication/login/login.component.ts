@@ -64,18 +64,42 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  async getUserData(){
+  getUserData(){
     this.loginService.gettingUser().subscribe((res:any) => {
       sessionStorage.setItem('user', res.id);//guarda id del usuario en un objeto de sesion
       sessionStorage.setItem('programa', res.programa);
       sessionStorage.setItem('nombre', res.primerNombre + ' ' + res.primerApellido + ' ' + res.segundoApellido);
       sessionStorage.setItem('email', res.email);
-      this.router.navigateByUrl('/app/dashboard/dashboard1');
+      this.getRolName(res.rol)
     }, 
     err => {
       this.spinner.hide();
       // this.toastr.error(`Error: ${err.error.error}`);
       this.toastr.error('Credenciales Incorrectas');
+    });
+  }
+
+  getRolName(id){
+    this.loginService.getReferenceDetail(id).subscribe((res:any) => {
+      sessionStorage.setItem('rol', res.nombre);
+
+      switch (res.nombre) {
+        case 'Docente':
+          this.router.navigateByUrl('/app/subject-information/list');
+        break;
+
+        case 'Coordinador':
+          this.router.navigateByUrl('/app/dashboard/dashboard1');
+        break;
+
+        case 'Administrador':
+          this.router.navigateByUrl('/app/users/list');
+        break;
+      
+        default:
+        break;
+      }
+      
     });
   }
 }

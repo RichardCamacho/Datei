@@ -171,6 +171,10 @@
     "success_create_update":"Información registrada satisfactoriamente",
     "success_delete":"Registro Eliminado",
     "success_upload":"El archivo se ha subido Exitosamente",
+    "Realizada":"Realizada",
+    "Pendiente":"Pendiente",
+    "Subida":"Subida",
+    "No subida":"No subida",
 
     "main": {
       "buscar": "Buscar",
@@ -179,9 +183,11 @@
       "cancelar": "Cancelar",
       "acciones": "Acciones",
       "eliminar": "Eliminar",
+      "continuar": "Continuar",
       "editar": "Editar",
       "ver":"Ver",
       "descargar":"Descargar",
+      "estado":"Estado",
       "descargar_pdf":"Descargar como PDF",
       "inicio": "Inicio",
       "nombre": "Nombre",
@@ -296,7 +302,7 @@
       "list_hoja_vida": "Lista de Hojas de vida",
       "desc_reg_hoja_vida_1": "Formulario de registro de Hoja de vida",
       "desc_reg_hoja_vida_2": "Posteriormente es usada en la creación de carpeta de Asignatura",
-      "ultima_act": "Última actualización",
+      "creada_en": "Fecha Cración",
       "estudios": "Estudios",
       "nombre_estudio": "Nombre de Curso/Estudio",
       "disciplina": "Disciplina",
@@ -445,6 +451,7 @@
     "docente":{
       "docentes":"Docentes",
       "reg_docente": "Registro de Docentes",
+      "docente_reg": "Docentes Registrados",
       "grupo":"Grupo"
     }
   }

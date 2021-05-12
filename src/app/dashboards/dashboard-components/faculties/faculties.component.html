@@ -1,7 +1,7 @@
 <ngx-spinner bdColor = "rgba(255,255,255,0.8)" size = "default" color = "#d7a51e" type = "ball-scale-pulse" [fullScreen] = "true"></ngx-spinner>
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title"><span class="lstick"></span>Docentes registrados</h4>
+        <h4 class="card-title"><span class="lstick"></span>{{'docente.docente_reg' | translate}}</h4>
         <h6 class="card-subtitle">{{programaTr | translate}}</h6>
     </div>
     <div class="card-body">
@@ -9,16 +9,16 @@
             <table class="table table-hover earning-box v-middle no-wrap">
                 <thead>
                     <tr>
-                        <th colspan="2">Nombre</th>
-                        <th>Rol</th>
+                        <th colspan="2">{{'main.nombre' | translate}}</th>
+                        <th>{{'main.rol' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let faculty of facultiesList">
                         <td>
-                            <h6 class="mb-0 font-medium">{{faculty.nombre}}</h6><small class="text-muted">{{faculty.rango}}</small></td>
+                            <h6 class="mb-0 font-medium">{{faculty.nombre}}</h6><small class="text-muted">{{faculty.rango | translate}}</small></td>
                         <td>
-                        <td>{{faculty.rol}}</td>
+                        <td>{{faculty.rol | translate}}</td>
                     </tr>
                 </tbody>
             </table>

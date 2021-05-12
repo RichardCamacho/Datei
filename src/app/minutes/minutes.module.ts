@@ -18,12 +18,14 @@ import { MinutesRoutes } from "./minutes-routing";
 import { Yes_NoPipe } from '../_shared/yes_no.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { SignaturesComponent } from '../signatures/signatures/signatures.component';
 
 @NgModule({
   declarations: [
     MinutesComponent,
     AttendantsComponent,
     ActivitiesComponent,
+    SignaturesComponent,
     Yes_NoPipe
   ],
   imports: [

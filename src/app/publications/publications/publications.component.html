@@ -86,13 +86,13 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button type="button" id="edit_co_author_button"
+                                                    <button type="button"
                                                         class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
                                                         (click)="onEditCoauthor(rowData.id)"><i
                                                             class="fa fa-pencil-alt" aria-hidden="true"></i></button>
-                                                    <button type="button" id="delete_coauthor_button"
+                                                    <button type="button"
                                                         class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
-                                                        (click)="confirmModal(confirmation, rowData.id)"><i
+                                                        (click)="onDeleteCoauthor(rowData.id)"><i
                                                             class="fa fa-trash-alt" aria-hidden="true"></i></button>
                                                 </td>
                                             </tr>
@@ -110,25 +110,6 @@
                                             title="{{'main.nuevo_registro' | translate}}" label="{{'main.nuevo_registro' | translate}}"><i
                                                 class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>
                                     </div>
-                                    <!-- MODAL DE CONFIRMACIÓN -->
-                                    <ng-template #confirmation let-modal>
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
-                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" style="text-align: center;">
-                                            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
-                                            <p>{{'main.conf_mensaje' | translate}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light btn-sm"
-                                                (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
-                                            <button type="button" class="btn  btn-light btn-sm"
-                                                (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
-                                        </div>
-                                    </ng-template>
                                 </ng-template>
                             </ngb-panel>
                         </ngb-accordion>

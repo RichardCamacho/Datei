@@ -9,7 +9,7 @@
                 <span class="card-subtitle">{{'curriculum.desc_reg_hoja_vida_2' | translate}}</span>
             </div>
             <div class="card-body">
-                <span>{{'curriculum.ultima_act' | translate}}: </span>
+                <span>{{'curriculum.creada_en' | translate}}: </span>
                 <span *ngIf="fechaActaulizacion === 'Nunca'">{{fechaActaulizacion | translate}}</span>
                 <span *ngIf="fechaActaulizacion !== 'Nunca'">{{fechaActaulizacion | date:'short'}}</span>
             </div>

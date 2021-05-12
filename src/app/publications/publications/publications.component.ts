@@ -205,13 +205,4 @@ export class PublicationsComponent implements OnInit {
         this.toastr.error(`Error, ${err.error.message}`)
       });
   }
-
-  confirmModal(confirmation: string, id) {
-    this.modalService.open(confirmation, { centered: true }).result.then((result) => {
-      this.onDeleteCoauthor(id);
-    }, (reason) => {
-      // console.log("pasado");
-    });
-  }
-
 }

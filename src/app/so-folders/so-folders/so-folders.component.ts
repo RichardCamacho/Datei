@@ -217,10 +217,7 @@ export class SoFoldersComponent implements OnInit {
     if (this.registerSoFolderForm.invalid) {
       return;
     }
-    
     this.submittedUp = true;
-
-    console.log(this.registerSoFolderForm.value)
     this.soFolder = this.registerSoFolderForm.value;
     this.soFolder.idUsuario =  this.idUsuario;
     this.onRegisterSoFolder();

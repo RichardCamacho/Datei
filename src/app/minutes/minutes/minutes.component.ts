@@ -25,6 +25,7 @@ export class MinutesComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   selectedMinuteId; // registra el id seleccionado que viene en la URL.
   selectedSoFolderId;
+  firmas: any[]  = [];
   mode = ''; // identifica el modo de transaccion del componente: CREATE , UPDATE
 
   minute: Minutes;
@@ -538,13 +539,8 @@ export class MinutesComponent implements OnInit {
         {text: nota, alignment: 'center', margin: [0, 15, 0, 0], fontSize: 10,},
 
         {text:firmas, alignment: 'center', bold: true, margin: [0, 15, 0, 40], fontSize: 10,},
-        {
-          alignment: 'center',
-          columns: [
-            this.getFirstSignature('MONICA OSPINO PINEDO', 'Coordinador SO'),
-            this.getSecondSignature('MARTIN MONROY', 'Lider SO 2')
-          ]
-        }
+        
+        this.getSignatures()
       ],
       defaultStyle: {
         font: 'Arial'
@@ -692,6 +688,46 @@ export class MinutesComponent implements OnInit {
             })
           ]
       }
+    }
+  }
+
+  addSignatures() {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'signatures';
+  }
+
+  onSaveSignatures($event){
+    this.firmas = $event;
+    this.mdStickUp.hide();
+    console.log('aqui');
+    //sigue con el metodo que forma el pdf
+    this.onDownloadMinute();
+  }
+
+  getSignatures(){
+    var cont = 0, nombre, posicion;
+    //nombre
+    this.translate.get('main.nombre').subscribe((res: string) => {
+      nombre = res;
+    });
+    //posicion
+    this.translate.get('carpeta_so.posicion').subscribe((res: string) => {
+      posicion = res;
+    });
+
+    
+    return{
+      alignment: 'center',
+      columns:[
+        
+        ...this.firmas.map(at => {
+          cont ++;
+          return [
+            {text: nombre + ': ' + at.nombre, fontSize: 10},
+            {text: posicion + ': ' + at.posicion, fontSize: 10},
+          ];
+        })
+      ]
     }
   }
 

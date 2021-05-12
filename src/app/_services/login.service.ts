@@ -63,4 +63,12 @@ export class LoginService {
     return null;
   }
 
+  getReferenceDetail(idRef){
+    return this.http.get(`${this.gateway.url}/api/reference-type-detail/${idRef}`)
+  }
+
+  getRole(){
+    return sessionStorage.getItem('rol');
+  }
+
 }

@@ -24,43 +24,79 @@ export const Approutes: Routes = [
         canActivate: [AuthGuard],
         canActivateChild: [AuthGuard],
 		children: [
-			{ path: '', redirectTo: '/dashboard/dashboard1', pathMatch: 'full' },
+			{ path: '', redirectTo: '/dashboard/dashboard1', pathMatch: 'full' },//redirecciona coordinador
 			{
 				path: 'dashboard',
-				loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule)
+				loadChildren: () => import('./dashboards/dashboard.module').then(m => m.DashboardModule),
+				data: {
+					role: ['Coordinador']
+				}
 			},
 			{ 	path: 'users',
-				loadChildren: () => import('./users/users.module').then(m => m.UsersModule) 
+				loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+				data: {
+					role: ['Administrador']
+				} 
 			},
 			{ 	path: 'references-type',
-				loadChildren: () => import('./references-type/references-type.module').then(m => m.ReferencesTypeModule) 
+				loadChildren: () => import('./references-type/references-type.module').then(m => m.ReferencesTypeModule),
+				data: {
+					role: ['Administrador']
+				} 
 			},
 			{ 	path: 'courses',
-				loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule) 
+				loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
+				data: {
+					role: ['Coordinador']
+				} 
 			},
 			{ 	path: 'curriculum-vitae',
-				loadChildren: () => import('./curriculum-vitae/curriculum-vitae.module').then(m => m.CurriculumVitaeModule) 
+				loadChildren: () => import('./curriculum-vitae/curriculum-vitae.module').then(m => m.CurriculumVitaeModule),
+				data: {
+					role: ['Coordinador', 'Docente']
+				} 
 			},
 			{ 	path: 'subject-folder',
-				loadChildren: () => import('./subject-folders/subject-folders.module').then(m => m.SubjectFoldersModule) 
+				loadChildren: () => import('./subject-folders/subject-folders.module').then(m => m.SubjectFoldersModule),
+				data: {
+					role: ['Coordinador', 'Docente']
+				}  
 			},
 			{ 	path: 'section',
-				loadChildren: () => import('./sections/sections.module').then(m => m.SectionsModule) 
+				loadChildren: () => import('./sections/sections.module').then(m => m.SectionsModule),
+				data: {
+					role: ['Coordinador', 'Docente']
+				}  
 			},
 			{ 	path: 'subject-information',
-				loadChildren: () => import('./subject-information/subject-information.module').then(m => m.SubjectInformationModule) 
+				loadChildren: () => import('./subject-information/subject-information.module').then(m => m.SubjectInformationModule),
+				data: {
+					role: ['Coordinador', 'Docente']
+				} 
 			},
 			{ 	path: 'so-folder',
-				loadChildren: () => import('./so-folders/so-folders.module').then(m => m.SoFoldersModule) 
+				loadChildren: () => import('./so-folders/so-folders.module').then(m => m.SoFoldersModule),
+				data: {
+					role: ['Coordinador', 'Docente']
+				}  
 			},
 			{ 	path: 'folders',
-				loadChildren: () => import('./folders/folders.module').then(m => m.FoldersModule) 
+				loadChildren: () => import('./folders/folders.module').then(m => m.FoldersModule),
+				data: {
+					role: ['Administrador']
+				} 
 			},
 			{ 	path: 'minute',
-				loadChildren: () => import('./minutes/minutes.module').then(m => m.MinutesModule) 
+				loadChildren: () => import('./minutes/minutes.module').then(m => m.MinutesModule),
+				data: {
+					role: ['Coordinador', 'Docente']
+				}  
 			},
 			{ 	path: 'continuous-improvement',
-				loadChildren: () => import('./continuous-improvement/continuous-improvement.module').then(m => m.ContinuousImprovementModule) 
+				loadChildren: () => import('./continuous-improvement/continuous-improvement.module').then(m => m.ContinuousImprovementModule),
+				data: {
+					role: ['Coordinador', 'Docente']
+				}  
 			},
 			{
 				path: 'starter',

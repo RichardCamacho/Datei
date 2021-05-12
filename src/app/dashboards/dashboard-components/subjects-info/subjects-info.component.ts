@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { SubjectsInfoService } from './subjects-info.service';
@@ -16,8 +17,6 @@ export class SubjectsInfoComponent implements OnInit {
     { "header": 'cursos.nombre_curso', "field": "curso", "width": "25%", "typeField": 'standard' },
     { "header": 'carpeta_asig.nombre_docente', "field": "docente", "width": "30%", "typeField": 'standard' },
     { "header": 'cursos.portada', "field": "portada", "width": "15%", "typeField": 'tag' },
-    { "header": 'cursos.libros', "field": "libros", "width": "15%", "typeField": 'standard' },
-    { "header": 'cursos.prereq', "field": "prerequisitos", "width": "25%", "typeField": 'standard' },
     { "header": 'cursos.objetivos', "field": "objetivos", "width": "30%", "typeField": 'standard' },
     { "header": 'carpeta_asig.so', "field": "so", "width": "30%", "typeField": 'standard' },
     { "header": 'carpeta_asig._temas', "field": "temas", "width": "15%", "typeField": 'standard' }
@@ -28,7 +27,7 @@ export class SubjectsInfoComponent implements OnInit {
   subjectInfoTableRows = 10;
   
   constructor(private subjectsInfoService: SubjectsInfoService, private toastr: ToastrService,
-              private translate: TranslateService) { }
+              private router: Router, private translate: TranslateService) { }
 
   ngOnInit(): void {
     this.idPrograma = parseInt(sessionStorage.getItem('programa'));
@@ -37,7 +36,7 @@ export class SubjectsInfoComponent implements OnInit {
 
   getAllFacultiesByProgram(){
     this.subjectsInfoService.getAllSubjects(this.idPrograma).subscribe((res: any) => {
-      console.log(res);
+      console.log(res);//arreglar cuando no llega el docente
       this.subjectInfoList = res.map((data) => ({
         id: data.id,
         curso: data.nombreEspaniol,
@@ -55,5 +54,9 @@ export class SubjectsInfoComponent implements OnInit {
       
       this.toastr.error(`Error, ${err.error.message}`);
     });
+  }
+
+  onViewFolder(id){
+    this.router.navigate([`./app/subject-folder/${id}`]);
   }
 }

@@ -171,6 +171,10 @@
   "success_create_update":"Information successfully registered",
   "success_delete":"Record Deleted",
   "success_upload":"File was uploaded successfully",
+  "Realizada":"Done",
+  "Pendiente":"To Do",
+  "Subida":"Uploaded",
+  "No subida":"To Upload",
 
   "main": {
     "buscar": "Search",
@@ -179,9 +183,11 @@
     "cancelar": "Cancel",
     "acciones": "Actions",
     "eliminar": "Delete",
+    "continuar": "Continue",
     "editar": "Edit",
     "ver":"View",
     "descargar":"Download",
+    "estado":"Status",
     "descargar_pdf":"Download as PDF",
     "inicio": "Home",
     "nombre": "Name",
@@ -295,7 +301,7 @@
     "list_hoja_vida": "CV List",
     "desc_reg_hoja_vida_1": "CV registration form",
     "desc_reg_hoja_vida_2": "Later it is used in the creation of the Subject folder",
-    "ultima_act": "Last Update",
+    "creada_en": "Created at",
     "estudios": "Education",
     "nombre_estudio": "Degree",
     "disciplina": "Discipline",
@@ -442,6 +448,7 @@
   "docente":{
     "docentes":"Faculty",
     "reg_docente": "Faculty Register",
+    "docente_reg": "Registered Faculties",
     "grupo":"Group"
   }
 }
