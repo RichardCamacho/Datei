@@ -36,7 +36,6 @@ export class SoFoldersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
-    console.log(this.idUsuario);
     this.getAllSoFolder();
   }
 
@@ -50,7 +49,6 @@ export class SoFoldersListComponent implements OnInit {
 
   getAllSoFolder() {
     this.soFolderService.getAllSoFolderByUser(this.idUsuario).subscribe((res: any) => {
-      console.log(res)
       this.soFolderList = res;
       this.soFolderTablePaginator = (res.length > this.soFolderTableRows) ? true : false;
       this.spinner.hide();

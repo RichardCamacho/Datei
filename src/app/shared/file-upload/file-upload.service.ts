@@ -13,8 +13,6 @@ export class FileUploadService {
 
   gateway = CONFIG.gateway;
    saveFile(DataArgs , urlFileUpload ){
-    console.log(DataArgs)
-
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');

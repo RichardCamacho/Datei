@@ -85,7 +85,6 @@ export class FacultyComponent implements OnInit {
     this.submittedUp = true;
     this.faculty = this.registerFacultyForm.value;
     this.faculty.curso = this.selectedCourseId;
-    console.log(this.faculty)
     this.onCreateDocente();
   }
 
@@ -142,7 +141,6 @@ export class FacultyComponent implements OnInit {
   getGrupos(){
     this.spinner.show();
     this.facultyService.getDetailsByName('Grupos').subscribe((res: any) => {
-      console.log(res)
       this.grupoList = res;
       this.spinner.hide();
     },

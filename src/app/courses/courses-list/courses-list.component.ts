@@ -46,8 +46,6 @@ export class CoursesListComponent implements OnInit {
 
   getAllCourses() {
     this.courseService.getAllCourses().subscribe((res: any) => {
-      console.log(res)
-
       this.coursesList = res.map((data) => ({
         id: data.id,
         codigo: data.codigo,

@@ -11,7 +11,6 @@ export class DialogLookupService {
 constructor(private http: HttpClient) { }
 
   getAllItems(service) {
-    console.log(`${this.gateway.url}${service}`)
     return this.http.get(`${this.gateway.url}${service}`);
   }
 }

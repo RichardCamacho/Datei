@@ -74,6 +74,9 @@ export class SubjectFoldersComponent implements OnInit {
               if (this.selectedSubjectFolderId === undefined || this.selectedSubjectFolderId == null) {
                 this.mode = 'CREATE';
                 this.getCursoInfo();
+                this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
+                this.getCurriculumVitae();
+                this.getAllSubjectsByUser();
               } else {
                 this.mode = 'UPDATE';
                 this.getSubjectFolder(this.selectedSubjectFolderId);
@@ -94,9 +97,7 @@ export class SubjectFoldersComponent implements OnInit {
       idUsuario: [null]
     });
 
-    this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
-    this.getCurriculumVitae();
-    this.getAllSubjectsByUser();
+    
 
     this.f.curso.valueChanges.subscribe(res => {
       if(res!=null){
@@ -178,6 +179,7 @@ export class SubjectFoldersComponent implements OnInit {
       this.registerSubjectFolderForm.patchValue(this.subjectFolder);
       this.getProgram();
       this.getSubject(res.curso);
+      this.getCurriculumVitae();
       this.getSections();
       this.spinner.hide();
     },
@@ -189,7 +191,8 @@ export class SubjectFoldersComponent implements OnInit {
 
   getCurriculumVitae(){
     this.spinner.show();
-    this.subjectFolderService.getCurriculumByIdUser(this.idUsuario).subscribe((res: any) => {
+    var idUser = (this.mode === 'CREATE')? this.idUsuario:this.subjectFolder.idUsuario
+    this.subjectFolderService.getCurriculumByIdUser(idUser).subscribe((res: any) => {
       this.curriculum = res;
       if(res !== null){
         this.curriculumstate = false;
@@ -230,7 +233,6 @@ export class SubjectFoldersComponent implements OnInit {
 
   onSubmit(){
     this.submitted = true;
-    console.log(this.registerSubjectFolderForm.value)
     if (this.registerSubjectFolderForm.invalid) {
 
       if(this.f.curso.value === null){

@@ -213,7 +213,6 @@ export class SoFoldersComponent implements OnInit {
 
   onSubmit(){
     this.submitted = true;
-    console.log(this.registerSoFolderForm.value)
     if (this.registerSoFolderForm.invalid) {
       return;
     }

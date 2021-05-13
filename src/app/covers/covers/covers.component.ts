@@ -54,7 +54,6 @@ export class CoversComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerCoverForm.value)
     this.submitted = true;
     if (this.registerCoverForm.invalid) {
       return;
@@ -62,7 +61,6 @@ export class CoversComponent implements OnInit {
     this.submittedUp = true;
     this.cover = this.registerCoverForm.value;
     this.cover.curso = this.selectedSubjectId;
-    console.log(this.cover)
     // this.onCreateCover();
   }
 

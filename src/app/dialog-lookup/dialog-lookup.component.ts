@@ -42,7 +42,6 @@ export class DialogLookupComponent implements OnInit {
 
     if (this.config.data.service) {
       this.dialogLookupService.getAllItems(this.service).subscribe ((res: any) => {
-        console.log(res)
         this.items = res;
         this.loading = false ;
         this.paginatorStatus = (res.length > this.rowsDetail) ? true : false;
@@ -52,7 +51,6 @@ export class DialogLookupComponent implements OnInit {
         this.toastr.error('Error en la ejecución del servicio');//traducir
       });
     } else {
-        console.log(this.config.data.arrayData)
         this.items = this.config.data.arrayData;
         this.loading = false ;
         this.paginatorStatus = (this.items.length > this.rowsDetail) ? true : false;

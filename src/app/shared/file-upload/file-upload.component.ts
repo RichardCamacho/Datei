@@ -36,13 +36,6 @@ export class FileUploadComponent implements OnInit {
   }
 
   onSubmit(event, compFileUpload) {
-    // console.log(event)
-    // console.log(compFileUpload)
-    // console.log(this.accept)
-    // console.log(this.multiple)
-    // console.log(this.urlFileUpload)
-    // console.log(this.ownerFileId)
-    // console.log(this.modeUpload)
     this.uploadFileToActivity(event,  compFileUpload);
 
   }
@@ -61,7 +54,6 @@ export class FileUploadComponent implements OnInit {
     }
 
     for(let file of event.files) {
-      console.log(file)
       archivo = <File>file;
       fd.append('file',archivo,archivo.name);
     }
@@ -69,7 +61,6 @@ export class FileUploadComponent implements OnInit {
     this.fileUploadService.saveFile(fd, this.urlFileUpload ).subscribe( (res: any) => {
       compFileUpload.clear();
       this.onEventSave.emit( { files: event.files , res});
-      console.log({ files: event.files , res});
       if ( this.showNotificacionSuccess ) {
         this.spinner.hide();
       }

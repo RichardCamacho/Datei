@@ -100,7 +100,6 @@ export class ContinuousImprovementComponent implements OnInit {
 
     this.continuousImprovement = this.registerContinuousImprovementForm.value;
     this.continuousImprovement.carpeta = this.selectedSoFolderId;
-    console.log(this.continuousImprovement)
     this.onCreateContImprovement();
   }
 

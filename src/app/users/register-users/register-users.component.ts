@@ -111,7 +111,6 @@ export class RegisterUsersComponent implements OnInit {
   onSubmit(){
     this.submitted = true;
     if (this.registerUsersForm.invalid) {
-      console.log('no enviado');
       return;
     }
     this.submittedUp = true;

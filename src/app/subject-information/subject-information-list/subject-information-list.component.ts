@@ -35,8 +35,7 @@ export class SubjectInformationListComponent implements OnInit {
 }
 
   ngOnInit(): void {
-    this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
-    console.log(this.idUsuario);
+    this.idUsuario = parseInt(sessionStorage.getItem('user'));
     this.getAllSubjects();
   }
 

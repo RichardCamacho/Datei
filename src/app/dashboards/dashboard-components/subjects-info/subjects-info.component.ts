@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { SubjectsInfoService } from './subjects-info.service';
 
@@ -27,7 +28,7 @@ export class SubjectsInfoComponent implements OnInit {
   subjectInfoTableRows = 10;
   
   constructor(private subjectsInfoService: SubjectsInfoService, private toastr: ToastrService,
-              private router: Router, private translate: TranslateService) { }
+              private router: Router, private translate: TranslateService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.idPrograma = parseInt(sessionStorage.getItem('programa'));
@@ -36,8 +37,14 @@ export class SubjectsInfoComponent implements OnInit {
 
   getAllFacultiesByProgram(){
     this.subjectsInfoService.getAllSubjects(this.idPrograma).subscribe((res: any) => {
-      console.log(res);//arreglar cuando no llega el docente
-      this.subjectInfoList = res.map((data) => ({
+      var auxres = res;
+      res.forEach(subject => {
+        if(subject.profesor === null){
+          var i = auxres.indexOf( subject );
+          auxres.splice(i, 1);
+        }
+      });
+      this.subjectInfoList = auxres.map((data) => ({
         id: data.id,
         curso: data.nombreEspaniol,
         docente: (data.profesor.segundoNombre)? data.profesor.primerNombre + ' ' + data.profesor.segundoNombre + ' ' + data.profesor.primerApellido + ' ' + data.profesor.segundoApellido: data.profesor.primerNombre + ' ' + data.profesor.primerApellido + ' ' + data.profesor.segundoApellido,
@@ -49,9 +56,10 @@ export class SubjectsInfoComponent implements OnInit {
         temas: data.temas_curso.length
       }));
       this.subjectInfoTablePaginator = (res.length > this.subjectInfoTableRows) ? true : false;
+      this.spinner.hide();
     },
     err => {
-      
+      this.spinner.hide();
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }

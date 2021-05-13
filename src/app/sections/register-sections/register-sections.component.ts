@@ -72,13 +72,11 @@ export class RegisterSectionsComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.registerSectionForm.invalid) {
-      console.log('aqui')
       return;
     }
     this.submittedUp = true;
     this.section = this.registerSectionForm.value;
     this.section.idCarpeta = this.selectedSubjectFolderId;
-    console.log(this.section);
     this.onCreateSection();
   }
 

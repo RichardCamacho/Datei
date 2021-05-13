@@ -699,7 +699,6 @@ export class MinutesComponent implements OnInit {
   onSaveSignatures($event){
     this.firmas = $event;
     this.mdStickUp.hide();
-    console.log('aqui');
     //sigue con el metodo que forma el pdf
     this.onDownloadMinute();
   }

@@ -91,7 +91,6 @@ export class ActivitiesComponent implements OnInit {
     this.submittedUp = true;
     this.activity = this.registerActivityForm.value;
     this.activity.idActa = this.selectedMinuteId;
-    console.log(this.activity)
     this.onCreateActivity();
   }
 

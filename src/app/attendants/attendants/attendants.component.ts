@@ -67,7 +67,6 @@ export class AttendantsComponent implements OnInit {
     });
 
     this.f.asistencia.valueChanges.subscribe(res => {
-      console.log(this.f.asistencia.value)
       if(this.f.asistencia.value !== false){
         this.f.excusa.disable();
       }else{
@@ -97,7 +96,6 @@ export class AttendantsComponent implements OnInit {
     this.attendant = this.registerAttendantForm.value;
     this.attendant.idActa = this.selectedMinuteId;
     this.attendant.excusa = (this.f.excusa.disabled)? false: this.f.excusa.value;
-    console.log(this.attendant);
     this.onCreateAttendant();
   }
 

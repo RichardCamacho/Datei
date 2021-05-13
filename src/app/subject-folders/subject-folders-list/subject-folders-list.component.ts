@@ -36,8 +36,7 @@ export class SubjectFoldersListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
-    console.log(this.idUsuario);
+    this.idUsuario = parseInt(sessionStorage.getItem('user'));
     this.getAllSubjectFolder();
   }
 
@@ -51,7 +50,6 @@ export class SubjectFoldersListComponent implements OnInit {
 
   getAllSubjectFolder() {
     this.subjectFolderService.getAllSubjectFolderByUser(this. idUsuario).subscribe((res: any) => {
-      console.log(res)
       this.subjectFolderList = res;
       this.subjectFolderTablePaginator = (res.length > this.subjectFolderTableRows) ? true : false;
       this.spinner.hide();

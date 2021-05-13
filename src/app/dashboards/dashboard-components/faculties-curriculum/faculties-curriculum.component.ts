@@ -36,7 +36,6 @@ export class FacultiesCurriculumComponent implements OnInit {
         nombre: (data.segundoNombre)? data.primerNombre + ' ' + data.segundoNombre + ' ' + data.primerApellido + ' ' + data.segundoApellido: data.primerNombre + ' ' + data.primerApellido + ' ' + data.segundoApellido,
         curriculum: (data.curriculum)? 'Realizada' : 'Pendiente'
       }));
-      this.spinner.hide();
     },
     err => {
       this.spinner.hide();

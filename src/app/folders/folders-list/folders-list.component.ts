@@ -55,7 +55,6 @@ export class FoldersListComponent implements OnInit {
   getAllSubjectFolders() {
     this.spinner.show();
     this.folderService.getAllSubjectFolders().subscribe((res: any) => {
-      console.log(res)
       this.folderList = res.map((data) => ({
         id: data.id,
         codigo: data.codigo,
@@ -91,7 +90,6 @@ export class FoldersListComponent implements OnInit {
   getAllSoFolders() {
     this.spinner.show();
     this.folderService.getAllSoFolders().subscribe((res: any) => {
-      console.log(res)
       this.soFolderList = res.map((data) => ({
         id: data.id,
         codigo: data.codigo,

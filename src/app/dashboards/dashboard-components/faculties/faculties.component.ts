@@ -27,7 +27,6 @@ export class FacultiesComponent implements OnInit {
   }
 
   getAllFacultiesByProgram(){
-    this.spinner.show();
     this.facultiesService.getAllUsersByProgram(this.idPrograma).subscribe((res: any) => {
 
       this.facultiesList = res.map((data) => ({
@@ -36,7 +35,6 @@ export class FacultiesComponent implements OnInit {
         nombre: (data.segundoNombre)? data.primerNombre + ' ' + data.segundoNombre + ' ' + data.primerApellido + ' ' + data.segundoApellido: data.primerNombre + ' ' + data.primerApellido + ' ' + data.segundoApellido,
         rol: data.rol.nombre
       }));
-      this.spinner.hide();
     },
     err => {
       this.spinner.hide();
