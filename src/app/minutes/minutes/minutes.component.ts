@@ -741,7 +741,6 @@ export class MinutesComponent implements OnInit {
     this.translate.get('carpeta_so.posicion').subscribe((res: string) => {
       posicion = res;
     });
-
     return[
       {text: nombre + ': ' + name, fontSize: 10},
       {text: posicion + ': ' + position, fontSize: 10}

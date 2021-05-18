@@ -1,4 +1,3 @@
-import { StarterModule } from "src/app/starter/starter.module";
 
 export class Minutes{
     id: number;
