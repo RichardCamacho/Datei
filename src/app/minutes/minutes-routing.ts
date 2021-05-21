@@ -24,7 +24,7 @@ export const MinutesRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpeta_so.edit_acta_so',
-          urls: [{ title: 'carpeta_so.carp_so', url: '/app/so-folder/list' }, { title: 'carpeta_so.edit_acta_so' }]
+          urls: [{ title: 'carpeta_so.carp_so'}, { title: 'carpeta_so.edit_acta_so' }]
         }
       }
     ]

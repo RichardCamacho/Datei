@@ -20,8 +20,9 @@ export class CoauthorsComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  coauthor: Coauthor;
+  coauthor: Coauthor;// objeto coautor con el que trabaja el componente
 
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
@@ -46,6 +47,7 @@ export class CoauthorsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedCoauthorsId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -61,6 +63,7 @@ export class CoauthorsComponent implements OnInit {
     });
   }
 
+  //obtiene el coautor indicado por id en el estado de UPDATE
   getCoauthor(id) {
     this.coauthorService.getCoauthorById(id).subscribe((res: any) => {
       this.coauthor = res;
@@ -73,6 +76,7 @@ export class CoauthorsComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerCoauthorForm.invalid) {
@@ -81,10 +85,11 @@ export class CoauthorsComponent implements OnInit {
     this.submittedUp = true;
     this.coauthor = this.registerCoauthorForm.value;
     this.coauthor.publicacion = this.selectedPublicationId;
-    this.onCreatePublication();
+    this.onCreateCoauthor();
   }
 
-  onCreatePublication() {
+  //metodo para crear / actualizar el objeto coautor
+  onCreateCoauthor() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
       this.coauthorService.registerCoauthor(this.coauthor).subscribe((res: any) => {
@@ -125,11 +130,13 @@ export class CoauthorsComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerCoauthorForm.reset();

@@ -30,23 +30,25 @@ export class SubjectFoldersComponent implements OnInit {
   subjectFolder = new SubjectFolder;
   InstructoresList: any[];//lista de instructores
 
-  curriculum: any = null;
-  curriculumstate: boolean = true;
-  cursosList: any[];
-  subject: any = null;
-  idUsuario;
-  programaTr;
-  timeLocale:any;
-  lenguaje: string = 'es';
+  curriculum: any = null;//hoja de vida que se asocia a la carpeta
+  curriculumstate: boolean = true;//estado de la hoja de vida
+  cursosList: any[];//lista de cursos registrados por el usuario
+  subject: any = null;//asignatura de la carpeta
+  idUsuario;//id de usuario al cual se asocia la carpeta
+  programaTr;//aux para mostrar el programa del usuario
+  timeLocale:any;//hora local
+  lenguaje: string = 'es';//lenguaje actual
 
-  modalComponetActive = '';
+  modalComponetActive = '';//modal
   selectedSectionId;
 
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
+  //ssecciones de la carpeta de asignatura
   sectionsColumns: any[] = [
     { "header": 'main.nombre', "field": "nombre", "width": "50%", "typeField": 'standard' },
     { "header": 'main.fecha_creacion', "field": "created_at", "width": "50%", "typeField": 'date' }
@@ -68,7 +70,7 @@ export class SubjectFoldersComponent implements OnInit {
             private spinner: NgxSpinnerService, @Inject(LOCALE_ID) locale: string) { 
 
             this.spinner.show();
-            
+            //inicializando el componente en modo de creacion o actualizacion
             this.activatedRoute.params.subscribe(params => {
               this.selectedSubjectFolderId = params.id; // argumento enviado en la ruta
               if (this.selectedSubjectFolderId === undefined || this.selectedSubjectFolderId == null) {
@@ -82,7 +84,6 @@ export class SubjectFoldersComponent implements OnInit {
                 this.getSubjectFolder(this.selectedSubjectFolderId);
               }
             });
-
             this.timeLocale = locale;
     }
 
@@ -96,8 +97,6 @@ export class SubjectFoldersComponent implements OnInit {
       curso: [null, [Validators.required]],
       idUsuario: [null]
     });
-
-    
 
     this.f.curso.valueChanges.subscribe(res => {
       if(res!=null){
@@ -116,8 +115,8 @@ export class SubjectFoldersComponent implements OnInit {
     
   }
 
+  //obtiene el nombre del programa
   getProgram(){
-    //nombre del programa
     switch (this.f.indicador.value) {
       case '220':
         this.programaTr = 'main.sistemas';
@@ -231,6 +230,7 @@ export class SubjectFoldersComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit(){
     this.submitted = true;
     if (this.registerSubjectFolderForm.invalid) {
@@ -288,6 +288,7 @@ export class SubjectFoldersComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel(){
     this.submitted = false;
     this.registerSubjectFolderForm.reset();
@@ -355,6 +356,7 @@ export class SubjectFoldersComponent implements OnInit {
     });
   }
 
+  //modal de confirmacion para eliminar registro
   confirmModal(confirmation: string, id, componentActive) {
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
 			switch (componentActive) {
@@ -385,6 +387,7 @@ export class SubjectFoldersComponent implements OnInit {
     pdfMake.createPdf(documentDefinition).open();
   }
 
+  //descragar pdf del apendice A - Informacion de curso
   buildingPDFApendixA(){
     this.spinner.show();
     var facultad, programa, acreditacion, docentes, cod_nombre_curso,

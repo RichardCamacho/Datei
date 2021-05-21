@@ -11,7 +11,7 @@ export const FoldersRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpetas.list_carpetas',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'carpetas.list_carpetas' }]
+          urls: [{ title: 'main.inicio'}, { title: 'carpetas.list_carpetas' }]
         }
       }
     ]

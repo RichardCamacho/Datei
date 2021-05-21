@@ -15,14 +15,14 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class ReferencesTypeDetailComponent implements OnInit {
 
   registerReferenceTypeDetailForm: FormGroup;
-  submitted = false;
-  submittedUp = false;
-
-  referenceTypesDetail: ReferenceTypeDetail;
+  submitted = false; //identifica el estado del formulario
+  submittedUp = false; //auxiliar - identifica el estado del formulario
+  referenceTypesDetail: ReferenceTypeDetail;// objeto detalle tipo de referencia con el que trabaja el componente
 
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
   
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
@@ -46,6 +46,7 @@ export class ReferencesTypeDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedDetailId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -62,6 +63,7 @@ export class ReferencesTypeDetailComponent implements OnInit {
 
   }
 
+  //obtiene el detalle de tipo de referencia indicado por id en el estado de UPDATE
   getReferenceTypeDetail(id) {
     this.referenceTypeDetailService.getReferenceTypeDetailById(id).subscribe((res: any) => {
       this.registerReferenceTypeDetailForm.patchValue(res);
@@ -73,6 +75,7 @@ export class ReferencesTypeDetailComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerReferenceTypeDetailForm.invalid) {
@@ -84,6 +87,7 @@ export class ReferencesTypeDetailComponent implements OnInit {
     this.onCreateReferenceTypeDetail();
   }
 
+  //metodo para crear / actualizar el objeto detalle tipo de referencia
   onCreateReferenceTypeDetail() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -123,11 +127,13 @@ export class ReferencesTypeDetailComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerReferenceTypeDetailForm.reset();

@@ -32,6 +32,7 @@ export class SignaturesComponent implements OnInit {
     });
   }
 
+  //agregar firma
   addSignature(){
     this.submitted = true;
     if (this.registerSignature.invalid) {
@@ -43,16 +44,19 @@ export class SignaturesComponent implements OnInit {
     this.registerSignature.reset();
   }
 
+  //borrar firma
   deleteSignature(idItem){
     this.signatures.splice(this.signatures.indexOf(idItem));
     this.max = (this.signatures.length === 2)? true:false;
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.registerSignature.reset();
   }
 
+  //boton continuar
   onContinue() {
     this.onEventSave.emit(this.signatures);
   }

@@ -15,23 +15,23 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class FacultyComponent implements OnInit {
 
   registerFacultyForm: FormGroup;
-  submitted = false;
-  submittedUp = false;
+  submitted = false; //identifica el estado del formulario
+  submittedUp = false; //auxiliar - identifica el estado del formulario
 
-  faculty: Docente;
+  faculty: Docente;// objeto docente con el que trabaja el componente
 
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
-
   grupoList: any[];//lista de tipos de curso
   
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedCourseId; // id del tipo de referencia que viene del padre
-  @Input() public selectedFacultyId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedCourseId; // id de la asignatura con la que se trabaja
+  @Input() public selectedFacultyId; // id del docente seleccionado
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -51,7 +51,7 @@ export class FacultyComponent implements OnInit {
   ngOnInit(): void {
     //listas
     this.getGrupos();
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedFacultyId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -68,6 +68,7 @@ export class FacultyComponent implements OnInit {
 
   }
 
+  //obtiene el docente indicado por id en el estado de UPDATE
   getDocente(id) {
     this.facultyService.getFacultyById(id).subscribe((res: any) => {
       this.registerFacultyForm.patchValue(res);
@@ -77,6 +78,7 @@ export class FacultyComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerFacultyForm.invalid) {
@@ -88,6 +90,7 @@ export class FacultyComponent implements OnInit {
     this.onCreateDocente();
   }
 
+  //metodo para crear / actualizar el objeto docente
   onCreateDocente() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -127,17 +130,20 @@ export class FacultyComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerFacultyForm.reset();
   }
 
   //listas
+  //lista de grupos registrados en el sistema
   getGrupos(){
     this.spinner.show();
     this.facultyService.getDetailsByName('Grupos').subscribe((res: any) => {

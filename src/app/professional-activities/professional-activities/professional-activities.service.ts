@@ -37,6 +37,7 @@ export class ProfessionalActivitiesService {
     return this.http.put(`${this.gateway.url}/api/update-professional-activ/${id}`, args);
   }
 
+  //eliminar registro
   deleteProfessionalActivity(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-professional-activ/${id}`);
   }

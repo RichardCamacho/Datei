@@ -20,16 +20,17 @@ export class AttendantsComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  attendant: Attendants;
+  attendant: Attendants;// objeto asistentes con el que trabaja el componente
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedMinuteId; // id del tipo de referencia que viene del padre
-  @Input() public selectedAttendantId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedMinuteId; // id del acta con la que se está trabajando
+  @Input() public selectedAttendantId; // id del asistente seleccionado
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -48,7 +49,7 @@ export class AttendantsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedAttendantId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -75,6 +76,7 @@ export class AttendantsComponent implements OnInit {
     });
   }
 
+  //obtiene la informacion de un asistente indicado por el id
   getAttendant(id) {
     this.attendantsService.getAttendantById(id).subscribe((res: any) => {
       this.registerAttendantForm.patchValue(res);
@@ -86,8 +88,8 @@ export class AttendantsComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
-    
     this.submitted = true;
     if (this.registerAttendantForm.invalid) {
       return;
@@ -99,6 +101,7 @@ export class AttendantsComponent implements OnInit {
     this.onCreateAttendant();
   }
 
+  //metodo para crear / actualizar el objeto asistente
   onCreateAttendant() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -138,11 +141,13 @@ export class AttendantsComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerAttendantForm.reset();

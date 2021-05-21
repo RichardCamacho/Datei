@@ -36,11 +36,10 @@ export class SectionsService {
     return this.http.put(`${this.gateway.url}/api/update-section/${id}`, args);
   }
 
+  //eliminar registro
   deleteSection(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-section/${id}`);
   }
-
-  
 
   //gestion de archivos
   getUrlFileUpload(){
@@ -60,6 +59,7 @@ export class SectionsService {
     return this.http.get(`${this.gateway.url}/api/section-file/${idS}`);
   }
 
+  //obtener los archivos por seccion y tipo
   getFileList(idS, tipo){
     return this.http.get(`${this.gateway.url}/api/list-files/${idS}/${tipo}`);
   }
@@ -72,6 +72,7 @@ export class SectionsService {
     return this.http.get(`${this.gateway.url}/api/file/${id}`, { headers: headers, responseType: 'blob' as 'json'});
   }
 
+  //eliminar registro
   deleteFile(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-file/${id}`);
   }

@@ -35,20 +35,22 @@ export class FileUploadComponent implements OnInit {
     this.onEventCancel.emit(true);
   }
 
+  //metodo para el control de envio del archivo
   onSubmit(event, compFileUpload) {
     this.uploadFileToActivity(event,  compFileUpload);
 
   }
 
+  //subida del archivo
   uploadFileToActivity(event, compFileUpload) {
     this.spinner.show();
     let archivo: File = null;
 
-    if (event.files.length === 0) { return; }
+    if (event.files.length === 0) { return; }//verificar si la variable contiene o no un archivo
     const fd= new FormData;
     const uploadType = (this.multiple )? 'files' : 'archivo' ;
 
-    if  (!this.multiple) {
+    if  (!this.multiple) {//formando el paquete del objeto
       fd.append('curso', this.ownerFileId)
       fd.append('tipo', this.modeUpload)
     }
@@ -58,6 +60,7 @@ export class FileUploadComponent implements OnInit {
       fd.append('file',archivo,archivo.name);
     }
 
+    //envio al servicio de subida
     this.fileUploadService.saveFile(fd, this.urlFileUpload ).subscribe( (res: any) => {
       compFileUpload.clear();
       this.onEventSave.emit( { files: event.files , res});

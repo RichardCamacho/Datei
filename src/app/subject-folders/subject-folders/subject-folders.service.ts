@@ -64,10 +64,12 @@ export class SubjectFoldersService {
     return this.subjectService.getAllSubjects(id);
   }
 
+  //consulta una asignatura por id
   getSubjectById(id){
     return this.subjectService.getSubjectById(id);
   }
 
+  //consulta los detalles de la asignatura
   getSubjectDetById(id){
     return this.subjectService.getSubjectDetailsById(id);
   }

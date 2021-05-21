@@ -37,6 +37,7 @@ export class OrganizationsService {
     return this.http.put(`${this.gateway.url}/api/update-organization/${id}`, args);
   }
 
+  //eliminar registro
   deleteOrganization(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-organization/${id}`);
   }

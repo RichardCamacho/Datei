@@ -22,6 +22,7 @@ export class ReferencesTypeComponent implements OnInit {
   selectedId; // registra el id seleccionado que viene en la URL.
   mode = ''; // identifica el modo de transaccion del componente: CREATE , UPDATE
 
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
@@ -35,10 +36,10 @@ export class ReferencesTypeComponent implements OnInit {
     return this.registerReferenceTypeForm.controls;
   }
 
-  referenceType = new ReferenceType;
-
+  referenceType = new ReferenceType;// objeto tipo de referencia con el que trabaja el component
   selectedReferenceTypeDetailsRow; // fila seleccionada
 
+  //detalle del tipo de referencia
   referencesTypeDetailsColumns: any[] = [
     { "header": 'main.nombre', "field": "nombre", "width": "90%", "typeField": 'standard' }
   ];
@@ -52,7 +53,7 @@ export class ReferencesTypeComponent implements OnInit {
     private spinner: NgxSpinnerService) {
 
     this.spinner.show();
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.activatedRoute.params.subscribe(params => {
       this.selectedId = params.id; // argumento enviado en la ruta
       if (this.selectedId === undefined || this.selectedId == null) {
@@ -88,6 +89,7 @@ export class ReferencesTypeComponent implements OnInit {
       });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerReferenceTypeForm.invalid) {
@@ -99,6 +101,7 @@ export class ReferencesTypeComponent implements OnInit {
     this.onRegisterReferenceType();
   }
 
+  //metodo para crear / actualizar el objeto experiencia academica
   onRegisterReferenceType() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -198,6 +201,7 @@ export class ReferencesTypeComponent implements OnInit {
       });
   }
 
+  //modal de confirmacion
   confirmModal(confirmation: string, id) {
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
       this.onDeleteReferenceTypeDetail(id);

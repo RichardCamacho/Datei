@@ -12,7 +12,7 @@ export const SoFolderRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpeta_so.reg_carp_so',
-          urls: [{ title: 'carpeta_asig.list_carpetas', url: '/app/so-folder/list' }, { title: 'carpeta_so.reg_carp_so' }]//redireccionar a list
+          urls: [{ title: 'carpeta_asig.list_carpetas'}, { title: 'carpeta_so.reg_carp_so' }]//redireccionar a list
         }
       },
       {
@@ -21,7 +21,7 @@ export const SoFolderRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpeta_asig.list_carpetas',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'carpeta_asig.list_carpetas' }]//redireccionar al home
+          urls: [{ title: 'main.inicio'}, { title: 'carpeta_asig.list_carpetas' }]//redireccionar al home
         }
       },
       {
@@ -30,7 +30,7 @@ export const SoFolderRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpeta_so.edit_carp_so',
-          urls: [{ title: 'carpeta_asig.list_carpetas', url: '/app/so-folder/list' }, { title: 'carpeta_so.edit_carp_so' }]//redireccionar a list
+          urls: [{ title: 'carpeta_asig.list_carpetas'}, { title: 'carpeta_so.edit_carp_so' }]//redireccionar a list
         }
       }
     ]

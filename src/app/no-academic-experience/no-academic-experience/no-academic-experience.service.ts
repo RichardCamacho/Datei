@@ -37,6 +37,7 @@ export class NoAcademicExperienceService {
     return this.http.put(`${this.gateway.url}/api/update-no-academic-exp/${id}`, args);
   }
 
+  //eliminar registro
   deleteNoAcademicExp(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-no-academic-exp/${id}`);
   }

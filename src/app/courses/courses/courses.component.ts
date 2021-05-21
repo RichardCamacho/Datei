@@ -104,6 +104,7 @@ export class CoursesComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit(){
     this.submitted = true;
     if (this.registerCourseForm.invalid) {

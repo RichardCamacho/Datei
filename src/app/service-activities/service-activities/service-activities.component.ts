@@ -21,10 +21,10 @@ export class ServiceActivitiesComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  serviceActiv: ServiceActivity;
+  serviceActiv: ServiceActivity;// objeto Actividad de servicio  con el que trabaja el componente
 
-  @Input() public selectedCurriculumId; // id del tipo de referencia que viene del padre
-  @Input() public selectedServiceActivityId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedCurriculumId; // id de la hoja de vida con la que se está trabajando
+  @Input() public selectedServiceActivityId; // id de la actividad de servicio seleccinada
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -32,8 +32,9 @@ export class ServiceActivitiesComponent implements OnInit {
   RangosList: any[];
   TiemposList: any[];
 
-  timeLocale:any;
+  timeLocale:any;//tiempo local
 
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
@@ -53,6 +54,7 @@ export class ServiceActivitiesComponent implements OnInit {
               }
 
   ngOnInit(): void {
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedServiceActivityId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -94,6 +96,7 @@ export class ServiceActivitiesComponent implements OnInit {
     };
   }
 
+  //obtiene la actividad de servicio indicada por id en el estado de UPDATE
   getServiceActiv(id) {
     this.serviceActivService.getServiceActivityById(id).subscribe((res: any) => {
       res.fechaFinalizacion = formatDate(res.fechaFinalizacion, "yyyy-MM-dd", this.timeLocale);
@@ -107,6 +110,7 @@ export class ServiceActivitiesComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerServiceActivForm.invalid) {
@@ -117,7 +121,8 @@ export class ServiceActivitiesComponent implements OnInit {
     this.serviceActiv.hoja_vida = this.selectedCurriculumId;
     this.onCreateServiceActiv();
   }
-
+  
+  //metodo para crear / actualizar el objeto experiencia academica
   onCreateServiceActiv() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -157,11 +162,13 @@ export class ServiceActivitiesComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerServiceActivForm.reset();

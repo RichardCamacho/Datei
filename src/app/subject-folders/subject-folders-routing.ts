@@ -12,7 +12,7 @@ export const SubjectFolderRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpeta_asig.reg_carp_asig',
-          urls: [{ title: 'carpeta_asig.list_carpetas', url: '/app/subject-folder/list' }, { title: 'carpeta_asig.reg_carp_asig' }]//redireccionar a list
+          urls: [{ title: 'carpeta_asig.list_carpetas'}, { title: 'carpeta_asig.reg_carp_asig' }]//redireccionar a list
         }
       },
       {
@@ -21,7 +21,7 @@ export const SubjectFolderRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpeta_asig.list_carpetas',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'carpeta_asig.list_carpetas' }]//redireccionar al home
+          urls: [{ title: 'main.inicio'}, { title: 'carpeta_asig.list_carpetas' }]//redireccionar al home
         }
       },
       {
@@ -30,7 +30,7 @@ export const SubjectFolderRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'carpeta_asig.edit_carp_asig',
-          urls: [{ title: 'carpeta_asig.list_carpetas', url: '/app/subject-folder/list' }, { title: 'carpeta_asig.edit_carp_asig' }]//redireccionar a list
+          urls: [{ title: 'carpeta_asig.list_carpetas'}, { title: 'carpeta_asig.edit_carp_asig' }]//redireccionar a list
         }
       }
     ]

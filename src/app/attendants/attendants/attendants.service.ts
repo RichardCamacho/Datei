@@ -36,6 +36,7 @@ export class AttendantsService {
     return this.http.put(`${this.gateway.url}/api/update-attendant/${id}`, args);
   }
 
+  //borra un registro de asistente
   deleteAttendant(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-attendant/${id}`);
   }

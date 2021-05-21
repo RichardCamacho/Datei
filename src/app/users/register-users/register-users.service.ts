@@ -16,11 +16,6 @@ export class RegisterUsersService {
   registerUser(dataArgs){
     let args: any;
     args = dataArgs;
-
-    // const header = new HttpHeaders({
-    //   'Authorization':`Bearer ${sessionStorage.getItem('token')}`
-    // });
-
     return this.http.post(`${this.gateway.url}/api/register-user`, args);
   }
 

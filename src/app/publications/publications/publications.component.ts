@@ -23,15 +23,16 @@ export class PublicationsComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  publication: Publications;
+  publication: Publications;// objeto publicacion con el que trabaja el componente
 
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedCurriculumId; // id del tipo de referencia que viene del padre
-  @Input() public selectedPublicationId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedCurriculumId; // id de la hoja de vida con la que se trabaja
+  @Input() public selectedPublicationId; // id de la publicacion seleccionada
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -47,8 +48,7 @@ export class PublicationsComponent implements OnInit {
   coauthorsTableRows = 10;
   selectedCoauthorsId;
 
-
-  timeLocale:any;
+  timeLocale:any;//hora local
 
   get f() {
     return this.registerPublicationForm.controls;
@@ -64,7 +64,7 @@ export class PublicationsComponent implements OnInit {
               }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedPublicationId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -83,6 +83,7 @@ export class PublicationsComponent implements OnInit {
 
   }
 
+  //obtiene la publicacion indicada por id en el estado de UPDATE
   getPublication(id) {
     this.publicationService.getPublicationById(id).subscribe((res: any) => {
       this.publication = res;
@@ -97,8 +98,8 @@ export class PublicationsComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
-    
     this.submitted = true;
     if (this.registerPublicationForm.invalid) {
       return;
@@ -109,6 +110,7 @@ export class PublicationsComponent implements OnInit {
     this.onCreatePublication();
   }
 
+  //metodo para crear / actualizar el objeto publicacion
   onCreatePublication() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -150,11 +152,13 @@ export class PublicationsComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerPublicationForm.reset();
@@ -174,19 +178,20 @@ export class PublicationsComponent implements OnInit {
     });
   }
 
+  //nuevo coautor
   onNewCoauthor() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.selectedCoauthorsId = null;
   }
 
+  //guardar coautor
   onSaveCoauthor() {
     this.mdStickUp.hide();
     this.getCoauthors();
   }
 
+  //edicion de detalle
   onEditCoauthor(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.selectedCoauthorsId = id;
   }

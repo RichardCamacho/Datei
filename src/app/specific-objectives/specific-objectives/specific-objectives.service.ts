@@ -36,6 +36,7 @@ export class SpecificObjectivesService {
     return this.http.put(`${this.gateway.url}/api/update-objective/${id}`, args);
   }
 
+  //eliminar registro
   deleteObjective(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-objective/${id}`);
   }

@@ -11,7 +11,7 @@ export const CurriculumVitaeRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'curriculum.reg_hoja_vida',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'curriculum.reg_hoja_vida' }]//redireccionar a list
+          urls: [{ title: 'main.inicio'}, { title: 'curriculum.reg_hoja_vida' }]
         }
       },
       {
@@ -20,7 +20,7 @@ export const CurriculumVitaeRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'curriculum.edit_hoja_vida',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'curriculum.edit_hoja_vida' }]//redireccionar a list
+          urls: [{ title: 'main.inicio'}, { title: 'curriculum.edit_hoja_vida' }]
         }
       }
     ]

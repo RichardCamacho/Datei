@@ -41,7 +41,7 @@ export class RegisterSectionsComponent implements OnInit {
               }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedSectionId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -58,6 +58,7 @@ export class RegisterSectionsComponent implements OnInit {
 
   }
 
+  //obtiene la seccion indicada por id en el estado de UPDATE
   getSection(id) {
     this.sectionService.getSectionById(id).subscribe((res: any) => {
       this.registerSectionForm.patchValue(res);
@@ -69,6 +70,7 @@ export class RegisterSectionsComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerSectionForm.invalid) {
@@ -80,6 +82,7 @@ export class RegisterSectionsComponent implements OnInit {
     this.onCreateSection();
   }
 
+  //metodo para crear / actualizar el objeto sección
   onCreateSection() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -119,11 +122,13 @@ export class RegisterSectionsComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerSectionForm.reset();

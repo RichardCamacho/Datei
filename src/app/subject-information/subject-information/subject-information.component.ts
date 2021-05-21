@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DialogLookupComponent } from 'src/app/dialog-lookup/dialog-lookup.component';
 import { SubjectInformation } from './subject-information.model';
 import { SubjectInformationService } from './subject-information.service';
 import { NgxSpinnerService } from "ngx-spinner";
@@ -29,28 +28,27 @@ export class SubjectInformationComponent implements OnInit {
   subject: SubjectInformation;
 
   tipoCursoList: any[];//lista de tipos de curso
-  idUsuario;
-  modalComponetActive = '';
+  idUsuario; //id de usuario para saber a que usuario asignar la carpeta o consultarla
+  modalComponetActive = '';// manejo de la ventana modal
 
-  portada: any;
-  cover: any = '';
+  // portada: any; 
+  cover: any = '';// variable de portada
   
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
 
-
   //gestion de lista de cursos
   cursosList: any[] = [];//lista de cursos
-  photosBuffer = [];
-  bufferSize = 5;
+  coursesBuffer = [];//lista de cursos
+  bufferSize = 5;//tope de la lista que se muestra
   numberOfItemsFromEndBeforeFetchingMore = 5;
-  loading = false;
+  loading = false;//carga de la lista
 
   @ViewChild('mdStickUp', { static: false }) public mdStickUp: ModalDirective;
-
   
   get f() {
     return this.registerSubjectInformationForm.controls;
@@ -68,7 +66,7 @@ export class SubjectInformationComponent implements OnInit {
   booksTableRows = 10;
   selectedBookId; // fila seleccionada
 
-  //prerequisitos y corequisitos  (mapear)
+  //prerequisitos y corequisitos
   prerequisitesColumns: any[] = [
     { "header": 'main.nombre', "field": "nombre", "width": "90%", "typeField": 'standard' },
     { "header": 'main.tipo', "field": "tipo", "width": "90%", "typeField": 'standard' }
@@ -123,7 +121,7 @@ export class SubjectInformationComponent implements OnInit {
               private spinner: NgxSpinnerService, private sanitizer: DomSanitizer) { 
 
               this.spinner.show();
-
+              //inicializando el componente en modo de creacion o actualizacion
               this.activatedRoute.params.subscribe(params => {
                 this.selectedSubjectId = params.id; // argumento enviado en la ruta
                 if (this.selectedSubjectId === undefined || this.selectedSubjectId == null) {
@@ -165,6 +163,7 @@ export class SubjectInformationComponent implements OnInit {
       auxCurso: [null],
     });
 
+    //rescatando el id de usuario almacenado localmente en la sesion
     this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
 
     if(this.mode === 'CREATE'){
@@ -173,6 +172,7 @@ export class SubjectInformationComponent implements OnInit {
       this.f.auxCurso.setValidators(null);
     }
 
+    //imagen de portada por defecto
     this.f.filename.valueChanges.subscribe(res => {
       this.cover = (res)? res.filename:"../../../assets/images/default.jpg";
     });
@@ -196,6 +196,7 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
+  //llama metodos para obtener todos los detalles del curso
   getDetails(){
     this.spinner.show();
     this.getDocentes(this.subject.id);
@@ -208,6 +209,7 @@ export class SubjectInformationComponent implements OnInit {
     this.spinner.hide();
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit(){
     this.submitted = true;
     if (this.registerSubjectInformationForm.invalid) {
@@ -220,6 +222,7 @@ export class SubjectInformationComponent implements OnInit {
     this.onRegisterSubject();
   }
 
+  //metodo para crear / actualizar el objeto de Curso
   onRegisterSubject(){
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -272,54 +275,51 @@ export class SubjectInformationComponent implements OnInit {
   }
 
   //listas
+  //tipos de curso
   getTiposCurso(){
     this.subjectInformationService.getDetailsByName('Tipo de Curso').subscribe((res: any) => {
       this.tipoCursoList = res;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
-
+  //lista de cursos que estan disponibles en el sistema
   getCursos(){
     this.subjectInformationService.getCourses().subscribe((res: any) => {
       this.cursosList = res;
-      this.photosBuffer = this.cursosList.slice(0, this.bufferSize);
-      //spinner
+      this.coursesBuffer = this.cursosList.slice(0, this.bufferSize);
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
-
+  //scroll de la lista
   onScrollToEnd() {
     this.fetchMore();
   }
-
+  //scroll de la lista
   onScroll({ end }) {
-    if (this.loading || this.cursosList.length <= this.photosBuffer.length) {
+    if (this.loading || this.cursosList.length <= this.coursesBuffer.length) {
         return;
     }
-
-    if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.photosBuffer.length) {
+    if (end + this.numberOfItemsFromEndBeforeFetchingMore >= this.coursesBuffer.length) {
         this.fetchMore();
     }
   }
 
   private fetchMore() {
-    const len = this.photosBuffer.length;
+    const len = this.coursesBuffer.length;
     const more = this.cursosList.slice(len, this.bufferSize + len);
     this.loading = true;
     // using timeout here to simulate backend API delay
     setTimeout(() => {
         this.loading = false;
-        this.photosBuffer = this.photosBuffer.concat(more);
+        this.coursesBuffer = this.coursesBuffer.concat(more);
     }, 200)
   }
 
+  //ajuste de valores a los campos del formulario
   setValues(data){
     if(data){
       this.f.idCurso.setValue(data.id);
@@ -342,6 +342,7 @@ export class SubjectInformationComponent implements OnInit {
     }
   }
 
+  //obteniendo la lista de docentes del curso seleccionado
   getDocentes(id){
     this.spinner.show();
     this.subjectInformationService.getFaculty(id).subscribe((res: any) => {
@@ -372,20 +373,21 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
+  //agregando un nuevo detalle
   onNewBook() {
     this.mdStickUp.show();
     this.modalComponetActive = 'books';
     this.selectedBookId = null;
   }
 
+  //guardado del detalle
   onSaveBook() {
-    //spinner
     this.mdStickUp.hide();
     this.getBooks();
   }
 
+  //edicion de detalle
   onEditBook(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'books';
     this.selectedBookId = id;
@@ -422,20 +424,22 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
+  //agregando un nuevo detalle
   onNewPrerequisite() {
     this.mdStickUp.show();
     this.modalComponetActive = 'prerequisites';
     this.selectedPrerequisiteId = null;
   }
 
+  //guardado del detalle
   onSavePrerequisite() {
     //spinner
     this.mdStickUp.hide();
     this.getPrerequisites();
   }
 
+  // edicion de detalle
   onEditPrerequisite(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'prerequisites';
     this.selectedPrerequisiteId = id;
@@ -468,20 +472,21 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
+  //agregando un nuevo detalle
   onNewObjective() {
     this.mdStickUp.show();
     this.modalComponetActive = 'objectives';
     this.selectedObjectiveId = null;
   }
 
+  //guardado del detalle
   onSaveObjective() {
-    //spinner
     this.mdStickUp.hide();
     this.getObjectives();
   }
 
+  // edicion de detalle
   onEditObjective(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'objectives';
     this.selectedObjectiveId = id;
@@ -515,20 +520,21 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
+  //agregando un nuevo detalle
   onNewStudentOutcome() {
     this.mdStickUp.show();
     this.modalComponetActive = 'studentOutcomes';
     this.selectedStudentOutcomeId = null;
   }
 
+  //guardado del detalle
   onSaveStudentOutcome() {
-    //spinner
     this.mdStickUp.hide();
     this.getStudentOutcomes();
   }
 
+  // edicion de detalle
   onEditStudentOutcome(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'studentOutcomes';
     this.selectedStudentOutcomeId = id;
@@ -549,7 +555,7 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
-  // //Temas de Curso-------------------------------------------------------------------------------------------------------
+  //Temas de Curso-------------------------------------------------------------------------------------------------------
   getTopics(){
     this.subjectInformationService.getTopics(this.subject.id).subscribe((res: any) => {
       this.topicsList = res;
@@ -562,20 +568,21 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
+  //agregando un nuevo detalle
   onNewTopic() {
     this.mdStickUp.show();
     this.modalComponetActive = 'topics';
     this.selectedTopicId = null;
   }
 
+  //guardado del detalle
   onSaveTopic() {
-    //spinner
     this.mdStickUp.hide();
     this.getTopics();
   }
 
+  // edicion de detalle
   onEditTopic(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'topics';
     this.selectedTopicId = id;
@@ -609,7 +616,8 @@ export class SubjectInformationComponent implements OnInit {
     }
   }
 
-  getCover(){//recupera los datos de la imagen del repositorio
+  //recupera los datos de la imagen del repositorio
+  getCover(){
     this.spinner.show();
     if(!this.f.filename.value){//si no hay portada
       this.cover = "../../../assets/images/default.jpg";//setea la imagen por defecto
@@ -624,7 +632,8 @@ export class SubjectInformationComponent implements OnInit {
     }
   }
 
-  setCover(){//guarda en la propiedad filename
+  //guarda en la propiedad filename
+  setCover(){
     this.subjectInformationService.getCoverInfo(this.subject.id).subscribe((res: any) => {
       this.f.filename.setValue(res.nombre);
       this.getCover();
@@ -636,11 +645,13 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
+  //registro de nueva portada
   onNewCover() {
     this.mdStickUp.show();
     this.modalComponetActive = 'cover';
   }
 
+  //guardado de portada
   onSaveCover() {
     this.mdStickUp.hide();
     this.setCover();
@@ -665,6 +676,7 @@ export class SubjectInformationComponent implements OnInit {
     return this.subjectInformationService.getUrlFileUpload();
   }
 
+  //confirmacion del modal de eliminacion
   confirmModal(confirmation: string, id, componentActive) {
     this.spinner.show();
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {

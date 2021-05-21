@@ -20,15 +20,16 @@ export class CertificationsComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  certification: Certifications;
+  certification: Certifications;// objeto certificacion con el que trabaja el componente
 
+  //parametros de translate
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedCurriculumId; // id del tipo de referencia que viene del padre
-  @Input() public selectedCertificationId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedCurriculumId; // id de la hoja de vida con la que se está trabajando
+  @Input() public selectedCertificationId; // id del certificado seleccionado
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -45,14 +46,14 @@ export class CertificationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedCertificationId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
       this.spinner.hide();
       } else {
         this.mode = 'UPDATE' ;
-        this.getAcademicExp(this.SelectedId);
+        this.getCertification(this.SelectedId);
     }
     this.registerCertificationForm = this.formBuilder.group({
       id: [],
@@ -63,7 +64,8 @@ export class CertificationsComponent implements OnInit {
 
   }
 
-  getAcademicExp(id) {
+  //obtiene la experiencia academica indicada por id en el estado de UPDATE
+  getCertification(id) {
     this.certificationsService.getCertificationById(id).subscribe((res: any) => {
       this.registerCertificationForm.patchValue(res);
       this.spinner.hide();
@@ -74,6 +76,7 @@ export class CertificationsComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerCertificationForm.invalid) {
@@ -82,10 +85,11 @@ export class CertificationsComponent implements OnInit {
     this.submittedUp = true;
     this.certification = this.registerCertificationForm.value;
     this.certification.hoja_vida = this.selectedCurriculumId;
-    this.onCreateAcademicExp();
+    this.onCreateCertification();
   }
 
-  onCreateAcademicExp() {
+  //metodo para crear / actualizar el objeto certificado
+  onCreateCertification() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
       this.certificationsService.registerCertification(this.certification).subscribe((response: any) => {
@@ -124,11 +128,13 @@ export class CertificationsComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerCertificationForm.reset();

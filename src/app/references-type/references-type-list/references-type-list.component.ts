@@ -20,7 +20,7 @@ export class ReferencesTypeListComponent implements OnInit {
   selectedId: number; // id del registro seleccionado
   selectedReferenceTypeRow; // fila seleccionada
 
-  
+  //tabla de tipos de referencia
   referencesTypeColumns: any[] = [
     { "header": 'main.nombre', "field": "nombre", "width": "15%", "typeField": 'standard' },
     { "header": 'main.descripcion', "field": "descripcion", "width": "75%", "typeField": 'standard' }
@@ -41,14 +41,17 @@ export class ReferencesTypeListComponent implements OnInit {
     this.getAllReferenceType();
   }
 
+  //redirecciona al formulario de registro
   onAddReferenceType() {
     this.router.navigate([`/app/references-type/register`]);
   }
 
+  //redirecciona para editar la informacion del tipo de referencia
   onEditReferenceType(id) {
     this.router.navigate([`./app/references-type/${id}`]);
   }
 
+  //consulta la lista de todos los tipos de referencia
   getAllReferenceType() {
     this.referencesTypeService.getAllReferencesType().subscribe((res: any) => {
       this.referencesTypeList = res;
@@ -61,6 +64,7 @@ export class ReferencesTypeListComponent implements OnInit {
       });
   }
 
+  //eliminar registro
   onDeleteReferenceType(id) {
     this.spinner.show();
     this.referencesTypeService.deleteReferenceType(id).subscribe((res: any) => {
@@ -75,6 +79,7 @@ export class ReferencesTypeListComponent implements OnInit {
     });
   }
 
+  //modla de confirmacion para eliminar un registro
   confirmModal(confirmation: string, id) {
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
 			this.onDeleteReferenceType(id);

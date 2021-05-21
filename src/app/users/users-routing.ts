@@ -12,7 +12,7 @@ export const UsersRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'users.registrar_usuario',
-          urls: [{ title: 'users.list_usuarios', url: '/app/users/list' }, { title: 'users.registrar_usuario' }]
+          urls: [{ title: 'users.list_usuarios'}, { title: 'users.registrar_usuario' }]
                 }
       },
       {
@@ -21,7 +21,7 @@ export const UsersRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'users.list_usuarios',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'users.list_usuarios' }]
+          urls: [{ title: 'main.inicio'}, { title: 'users.list_usuarios' }]
         }
       },
       {
@@ -30,7 +30,7 @@ export const UsersRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'users.edit_usuario',
-          urls: [{ title: 'users.list_usuarios', url: '/app/users/list' }, { title: 'users.edit_usuario' }]
+          urls: [{ title: 'users.list_usuarios'}, { title: 'users.edit_usuario' }]
                 }
       }
     ]

@@ -36,6 +36,7 @@ export class TopicsService {
     return this.http.put(`${this.gateway.url}/api/update-topic/${id}`, args);
   }
 
+  //eliminar registro
   deleteTopic(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-topic/${id}`);
   }

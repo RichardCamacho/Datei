@@ -28,6 +28,7 @@ export class CoversService {
     return this.http.get(`${this.gateway.url}/api/subject-cover/${idC}`, { headers: headers, responseType: 'blob'});
   }
 
+  //obtiene la lista de covers por asignatura y tipo de archivo
   getFileList(idS, tipo){
     return this.http.get(`${this.gateway.url}/api/list-file/${idS}/${tipo}`);
   }
@@ -44,6 +45,7 @@ export class CoversService {
     return this.http.put(`${this.gateway.url}/api/update-cover/${id}`, args);
   }
 
+  //borrar portada
   deleteCover(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-cover/${id}`);
   }

@@ -17,6 +17,7 @@ export class FoldersListComponent implements OnInit {
   folder: any[]; /// objeto recuperado del servicio de busqueda
   selectedId: number; // id del registro seleccionado
 
+  //elementos de tabla carpetas
   folderColumns: any[] = [
     { "header": 'main.codigo', "field": "codigo", "width": "15%", "typeField": 'standard' },
     { "header": 'main.usuario', "field": "usuario", "width": "35%", "typeField": 'standard' },
@@ -29,6 +30,7 @@ export class FoldersListComponent implements OnInit {
   folderTableRows = 10;
   selectedFolderRow; // fila seleccionada
 
+  //elementos de tabla carpetas so
   soFolderColumns: any[] = [
     { "header": 'main.codigo', "field": "codigo", "width": "15%", "typeField": 'standard' },
     { "header": 'main.usuario', "field": "usuario", "width": "35%", "typeField": 'standard' },
@@ -52,6 +54,7 @@ export class FoldersListComponent implements OnInit {
     this.getAllSoFolders();
   }
 
+  //consultar todos los registros de carpetas de asignatura
   getAllSubjectFolders() {
     this.spinner.show();
     this.folderService.getAllSubjectFolders().subscribe((res: any) => {
@@ -73,6 +76,7 @@ export class FoldersListComponent implements OnInit {
       });
   }
 
+  //borrar registro de carpeta de asignatura
   onDeleteSubjectFolder(id) {
     this.spinner.show();
     this.folderService.deleteSubjectFolder(id).subscribe((res: any) => {
@@ -87,6 +91,7 @@ export class FoldersListComponent implements OnInit {
     });
   }
 
+  //consultar todos los registros de carpetas de so
   getAllSoFolders() {
     this.spinner.show();
     this.folderService.getAllSoFolders().subscribe((res: any) => {
@@ -108,6 +113,7 @@ export class FoldersListComponent implements OnInit {
       });
   }
 
+  //borrar registro de carpeta de so
   onDeleteSoFolder(id) {
     this.spinner.show();
     this.folderService.deleteSoFolder(id).subscribe((res: any) => {
@@ -122,6 +128,7 @@ export class FoldersListComponent implements OnInit {
     });
   }
 
+  //modal de confirmacion para el borrado
   confirmModal(confirmation: string, id, componentActive) {
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
       switch (componentActive) {

@@ -20,18 +20,17 @@ export class StudentOutcomesComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  studentOutcome: StudentOutcomes;
+  studentOutcome: StudentOutcomes;// objeto student outcome con el que trabaja el componente
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
-  
-  tipoList:any[];
 
-  @Input() public selectedSubjectId; // id del tipo de referencia que viene del padre
-  @Input() public selectedStudentOutcomeId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedSubjectId; // id del curso o asigantura con la que se está trabajando
+  @Input() public selectedStudentOutcomeId; // id del SO seleccionado
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -49,7 +48,7 @@ export class StudentOutcomesComponent implements OnInit {
               }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedStudentOutcomeId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -67,6 +66,7 @@ export class StudentOutcomesComponent implements OnInit {
 
   }
 
+  //obtiene el SO indicado por id en el estado de UPDATE
   getStudentOutcome(id) {
     this.studentOutcomesService.getStudentOutcomeById(id).subscribe((res: any) => {
       this.registerStudentOutcomeForm.patchValue(res);
@@ -78,6 +78,7 @@ export class StudentOutcomesComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerStudentOutcomeForm.invalid) {
@@ -88,7 +89,7 @@ export class StudentOutcomesComponent implements OnInit {
     this.studentOutcome.curso = this.selectedSubjectId;
     this.onCreateStudentOutcome();
   }
-
+  //metodo para crear / actualizar el objeto SO
   onCreateStudentOutcome() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -128,11 +129,13 @@ export class StudentOutcomesComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerStudentOutcomeForm.reset();

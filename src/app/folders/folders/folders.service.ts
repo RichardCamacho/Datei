@@ -15,19 +15,20 @@ export class FoldersService {
               private subjectFolderService: SubjectFoldersService,
               private soFolderService: SoFoldersService) { }
 
-  
+  //consulta todos las carpetas de asignatura
   getAllSubjectFolders(){
     return this.subjectFolderService.getAllSubjectFolders();
   }
-  
+  //borra un registro de carpeta de asignatura
   deleteSubjectFolder(id){
     return this.subjectFolderService.deleteSubjectFolder(id);
   }
+  //consulta todos las carpetas de asignatura
 
   getAllSoFolders(){
     return this.soFolderService.getAllSoFolders();
   }
-  
+  //borrar registro de carpeta de so
   deleteSoFolder(id){
     return this.soFolderService.deleteSoFolder(id);
   }

@@ -36,6 +36,7 @@ export class StudentOutcomesService {
     return this.http.put(`${this.gateway.url}/api/update-student-outcome/${id}`, args);
   }
 
+  //eliminar registro
   deleteStudentOutcome(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-student-outcome/${id}`);
   }

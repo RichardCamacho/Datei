@@ -40,7 +40,6 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginatorModule } from 'primeng/paginator';
-import { DialogLookupComponent } from './dialog-lookup/dialog-lookup.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -71,8 +70,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BreadcrumbComponent,
     VerticalSidebarComponent,
     HorizontalNavigationComponent,
-    HorizontalSidebarComponent,
-    DialogLookupComponent
+    HorizontalSidebarComponent
   ],
   imports: [
     CommonModule,

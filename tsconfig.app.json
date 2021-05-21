@@ -7,7 +7,7 @@
   "files": [
     "src/main.ts",
     "src/polyfills.ts",
-    "src/app/apps/mail/mailService.ts"
+    // "src/app/apps/mail/mailService.ts"
   ],
   "include": [
     "src/**/*.d.ts"

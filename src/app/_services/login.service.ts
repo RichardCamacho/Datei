@@ -17,7 +17,6 @@ export class LoginService {
 
   //autenticar el usuario
   authLogin(user: UserModel){
-
     const response = {
       username:user.email,
       password:user.password,
@@ -26,13 +25,13 @@ export class LoginService {
       client_secret:'f963psQYD2NvKoFXHLPrK1HDQdP7N0FB77h4CtDm',
       scope:'*',
     }
-
     return this.http.post(this.gateway.url+'/oauth/token', response);
   }
 
   //cerrar sesión
   logOut(){
-    sessionStorage.removeItem('token');
+    // sessionStorage.removeItem('token');
+    sessionStorage.clear();//esto limpia el almacenamiento de credenciales
     this.router.navigate([`/`]);
   }
 
@@ -47,14 +46,12 @@ export class LoginService {
   // indica si el usuario se encuentra en sesión para acceder a alguna ruta de la app.
   isLoggedIn(): boolean {
     if (sessionStorage.getItem('token')) {
-      // console.log('true')
       return true;
     }
-    // console.log('false')
     return false;
   }
   
-    // indica si el usuario se encuentra registrado o no.
+  // indica si el usuario se encuentra registrado o no.
   currentUser(): string {
     if (sessionStorage.getItem('user')) {
       const username = sessionStorage.getItem('email');
@@ -63,10 +60,12 @@ export class LoginService {
     return null;
   }
 
+  //consultar un detalle de referencia por id
   getReferenceDetail(idRef){
     return this.http.get(`${this.gateway.url}/api/reference-type-detail/${idRef}`)
   }
 
+  //obtener el rol desde los datos guardados
   getRole(){
     return sessionStorage.getItem('rol');
   }

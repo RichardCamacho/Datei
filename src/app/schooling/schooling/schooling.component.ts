@@ -20,16 +20,17 @@ export class SchoolingComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  schooling: Schooling;
+  schooling: Schooling;// objeto escolaridad con el que trabaja el componente
 
+  //parametros de translate
   param10 = {value: '10'};
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedCurriculumId; // id del tipo de referencia que viene del padre
-  @Input() public selectedSchoolingId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedCurriculumId; // id de la hoja de vida con la que se está trabajando
+  @Input() public selectedSchoolingId; // id de la escolaridad seleccionada
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -47,7 +48,7 @@ export class SchoolingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedSchoolingId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -66,7 +67,7 @@ export class SchoolingComponent implements OnInit {
     });
 
   }
-
+  //obtiene la escolaridad indicada por id en el estado de UPDATE
   getSchooling(id) {
     this.schoolingService.getSchoolingById(id).subscribe((res: any) => {
       this.registerSchoolingForm.patchValue(res);
@@ -78,6 +79,7 @@ export class SchoolingComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerSchoolingForm.invalid) {
@@ -89,6 +91,7 @@ export class SchoolingComponent implements OnInit {
     this.onCreateSchooling();
   }
 
+  //metodo para crear / actualizar el objeto escolaridad
   onCreateSchooling() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -128,11 +131,13 @@ export class SchoolingComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerSchoolingForm.reset();

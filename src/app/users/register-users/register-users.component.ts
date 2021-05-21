@@ -21,10 +21,11 @@ export class RegisterUsersComponent implements OnInit {
   selectedId; // registra el id seleccionado que viene en la URL.
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
 
-  RolesList: any[];
-  RangosList: any[];
-  ProgramasList: any[];
+  RolesList: any[]; // lista de roles disponibles
+  RangosList: any[]; // rangos
+  ProgramasList: any[]; //lista de programas
 
+  //parametros de translate
   param8 = {value: '8'};
   param100 = {value: '100'};
   param200 = {value: '200'};
@@ -47,7 +48,6 @@ export class RegisterUsersComponent implements OnInit {
       this.selectedId = params.id; // argumento enviado en la ruta
       if (this.selectedId === undefined || this.selectedId == null) {
         this.mode = 'CREATE';
-        //spinner
       } else {
         this.mode = 'UPDATE' ;
         this.getUser(this.selectedId);
@@ -79,7 +79,7 @@ export class RegisterUsersComponent implements OnInit {
       validators: sameFields
     });
     
-
+    //controles de campo contraseña
     if(this.mode==='CREATE'){ 
       this.f.password.enable();
       this.f.repPassword.enable()
@@ -89,6 +89,7 @@ export class RegisterUsersComponent implements OnInit {
     }
   }
 
+  //uso del pipe de campos iguales
   camposIguales(): boolean {
     return this.registerUsersForm.hasError('noSonIguales') &&
       this.registerUsersForm.get('password').dirty &&
@@ -108,6 +109,7 @@ export class RegisterUsersComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit(){
     this.submitted = true;
     if (this.registerUsersForm.invalid) {
@@ -127,6 +129,7 @@ export class RegisterUsersComponent implements OnInit {
     this.onRegisterUser();
   }
 
+  //metodo para crear / actualizar el objeto usuario
   onRegisterUser(){
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -165,6 +168,7 @@ export class RegisterUsersComponent implements OnInit {
     }
   }
 
+  //guardado de información de usuario
   onSaveUser(id) {
     this.router.navigate([`./app/users/${id}`]);
   }
@@ -180,7 +184,7 @@ export class RegisterUsersComponent implements OnInit {
 
   
   //listas
-
+  //roles de  usuario
   getRoles(){
     this.spinner.show();
     this.registerUserService.getDetailsByName('Roles').subscribe((res: any) => {
@@ -192,7 +196,7 @@ export class RegisterUsersComponent implements OnInit {
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
-
+  //lista de rangos
   getRangos(){
     this.spinner.show();
     this.registerUserService.getDetailsByName('Rangos').subscribe((res: any) => {
@@ -204,7 +208,7 @@ export class RegisterUsersComponent implements OnInit {
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
-
+  //lista de programas
   getProgramas(){
     this.spinner.show();
     this.registerUserService.getDetailsByName('Programas').subscribe((res: any) => {

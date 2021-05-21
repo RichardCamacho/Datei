@@ -37,6 +37,7 @@ export class AcademicExperienceService {
     return this.http.put(`${this.gateway.url}/api/update-academic-exp/${id}`, args);
   }
 
+  //eliminar un registro de experiencia academica
   deleteAcademicExp(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-academic-exp/${id}`);
   }

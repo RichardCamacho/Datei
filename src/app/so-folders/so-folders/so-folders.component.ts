@@ -23,11 +23,11 @@ export class SoFoldersComponent implements OnInit {
   mode = ''; // identifica el modo de transaccion del componente: CREATE , UPDATE
   soFolder = new soFolder;
 
-  idUsuario;
-  programaTr;
-
+  idUsuario;// id de usuario 
+  programaTr;//auxiliar del programa del usuario
   modalComponetActive = '';
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
@@ -66,7 +66,7 @@ export class SoFoldersComponent implements OnInit {
             private modalService: NgbModal, private translate: TranslateService,private spinner: NgxSpinnerService) { 
 
               this.spinner.show();
-
+              //inicializando el componente en modo de creacion o actualizacion
               this.activatedRoute.params.subscribe(params => {
                 this.selectedSoFolderId = params.id; // argumento enviado en la ruta
                 if (this.selectedSoFolderId === undefined || this.selectedSoFolderId == null) {
@@ -94,6 +94,7 @@ export class SoFoldersComponent implements OnInit {
     this.idUsuario = parseInt(sessionStorage.getItem('user'));//rescato el id que está almacenado en la sesión
   }
 
+  //metodo para asignar el codigo del programa para la carpeta
   getProgramaInfo(){
     var idCurso = parseInt(sessionStorage.getItem('programa'));
     this.soFolderService.getCursoInfo(idCurso).subscribe((res: any) => {
@@ -128,6 +129,7 @@ export class SoFoldersComponent implements OnInit {
     });
   }
 
+  //obtiene la carpeta de SO indicada por id en el estado de UPDATE
   getSoFolder(id){
     this.soFolderService.getSoFolderById(id).subscribe((res: any) => {
       this.soFolder = res;
@@ -140,6 +142,7 @@ export class SoFoldersComponent implements OnInit {
     });
   }
 
+  //obtiene todas las actas asociadas a la carpeta
   getAllMinutesBySoFolder(){
     this.spinner.show();
     this.soFolderService.getMinutesBySoFolder(this.selectedSoFolderId).subscribe((res: any) => {
@@ -152,10 +155,12 @@ export class SoFoldersComponent implements OnInit {
     });
   }
 
+  //registrar un acta
   onRegisterMinute() {
     this.router.navigate([`./app/minute/register/${this.selectedSoFolderId}`]);
   }
 
+  //editar un acta
   onEditMinute(id) {
     this.router.navigate([`./app/minute/${id}`]);
   }
@@ -176,6 +181,7 @@ export class SoFoldersComponent implements OnInit {
   }
 
   // actas de mejoramiento continuo---------------------------------------------------------------------------------------------------
+  //obtiene todas las actas de mejoramiento continuo
   getContImprovementsBySoFolder() {
     this.spinner.show();
     this.soFolderService.getContImprovementsBySoFolder(this.selectedSoFolderId).subscribe((res: any) => {
@@ -188,10 +194,12 @@ export class SoFoldersComponent implements OnInit {
     });
   }
 
+  //registro de acta de mejoramiento continuo
   onRegisterContImprovement() {
     this.router.navigate([`./app/continuous-improvement/register/${this.selectedSoFolderId}`]);
   }
 
+  //editar acta de mejoramiento continuo
   onEditContImprovement(id) {
     this.router.navigate([`./app/continuous-improvement/${id}`]);
   }
@@ -211,6 +219,7 @@ export class SoFoldersComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit(){
     this.submitted = true;
     if (this.registerSoFolderForm.invalid) {
@@ -222,6 +231,7 @@ export class SoFoldersComponent implements OnInit {
     this.onRegisterSoFolder();
   }
 
+  //metodo para crear / actualizar el objeto carpeta de so
   onRegisterSoFolder(){
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -260,6 +270,7 @@ export class SoFoldersComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel(){
     this.submitted = false;
     this.registerSoFolderForm.reset();
@@ -268,6 +279,7 @@ export class SoFoldersComponent implements OnInit {
     }
   }
 
+  //modal de confirmacion para el borrado
   confirmModal(confirmation: string, id, componentActive) {
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
       switch (componentActive) {

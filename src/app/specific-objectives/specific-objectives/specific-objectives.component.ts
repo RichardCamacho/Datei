@@ -20,16 +20,17 @@ export class SpecificObjectivesComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  objective: SpecificObjectives;
+  objective: SpecificObjectives;// objeto objetivo especifico con el que trabaja el componente
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedSubjectId; // id del tipo de referencia que viene del padre
-  @Input() public selectedObjectiveId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedSubjectId; // id del curso o asignatura con el que se está trabajando
+  @Input() public selectedObjectiveId; // id del objetivo selecciconado
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -47,7 +48,7 @@ export class SpecificObjectivesComponent implements OnInit {
               }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedObjectiveId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -64,6 +65,7 @@ export class SpecificObjectivesComponent implements OnInit {
 
   }
 
+  //obtiene el objetivo indicado por id en el estado de UPDATE
   getObjective(id) {
     this.objectivesService.getObjectiveById(id).subscribe((res: any) => {
       this.registerObjectiveForm.patchValue(res);
@@ -75,6 +77,7 @@ export class SpecificObjectivesComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerObjectiveForm.invalid) {
@@ -85,7 +88,8 @@ export class SpecificObjectivesComponent implements OnInit {
     this.objective.curso = this.selectedSubjectId;
     this.onCreateObjective();
   }
-
+  
+  //metodo para crear / actualizar el objeto experiencia academica
   onCreateObjective() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -125,11 +129,13 @@ export class SpecificObjectivesComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerObjectiveForm.reset();

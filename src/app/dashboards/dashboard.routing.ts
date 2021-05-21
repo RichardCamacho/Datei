@@ -12,7 +12,7 @@ export const DashboardRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'Modern Dashboard',
-          urls: [{ title: 'Dashboard', url: '/dashboard' }, { title: 'Modern Dashboard' }]
+          urls: [{ title: 'Dashboard'}, { title: 'Modern Dashboard' }]
         }
       }
     ]

@@ -25,17 +25,18 @@ export class CurriculumVitaeComponent implements OnInit {
 
   fechaActaulizacion: string;
   user;//variable auxiliar para almacenar un usuario
-  idUsuario;
-  curriculum = new CurriculumVitae;
+  idUsuario;//id de usuario al cual se asocia la hoja de vida
+  curriculum = new CurriculumVitae;//objeto hoja de vida
   
-  RolesList: any[];
-  RangosList: any[];
-  ProgramasList: any[];
+  RolesList: any[];//lista de roles
+  RangosList: any[];//lista de rangos
+  ProgramasList: any[];//lista de programas
 
   modalComponetActive = '';
-  timeLocale:any;
-  today:any;
+  timeLocale:any;//tiempo local
+  today:any;//hoy
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
@@ -213,6 +214,7 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
 
+  //lista de detalles
   getDetailsList(){
     this.getEstudios();
     this.getExperienciaAcademica();
@@ -225,6 +227,7 @@ export class CurriculumVitaeComponent implements OnInit {
     this.getActividadServicio();
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit(){
     this.submitted = true;
     if (this.registerCurriculumVitaeForm.invalid) {
@@ -243,6 +246,7 @@ export class CurriculumVitaeComponent implements OnInit {
     this.onRegisterCurriculum();
   }
 
+  //metodo para crear / actualizar el objeto hoja de vida
   onRegisterCurriculum(){
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -279,6 +283,7 @@ export class CurriculumVitaeComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel(){
     this.submitted = false;
     this.getCurriculumViate();
@@ -288,32 +293,28 @@ export class CurriculumVitaeComponent implements OnInit {
   getRoles(){
     this.curriculumVitaeService.getDetailsByName('Roles').subscribe((res: any) => {
       this.RolesList = res;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //obtiene la lista de rangos
   getRangos(){
     this.curriculumVitaeService.getDetailsByName('Rangos').subscribe((res: any) => {
       this.RangosList = res;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //obtiene la lista de programas
   getProgramas(){
     this.curriculumVitaeService.getDetailsByName('Programas').subscribe((res: any) => {
       this.ProgramasList = res;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
@@ -324,30 +325,27 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculumVitaeService.getEstudios(this.curriculum.id).subscribe((res: any) => {
       this.schoolingList = res;
       this.schoolingTablePaginator = (res.length > this.schoolingTableRows) ? true : false;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //nuevo registro de escolaridad
   onNewSchooling() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'schooling'; // estudios
     this.selectedSchoolingId = null;
   }
 
+  //edicion de detalle
   onSaveSchooling() {
-    //spinner
     this.mdStickUp.hide();
-    // this.updateDate();
     this.getEstudios();
   }
 
+  //edicion de detalle
   onEditSchooling(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'schooling'; // estudios
     this.selectedSchoolingId = id;
@@ -374,30 +372,26 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculumVitaeService.getExperienciaAcademica(this.curriculum.id).subscribe((res: any) => {
       this.academicExperienceList = res;
       this.academicExperienceTablePaginator = (res.length > this.academicExperienceTableRows) ? true : false;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //nuevo registro de experiencia academica
   onNewAcademicExp() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'academicExp'; // experiencia academica
     this.selectedAcademicExperienceId = null;
   }
 
   onSaveAcademicExp() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getExperienciaAcademica();
   }
 
+  //edicion de detalle
   onEditAcademicExp(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'academicExp'; // experiencia academica
     this.selectedAcademicExperienceId = id;
@@ -424,30 +418,26 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculumVitaeService.getExperienciaNoAcademica(this.curriculum.id).subscribe((res: any) => {
       this.noAcademicExperienceList = res;
       this.noAcademicExperienceTablePaginator = (res.length > this.noAcademicExperienceTableRows) ? true : false;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //nuevo registro de experiencia no academica
   onNewNoAcademicExp() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'noAcademicExp'; // experiencia no academica
     this.selectedNoAcademicExperienceId = null;
   }
 
   onSaveNoAcademicExp() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getExperienciaNoAcademica();
   }
 
+  //edicion de detalle
   onEditNoAcademicExp(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'noAcademicExp'; // experiencia no academica
     this.selectedNoAcademicExperienceId = id;
@@ -474,30 +464,26 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculumVitaeService.getCertificaciones(this.curriculum.id).subscribe((res: any) => {
       this.certificationsList = res;
       this.certificationsTablePaginator = (res.length > this.certificationsTableRows) ? true : false;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //nuevo registro de certificacion
   onNewCertification() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'certification';
     this.selectedCertificationId = null;
   }
 
   onSaveCertification() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getCertificaciones();
   }
 
+  //edicion de detalle
   onEditCertification(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'certification';
     this.selectedCertificationId = id;
@@ -524,30 +510,26 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculumVitaeService.getOrganizaciones(this.curriculum.id).subscribe((res: any) => {
       this.organizationsList = res;
       this.organizationsTablePaginator = (res.length > this.organizationsTableRows) ? true : false;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //nuevo registro de organizacion
   onNewOrganization() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'organization';
     this.selectedOrganizationId = null;
   }
 
   onSaveOrganization() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getOrganizaciones();
   }
 
+  //edicion de detalle
   onEditOrganization(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'organization';
     this.selectedOrganizationId = id;
@@ -574,30 +556,26 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculumVitaeService.getPublicaciones(this.curriculum.id).subscribe((res: any) => {
       this.publicationsList = res;
       this.publicationsTablePaginator = (res.length > this.publicationsTableRows) ? true : false;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //nuevo registro de publicacion
   onNewPublication() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'publication';
     this.selectedPublicationId = null;
   }
 
   onSavePublication() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getPublicaciones();
   }
 
+  //edicion de detalle
   onEditPublication(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'publication';
     this.selectedPublicationId = id;
@@ -624,30 +602,26 @@ export class CurriculumVitaeComponent implements OnInit {
     this.curriculumVitaeService.getActividadProfesional(this.curriculum.id).subscribe((res: any) => {
       this.professionalActivitiesList = res;
       this.professionalActivitiesTablePaginator = (res.length > this.professionalActivitiesTableRows) ? true : false;
-      //spinner
     },
     err => {
-      //spinner
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
 
+  //nuevo registro de actividad profesional
   onNewProfessionalActivity() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'professionalAct';
     this.selectedProfessionalActivityId = null;
   }
 
   onSaveProfessionalActivity() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getActividadProfesional();
   }
 
+  //edicion de detalle
   onEditProfessionalActivity(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'professionalAct';
     this.selectedProfessionalActivityId = id;
@@ -682,22 +656,20 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
 
+  //nuevo registro de premio
   onNewAward() {
-    // Nuevo detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'award';
     this.selectedAwardId = null;
   }
 
   onSaveAward() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getPremios();
   }
 
+  //edicion de detalle
   onEditAward(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'award';
     this.selectedAwardId = id;
@@ -732,6 +704,7 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
 
+  //nuevo registro de actividad de servicio
   onNewServiceActivity() {
     // Nuevo detalle
     this.mdStickUp.show();
@@ -740,14 +713,12 @@ export class CurriculumVitaeComponent implements OnInit {
   }
 
   onSaveServiceActivity() {
-    // salvado de detalle
-    //spinner
     this.mdStickUp.hide();
     this.getActividadServicio();
   }
 
+  //edicion de detalle
   onEditServiceActivity(id) {
-    // edicion de detalle
     this.mdStickUp.show();
     this.modalComponetActive = 'serviceActv';
     this.selectedServiceActivityId = id;
@@ -769,6 +740,7 @@ export class CurriculumVitaeComponent implements OnInit {
     });
   }
 
+  //modal de confirmación de eliminacion
   confirmModal(confirmation: string, id, componentActive) {
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
       

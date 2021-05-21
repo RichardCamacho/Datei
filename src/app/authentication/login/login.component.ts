@@ -13,7 +13,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  submitted = false;
+  submitted = false; //identifica el estado del formulario
 
   get f() {
     return this.loginForm.controls;
@@ -29,12 +29,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     document.title =  `Datei - Iniciar sesión`;
-    // sessionStorage.clear();//esto limpia el almacenamiento de credenciales tener en cuenta
 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      // datasource: ['']
+      password: ['', Validators.required]
     });
   }
 
@@ -43,6 +41,7 @@ export class LoginComponent implements OnInit {
     this.recoverform = !this.recoverform;
   }
 
+  //manejo del login
   async login(user: UserModel) {
     this.spinner.show();
     this.submitted = true;
@@ -50,10 +49,10 @@ export class LoginComponent implements OnInit {
       this.spinner.hide();
       return;
     }
-
+    //crea el token de autorizacion para acceder a las funcionalidades de la web
     this.loginService.authLogin(user).subscribe((res:any) => {
       sessionStorage.setItem('token', res.access_token);//guarda datos del token valido mientras no se cierre la pestaña
-      this.getUserData();
+      this.getUserData();//consulta los datos del usuario
       this.spinner.hide();
       this.toastr.success('Credenciales correctas'); 
     }, 
@@ -64,6 +63,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //obtiene los datos del usuario y los almacena localmente durante la sesion
   getUserData(){
     this.loginService.gettingUser().subscribe((res:any) => {
       sessionStorage.setItem('user', res.id);//guarda id del usuario en un objeto de sesion
@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  //redirecciona la usuario dependiendo de su rol
   getRolName(id){
     this.loginService.getReferenceDetail(id).subscribe((res:any) => {
       sessionStorage.setItem('rol', res.nombre);

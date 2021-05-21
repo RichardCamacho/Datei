@@ -36,6 +36,7 @@ export class ServiceActivitiesService {
     return this.http.put(`${this.gateway.url}/api/update-service-activ/${id}`, args);
   }
 
+  //eliminar registro
   deleteServiceActivity(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-service-activ/${id}`);
   }

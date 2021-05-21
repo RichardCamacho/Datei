@@ -37,6 +37,7 @@ export class PrerequisitesService {
     return this.http.put(`${this.gateway.url}/api/update-prerequisite/${id}`, args);
   }
 
+  //eliminar registro
   deletePrerequisite(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-prerequisite/${id}`);
   }

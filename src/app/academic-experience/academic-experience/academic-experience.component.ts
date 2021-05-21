@@ -18,27 +18,27 @@ export class AcademicExperienceComponent implements OnInit {
   registerAcademicExpForm: FormGroup;
   submitted = false; //identifica el estado del formulario
   submittedUp = false; //auxiliar - identifica el estado del formulario
-  mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
+  mode = '' ; // identifica el modo de transaccion del componente: CREATE o UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  academicExp: AcademicExperience;
+  academicExp: AcademicExperience;// objeto experiencia academica con el que trabaja el componente
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedCurriculumId; // id del tipo de referencia que viene del padre
-  @Input() public selectedAcademicExperienceId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedCurriculumId; // id de la hoja de vida con la que se está trabajando
+  @Input() public selectedAcademicExperienceId; // id la experiencia academica seleccionada
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
 
-  RangosList: any[];
-  TiemposList: any[];
-
-  timeLocale:any;
+  RangosList: any[]; //lista de rangos
+  TiemposList: any[]; //lista de tiempos
+  timeLocale:any;//hora local
 
   get f() {
     return this.registerAcademicExpForm.controls;
@@ -54,11 +54,10 @@ export class AcademicExperienceComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    
     //listas
     this.getRangos();
     this.getTiempo();
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedAcademicExperienceId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -89,11 +88,9 @@ export class AcademicExperienceComponent implements OnInit {
     return (formGroup: FormGroup) => {
       const controlFechaInicio = formGroup.controls.fechaInicio;
       const controlfechaFin = formGroup.controls.fechaFinalizacion;
-
       if (controlfechaFin.errors && !controlfechaFin.errors.invalidDate) {
         return;
       }
-
       if (controlFechaInicio.value > controlfechaFin.value) {
           controlfechaFin.setErrors({ invalidDate: true });
       } else {
@@ -102,6 +99,7 @@ export class AcademicExperienceComponent implements OnInit {
     };
   }
 
+  //obtiene la experiencia academica indicada por id en el estado de UPDATE
   getAcademicExp(id) {
     this.spinner.show();
     this.academicExpService.getAcademicExpById(id).subscribe((res: any) => {
@@ -116,6 +114,7 @@ export class AcademicExperienceComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerAcademicExpForm.invalid) {
@@ -127,6 +126,7 @@ export class AcademicExperienceComponent implements OnInit {
     this.onCreateAcademicExp();
   }
 
+  //metodo para crear / actualizar el objeto experiencia academica
   onCreateAcademicExp() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -166,17 +166,20 @@ export class AcademicExperienceComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerAcademicExpForm.reset();
   }
 
   //listas
+  //obtiene la lista de rangos disponibles
   getRangos(){
     this.spinner.show();
     this.academicExpService.getDetailsByName('Rangos').subscribe((res: any) => {
@@ -188,7 +191,7 @@ export class AcademicExperienceComponent implements OnInit {
       this.toastr.error(`Error, ${err.error.message}`);
     });
   }
-
+  //obtiene la lista de tiempos
   getTiempo(){
     this.spinner.show();
     this.academicExpService.getDetailsByName('Tiempos').subscribe((res: any) => {

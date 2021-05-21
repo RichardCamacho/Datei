@@ -20,8 +20,9 @@ export class PrerequisitesComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  prerequisite: Prerequisite;
+  prerequisite: Prerequisite;// objeto prerequisito con el que trabaja el componente
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
@@ -30,8 +31,8 @@ export class PrerequisitesComponent implements OnInit {
   
   tipoList:any[];
 
-  @Input() public selectedSubjectId; // id del tipo de referencia que viene del padre
-  @Input() public selectedPrerequisiteId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedSubjectId; // id del curso o asignatura con la que se trabaja
+  @Input() public selectedPrerequisiteId; // id del prerequisito seleccionado
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -51,7 +52,7 @@ export class PrerequisitesComponent implements OnInit {
   ngOnInit(): void {
     //listas
     this.getTipos();
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedPrerequisiteId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -68,6 +69,7 @@ export class PrerequisitesComponent implements OnInit {
 
   }
 
+  //obtiene el prerequisito indicado por id en el estado de UPDATE
   getPrerequisite(id) {
     this.prerequisitesService.getPrerequisiteById(id).subscribe((res: any) => {
       this.registerPrerequisiteForm.patchValue(res);
@@ -79,8 +81,8 @@ export class PrerequisitesComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
-    
     this.submitted = true;
     if (this.registerPrerequisiteForm.invalid) {
       return;
@@ -91,6 +93,7 @@ export class PrerequisitesComponent implements OnInit {
     this.onCreatePrerequisite();
   }
 
+  //metodo para crear / actualizar el objeto experiencia academica
   onCreatePrerequisite() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -130,17 +133,20 @@ export class PrerequisitesComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerPrerequisiteForm.reset();
   }
 
   //listas
+  //litas de tipos registrados en el sistema
   getTipos(){
     this.spinner.show();
     this.prerequisitesService.getDetailsByName('Requisitos').subscribe((res: any) => {

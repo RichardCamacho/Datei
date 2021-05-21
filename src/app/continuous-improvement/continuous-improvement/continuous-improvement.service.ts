@@ -36,6 +36,7 @@ export class ContinuousImprovementService {
     return this.http.put(`${this.gateway.url}/api/update-continuous-improvement/${id}`, args);
   }
 
+  //borrar registro de acta mejoramiento continuo
   deleteContImprovement(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-continuous-improvement/${id}`);
   }

@@ -36,6 +36,7 @@ export class CoauthorsService {
     return this.http.put(`${this.gateway.url}/api/update-coauthor/${id}`, args);
   }
 
+  //eliminar un registro de coautor
   deleteCoauthor(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-coauthor/${id}`);
   }

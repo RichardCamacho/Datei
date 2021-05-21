@@ -36,6 +36,7 @@ export class ActivitiesService {
     return this.http.put(`${this.gateway.url}/api/update-activity/${id}`, args);
   }
 
+  //borra un registro de actividad/compromiso
   deleteActivity(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-activity/${id}`);
   }

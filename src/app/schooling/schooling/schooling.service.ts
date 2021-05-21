@@ -15,7 +15,6 @@ export class SchoolingService {
   registerSchooling(dataArgs) {
     let args: any;
     args = dataArgs;
-
     return this.http.post(`${this.gateway.url}/api/register-schooling`, args);
   }
 

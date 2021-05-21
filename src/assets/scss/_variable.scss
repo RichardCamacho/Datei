@@ -101,6 +101,7 @@ $green: #06d79c !default;
 $teal: #20c997 !default;
 $cyan: #4fc3f7 !default;
 $primary: #7460ee !default;
+$udc: #d8a61e;
 $text-muted: $gray-500 !default;
 
 $colors: (
@@ -116,6 +117,7 @@ $colors: (
   "cyan": $cyan,
   "white": $white,
   "gray": $gray-600,
+  "udc":$udc,
   "gray-dark": $gray-800,
 );
 
@@ -129,6 +131,7 @@ $light: $gray-200 !default;
 $dark: $gray-800 !default;
 $muted: $gray-500 !default;
 $cyan: $cyan !default;
+$default: $udc !default;
 $orange: $orange !default;
 
 //
@@ -168,6 +171,7 @@ $theme-colors: map-merge(
     "dark": $dark,
     "muted": $muted,
     "cyan": $cyan,
+    "default":$default,//personalizado para la app
     "orange": $orange,
     "purple": $purple,
     "light-danger": $light-danger,

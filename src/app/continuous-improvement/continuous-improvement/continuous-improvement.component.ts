@@ -26,9 +26,10 @@ export class ContinuousImprovementComponent implements OnInit {
   selectedContImprovementId // Id del registro seleccionado
   selectedSoFolderId;
   continuousImprovement: ContinuousImprovement;
-  today: any;
-  timeLocale:any;
+  today: any;//dia actual
+  timeLocale:any;//tiempo local
 
+  //parametros de translate
   param8 = {value: '8'};
   param100 = {value: '100'};
   param200 = {value: '200'};
@@ -45,6 +46,7 @@ export class ContinuousImprovementComponent implements OnInit {
               private dateHelp: DateHelp,  @Inject(LOCALE_ID) locale: string) {
 
               this.spinner.show();
+              //inicializando el componente en modo de creacion o actualizacion, se consulta el id por la ruta indicada
               this.activatedRoute.params.subscribe(params => {
                 this.selectedSoFolderId = params.idF;//en creacion es diferente de nulo / en edicion es nulo
                 this.selectedContImprovementId = params.id; // en creacion es nulo / en edición es diferencte de nulo
@@ -78,7 +80,7 @@ export class ContinuousImprovementComponent implements OnInit {
     });
 
   }
-
+  //obtiene el mejoramiento continuo indicado por id en el estado de UPDATE
   getContImprovement(id) {
     this.continuousImprovementsService.getContImprovementById(id).subscribe((res: any) => {
       this.continuousImprovement = res;
@@ -91,18 +93,19 @@ export class ContinuousImprovementComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerContinuousImprovementForm.invalid) {
       return;
     }
     this.submittedUp = true;
-
     this.continuousImprovement = this.registerContinuousImprovementForm.value;
     this.continuousImprovement.carpeta = this.selectedSoFolderId;
     this.onCreateContImprovement();
   }
 
+  //metodo para crear / actualizar el objeto experiencia academica
   onCreateContImprovement() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -146,6 +149,7 @@ export class ContinuousImprovementComponent implements OnInit {
     this.router.navigate([`./app/continuous-improvement/${id}`]);
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.submitted = false;
     this.registerContinuousImprovementForm.reset();
@@ -163,9 +167,10 @@ export class ContinuousImprovementComponent implements OnInit {
     }
   }
 
+  //metodo incializador de descarga del PDF de mejoramiento continuo
   onDownloadContImprovement(){
     const documentDefinition = this.buildingPDFContImprovement();
-    
+    //configuracion de fuentes
     pdfMake.fonts = {
       Arial: { 
         normal: 'Arial.ttf',
@@ -174,9 +179,11 @@ export class ContinuousImprovementComponent implements OnInit {
         bolditalics: 'Arialbi.ttf'
       }
     }
+    //creacion del PDF
     pdfMake.createPdf(documentDefinition).open();
   }
 
+  //metodo de construccion del PDF de mejoramiento continuo
   buildingPDFContImprovement(){
     var facultad_acta, sistemas_acta, acreditacion_acta, mejoramiento, id_accion, responsable, objetivo_estrategico,motivacion, acciones_prop,
     resultados, otras_acciones, acciones_control, fecha;
@@ -251,17 +258,14 @@ export class ContinuousImprovementComponent implements OnInit {
                   widths:[300,'*'],
                   body:[
                     [
-                      // {text: 'pruebaa', style: 'header', alignment: 'center', rowSpan: 3},
                       {text: 'UNIVERSIDAD DE CARTAGENA', style: 'header', alignment: 'center', fontSize: 14}, 
                       {text: fecha + ': ' + hoy, style: 'infoheader', margin: [0, 8, 0, 0]}
                     ],
                     [
-                      // {},
                       {text: facultad_acta + '\n' + sistemas_acta + '\n' + acreditacion_acta, style: 'header', alignment: 'center', fontSize: 12}, 
                       {text: 'VERSIÓN: 01', style: 'infoheader', margin: [0, 14, 0, 0]}
                     ],
                     [
-                      // {},
                       {text: mejoramiento, style: 'header', alignment: 'center', fontSize: 12}, 
                       {text: 'PÁGINA: ' + currentPage, style: 'infoheader', margin: [0, 10, 0, 0]}              
                     ]

@@ -16,6 +16,7 @@ export class CoursesListComponent implements OnInit {
   selectedId: number; // id del registro seleccionado
   selectedCourseRow; // fila seleccionada
 
+  //aspectos de la tabla de cursos
   coursesColumns: any [] = [
     { "header": 'main.codigo', "field": "codigo", "width": "15%" , "typeField" :'standard'},
     { "header": 'main.nombre', "field": "nombreEspaniol", "width": "25%" , "typeField" :'standard'},
@@ -35,15 +36,17 @@ export class CoursesListComponent implements OnInit {
     this.getAllCourses();
   }
 
-
+  //agregar curso, redirecciona al formulario
   onAddCourse() {
     this.router.navigate([`/app/courses/register`]);
   }
 
+  //editar curso, redirecciona al formulario
   onEditCourse(id) {
     this.router.navigate([`./app/courses/${id}`]);
   }
 
+  //obtiene todos los registros de curso
   getAllCourses() {
     this.courseService.getAllCourses().subscribe((res: any) => {
       this.coursesList = res.map((data) => ({
@@ -61,6 +64,7 @@ export class CoursesListComponent implements OnInit {
     });
   }
 
+  //eliminar registro de curso
   onDeleteCourse(id) {
     this.spinner.show();
     this.courseService.deleteCourse(id).subscribe((res: any) => {
@@ -75,6 +79,7 @@ export class CoursesListComponent implements OnInit {
     });
   }
 
+  //modal de confirmacion para eliminar
   confirmModal(confirmation: string, id) {
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
 			this.onDeleteCourse(id);

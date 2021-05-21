@@ -19,7 +19,7 @@ export class CoversComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  cover: Covers;
+  cover: Covers;// objeto cover/portada con el que trabaja el componente
 
   @Input() public selectedSubjectId; // id del tipo de referencia que viene del padre
   @Input() public selectedCoverId; // id la referencia seleccionada que viene del padre
@@ -37,7 +37,7 @@ export class CoversComponent implements OnInit {
               }
 
   ngOnInit(): void {
-
+    //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedCoverId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -53,6 +53,7 @@ export class CoversComponent implements OnInit {
 
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerCoverForm.invalid) {
@@ -98,11 +99,13 @@ export class CoversComponent implements OnInit {
     }
   }
 
+  //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerCoverForm.reset();

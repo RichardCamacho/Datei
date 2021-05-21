@@ -37,6 +37,7 @@ export class CertificationsService {
     return this.http.put(`${this.gateway.url}/api/update-certification/${id}`, args);
   }
 
+  //elimina un registro de certificado
   deleteCertification(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-certification/${id}`);
   }

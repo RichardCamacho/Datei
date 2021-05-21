@@ -36,6 +36,7 @@ export class BooksService {
     return this.http.put(`${this.gateway.url}/api/update-book/${id}`, args);
   }
 
+  //eliminar el reistro de un libro
   deleteBook(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-book/${id}`);
   }

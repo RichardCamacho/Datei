@@ -12,7 +12,7 @@ export const FormsRoutes: Routes = [
         data: {
           title: 'Typehead',
           urls: [
-            { title: 'Dashboard', url: '/dashboard' },
+            { title: 'Dashboard'},
             { title: 'ngComponent' },
             { title: 'Typehead' }
           ]

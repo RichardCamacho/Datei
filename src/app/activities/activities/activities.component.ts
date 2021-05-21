@@ -21,21 +21,22 @@ export class ActivitiesComponent implements OnInit {
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
 
-  activity: Activities;
+  activity: Activities;// objeto actividad con el que trabaja el componente
 
+  //parametros de translate
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedMinuteId; // id del tipo de referencia que viene del padre
-  @Input() public selectedActivityId; // id la referencia seleccionada que viene del padre
+  @Input() public selectedMinuteId; // id del acta con el que se está trabajando
+  @Input() public selectedActivityId; // id del compromiso o actividad seleccionada
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>()
   
-  timeLocale:any;
+  timeLocale:any;// hora local
 
   get f() {
     return this.registerActivityForm.controls;
@@ -51,7 +52,7 @@ export class ActivitiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    //iniicalizando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedActivityId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
       this.mode = 'CREATE';
@@ -70,6 +71,7 @@ export class ActivitiesComponent implements OnInit {
 
   }
 
+  //obtiene una actividad indicada por id en el estado de UPDATE
   getActivity(id) {
     this.activitysService.getActivityById(id).subscribe((res: any) => {
       this.activity = res;
@@ -83,6 +85,7 @@ export class ActivitiesComponent implements OnInit {
     });
   }
 
+  //metodo para el control de envio de la información del formulario
   onSubmit() {
     this.submitted = true;
     if (this.registerActivityForm.invalid) {
@@ -94,6 +97,7 @@ export class ActivitiesComponent implements OnInit {
     this.onCreateActivity();
   }
 
+  //metodo para crear / actualizar el objeto actividad
   onCreateActivity() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
@@ -133,11 +137,13 @@ export class ActivitiesComponent implements OnInit {
     }
   }
 
+ //cancelar la operacion llevada en el formulario.
   onCancel() {
     this.onEventCancel.emit(true);
     this.cleanForm();
   }
 
+  //limpia el formulario
   cleanForm(){
     this.submitted = false;
     this.registerActivityForm.reset();

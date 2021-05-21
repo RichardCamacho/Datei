@@ -12,7 +12,7 @@ export const SubjectInformationRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'cursos.reg_inf_curso',
-          urls: [{ title: 'cursos.list_cursos', url: '/app/subject-information/list' }, { title: 'cursos.reg_inf_curso' }]//redireccionar a list
+          urls: [{ title: 'cursos.list_cursos'}, { title: 'cursos.reg_inf_curso' }]//redireccionar a list
         }
       },
       {
@@ -21,7 +21,7 @@ export const SubjectInformationRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'cursos.list_cursos',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'cursos.list_cursos' }]//redireccionar al home
+          urls: [{ title: 'main.inicio'}, { title: 'cursos.list_cursos' }]//redireccionar al home
         }
       },
       {
@@ -30,7 +30,7 @@ export const SubjectInformationRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'cursos.edit_inf_curso',
-          urls: [{ title: 'cursos.list_cursos', url: '/app/subject-information/list' }, { title: 'cursos.edit_inf_curso' }]//redireccionar a list
+          urls: [{ title: 'cursos.list_cursos'}, { title: 'cursos.edit_inf_curso' }]//redireccionar a list
         }
       }
     ]

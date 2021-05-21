@@ -36,6 +36,7 @@ export class AwardsService {
     return this.http.put(`${this.gateway.url}/api/update-award/${id}`, args);
   }
 
+  //elimina un registro de premio
   deleteAward(id) {
     return this.http.delete(`${this.gateway.url}/api/delete-award/${id}`);
   }

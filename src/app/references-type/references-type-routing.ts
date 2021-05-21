@@ -12,7 +12,7 @@ export const ReferencesTypeRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'ref_type.registrar_tipo_ref',
-          urls: [{ title: 'ref_type.list_tipos_ref', url: '/app/references-type/list' }, { title: 'ref_type.registrar_tipo_ref' }]
+          urls: [{ title: 'ref_type.list_tipos_ref'}, { title: 'ref_type.registrar_tipo_ref' }]
         }
       },
       {
@@ -21,7 +21,7 @@ export const ReferencesTypeRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'ref_type.list_tipos_ref',
-          urls: [{ title: 'main.inicio', url: '/app/dashboard/dashboard1' }, { title: 'ref_type.list_tipos_ref' }]
+          urls: [{ title: 'main.inicio'}, { title: 'ref_type.list_tipos_ref' }]
         }
       },
       {
@@ -30,7 +30,7 @@ export const ReferencesTypeRoutes: Routes = [
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
           title: 'ref_type.edit_tipo_ref',
-          urls: [{ title: 'ref_type.list_tipos_ref', url: '/app/references-type/list' }, { title: 'ref_type.edit_tipo_ref' }]
+          urls: [{ title: 'ref_type.list_tipos_ref'}, { title: 'ref_type.edit_tipo_ref' }]
         }
       }
     ]

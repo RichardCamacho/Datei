@@ -60,6 +60,7 @@ export class CurriculumVitaeService {
     return this.http.put(`${this.gateway.url}/api/update-date-curriculum/${id}`, args);
   }
 
+  //obtener los detalles del usuario en sesion
   getUser(id){
     return this.registerUserService.getUserById(id);
   }
