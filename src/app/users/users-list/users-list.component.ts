@@ -51,8 +51,15 @@ export class UsersListComponent implements OnInit {
 
   getAllUsers() {
     this.userService.getAllUsers().subscribe((res: any) => {
-      this.usersList = res;
-      this.usersTablePaginator = (res.length > this.usersTableRows) ? true : false;
+      var auxres = res;
+      res.forEach(user => {
+        if(user.primerNombre === 'Admin'){
+          var i = auxres.indexOf( user );
+          auxres.splice(i, 1);
+        }
+      });
+      this.usersList = auxres;
+      this.usersTablePaginator = (auxres.length > this.usersTableRows) ? true : false;
       this.spinner.hide();
     },
     err => {

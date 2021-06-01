@@ -22,7 +22,7 @@ export class LoginService {
       password:user.password,
       grant_type:'password',
       client_id:2,
-      client_secret:'f963psQYD2NvKoFXHLPrK1HDQdP7N0FB77h4CtDm',
+      client_secret:'IdCZLeWUgymay3Yi9sfe7WFpqZGmeaXVaCcyRD0t',
       scope:'*',
     }
     return this.http.post(this.gateway.url+'/oauth/token', response);
