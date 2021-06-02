@@ -97,6 +97,12 @@ export const Approutes: Routes = [
 				data: {
 					role: ['Coordinador', 'Docente']
 				}  
+			},
+			{ 	path: 'configuration',
+				loadChildren: () => import('./change-password/change-password.module').then(m => m.ChangePasswordModule),
+				data: {
+					role: ['Coordinador', 'Docente', 'Administrador']
+				}  
 			}
 		]
 	},

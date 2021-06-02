@@ -10,7 +10,7 @@
     "General": "General",
     "Trendy": "De moda",
     "Campaign": "Campaña",
-    "Modern": "Moderna",
+    "Datos": "Datos de Carpetas",
     "Apps": "Aplicaciones",
     "Mail": "Correo",
     "Email": "Email",
@@ -287,7 +287,10 @@
       "inf_personal": "Información personal",
       "credenciales": "Credenciales",
       "contrasenia": "Contraseña",
-      "rep_contrasenia": "Repetir contraseña"
+      "rep_contrasenia": "Repetir contraseña",
+      "c_contrasena":"Cambiar Contraseña",
+      "contrasena_actual":"Contraseña Actual",
+      "nueva_contrasena":"Nueva Contraseña"
     },
   
     "carpetas":{

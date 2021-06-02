@@ -14,7 +14,7 @@ export const COORDINADOROUTES: CoordinadorInfo[] = [
         submenu: [
             {
                 path: '/app/dashboard/dashboard1',
-                title: 'Modern',
+                title: 'Datos',
                 icon: 'mdi mdi-adjust',
                 class: '',
                 label: '',

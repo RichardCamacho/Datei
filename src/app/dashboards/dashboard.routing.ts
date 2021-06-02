@@ -11,8 +11,8 @@ export const DashboardRoutes: Routes = [
         component: Dashboard1Component,
         data: {
           tabTitle: 'Datei - Universidad de Cartagena',
-          title: 'Modern Dashboard',
-          urls: [{ title: 'Dashboard'}, { title: 'Modern Dashboard' }]
+          title: 'Datos',
+          urls: [{ title: 'Dashboards'}, { title: 'Datos' }]
         }
       }
     ]

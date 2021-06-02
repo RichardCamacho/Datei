@@ -10,7 +10,7 @@
   "General": "General",
   "Trendy": "Trendy",
   "Campaign": "Campaign",
-  "Modern": "Modern",
+  "Datos": "Folders Data",
   "Apps": "Apps",
   "Mail": "Mail",
   "Email": "Email",
@@ -286,7 +286,10 @@
     "inf_personal": "Personal Information",
     "credenciales": "Credentials",
     "contrasenia": "Password",
-    "rep_contrasenia": "Repeat Password"
+    "rep_contrasenia": "Repeat Password",
+    "c_contrasena":"Change Password",
+    "contrasena_actual":"Current Password",
+    "nueva_contrasena":"New Password"
   },
 
   "carpetas":{

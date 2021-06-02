@@ -21,7 +21,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
   ],
   declarations: [
     NotfoundComponent,
-    LoginComponent,
+    LoginComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
