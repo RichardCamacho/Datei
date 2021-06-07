@@ -199,7 +199,7 @@ export class SubjectInformationComponent implements OnInit {
   //llama metodos para obtener todos los detalles del curso
   getDetails(){
     this.spinner.show();
-    this.getDocentes(this.subject.id);
+    this.getDocentes(this.subject.idCurso);
     this.getCover();
     this.getBooks();
     this.getPrerequisites();

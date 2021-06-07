@@ -125,6 +125,7 @@
   "Tipos de Referencia": "Reference Types",
   "Hoja de Vida": "Curriculum Vitae",
   "Cursos": "Courses",
+  "Inf. Cursos": "Courses Information",
   "Opciones de Usuario": "User Options",
   "Carpetas de Asignatura": "Courses Folders",
   "Carpetas de SO": "SO Folders",
@@ -134,13 +135,15 @@
   "Programas": "Programs",
   "Programas académicos de la Universidad de Cartagena":"Academic programs at the Universidad de Cartagena",
   "Requisitos": "Requirements",
-  "Describe la dependencia de los cursos": "Describe dependence on courses",
+  "Describe la dependencia de los cursos": "Describes dependence on courses",
   "Roles": "Roles",
   "Roles para categorizar los usuarios en el sistema": "Roles to categorize system users",
   "Tiempos":"Time",
   "Describe la disponibilidad del docente en el recinto académico":"Describes the availability of the teacher in the academic campus",
   "Tipo de Curso":"Course Type",
   "Describe los tipos de curso que puede ver el estudiante":"Describes the types of courses the student can view",
+  "Grupos":"Groups",
+  "Diferentes grupos en una asignatura":"Different groups in a subject",
 
   "Ingeniería de Sistemas":"Systems Engineer",
   "Ingeniería de Alimentos":"Food Engineering",
@@ -401,7 +404,8 @@
     "formatos_assessment": "Assessment formats",
     "muestra_enunciado": "Statement samples",
     "muestra_estud": "Students samples",
-    "retroalimentacion": "Feedback"
+    "retroalimentacion": "Feedback",
+    "otros":"Others"
   },
 
   "carpeta_so":{

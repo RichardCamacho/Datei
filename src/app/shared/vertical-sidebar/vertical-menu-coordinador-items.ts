@@ -66,7 +66,7 @@ export const COORDINADOROUTES: CoordinadorInfo[] = [
     },
     {
         path: '/app/subject-information/list',
-        title: 'Cursos',
+        title: 'Inf. Cursos',
         icon: 'book-open',
         class: '',
         label: '',

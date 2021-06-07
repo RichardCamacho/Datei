@@ -31,6 +31,11 @@ export class SoFoldersService {
     return this.http.get(`${this.gateway.url}/api/list-so-folder`);
   }
 
+  //obtener lista de carpetas so por programa
+  getAllSoFoldersDetail(ind) {
+    return this.http.get(`${this.gateway.url}/api/list-so-folder-program/${ind}`);
+  }
+
   //obtener lista de carpetas de student outcome por usuario
   getAllSoFolderByUser(idUsuario) {
     return this.http.get(`${this.gateway.url}/api/list-so-folder/${idUsuario}`);

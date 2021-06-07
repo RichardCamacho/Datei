@@ -19,11 +19,11 @@ export class UsersListComponent implements OnInit {
   selectedUserRow; // fila seleccionada
 
   usersColumns: any [] = [
-    { "header": 'users.primer_nombre', "field": "primerNombre", "width": "15%" , "typeField" :'standard'},
+    { "header": 'users.primer_nombre', "field": "primerNombre", "width": "20%" , "typeField" :'standard'},
     { "header": 'users.seg_nombre', "field": "segundoNombre", "width": "15%" , "typeField" :'standard'},
     { "header": 'users.primer_apell', "field": "primerApellido", "width": "15%", "typeField" :'standard'},
     { "header": 'users.seg_apellido', "field": "segundoApellido", "width": "15%" , "typeField" :'standard'},
-    { "header": 'users.correo', "field": "email", "width": "15%" , "typeField" :'standard'}
+    { "header": 'users.correo', "field": "email", "width": "25%" , "typeField" :'standard'}
   ];
   usersList: any[];
   usersTablePaginator = false;

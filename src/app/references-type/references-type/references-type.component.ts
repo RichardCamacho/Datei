@@ -150,6 +150,12 @@ export class ReferencesTypeComponent implements OnInit {
     this.spinner.show();
     this.referencesTypeService.getDetails(id).subscribe((res: any) => {
       this.referencesTypeDetailsList = res;
+      res.forEach(user => {
+        if(user.nombre === 'Administrador'){
+          var i = this.referencesTypeDetailsList.indexOf( user );
+          this.referencesTypeDetailsList.splice(i, 1);
+        }
+      });
       this.referencesTypeDetailsTablePaginator = (res.length > this.referencesTypeDetailsTableRows) ? true : false;
       this.spinner.hide();
     },

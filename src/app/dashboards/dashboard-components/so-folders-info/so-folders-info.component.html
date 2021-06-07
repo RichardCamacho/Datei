@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"><span class="lstick"></span>{{'carpeta_so.carp_so' | translate}}</h4>  
+    </div>
+    <div class="card-body">
+        <p-table #dt [columns]="SoFoldersColumns" [value]="SoFoldersList"
+                selectionMode="single" dataKey="id" [paginator]="SoFoldersTablePaginator"
+                [rows]="SoFoldersTableRows" [responsive]="true" [resizableColumns]="true"
+                [(selection)]="selectedSoFolderRow" class="table table-striped">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                            [style.width]="col.width" pResizableColumn>
+                            {{ col.header | translate}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                        <th style="width:7em">{{'main.acciones' | translate}}</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData">
+                        <td *ngFor="let col of columns" class="ui-resizable-column"
+                            [ngSwitch]="col.typeField">
+                            <div *ngSwitchCase="'object'">
+                                <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                rowData[col.field][col.fieldChild] }}
+                            </div>
+                            <div *ngSwitchCase="'standard'">
+                                <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                rowData[col.field]}}
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" id="view_section_button"
+                                class="btn btn-outline-primary btn-rounded btn-xs" title="{{'main.ver' | translate}}"
+                                (click)="onViewFolder(rowData.id)"><i class="fas fa-eye"
+                                    aria-hidden="true"></i></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage" let-columns>
+                    <tr>
+                        <td [attr.colspan]="columns.length">
+                            {{'main.no_registros' | translate}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+    </div>
+</div>

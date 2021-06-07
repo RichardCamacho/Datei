@@ -125,6 +125,7 @@
     "Tipos de Referencia": "Tipos de Referencia",
     "Hoja de Vida": "Hoja de Vida",
     "Cursos": "Cursos",
+    "Inf. Cursos":"Información de Cursos",
     "Opciones de Usuario": "Opciones de Usuario",
     "Carpetas de Asignatura": "Carpetas de Asignatura",
     "Carpetas de SO": "Carpetas de SO",
@@ -141,6 +142,8 @@
     "Describe la disponibilidad del docente en el recinto académico":"Describe la disponibilidad del docente en el recinto académico",
     "Tipo de Curso":"Tipo de Curso",
     "Describe los tipos de curso que puede ver el estudiante":"Describe los tipos de curso que puede ver el estudiante",
+    "Grupos":"Grupos",
+    "Diferentes grupos en una asignatura":"Diferentes grupos en una asignatura",
 
     "Ingeniería de Sistemas":"Ingeniería de Sistemas",
     "Ingeniería de Alimentos":"Ingeniería de Alimentos",
@@ -402,7 +405,8 @@
       "formatos_assessment": "Formatos de Assessment",
       "muestra_enunciado": "Muestras de Enunciados",
       "muestra_estud": "Muestras de Estudiantes",
-      "retroalimentacion": "Retroalimentación"
+      "retroalimentacion": "Retroalimentación",
+      "otros":"Otros"
   },
 
     "carpeta_so":{

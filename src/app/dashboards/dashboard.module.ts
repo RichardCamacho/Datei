@@ -19,6 +19,7 @@ import { TableModule } from 'primeng/table';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SoFoldersInfoComponent } from './dashboard-components/so-folders-info/so-folders-info.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FacultiesComponent,
     FacultiesCurriculumComponent,
     SubjectsInfoComponent,
+    SoFoldersInfoComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

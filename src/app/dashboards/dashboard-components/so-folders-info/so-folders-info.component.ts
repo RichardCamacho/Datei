@@ -3,30 +3,31 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { SoFoldersService } from 'src/app/so-folders/so-folders/so-folders.service';
 import { SubjectFoldersService } from 'src/app/subject-folders/subject-folders/subject-folders.service';
-import { SubjectsInfoService } from './subjects-info.service';
+import { SoFoldersInfoService } from './so-folders-info.service';
 
 @Component({
-  selector: 'app-subjects-info',
-  templateUrl: './subjects-info.component.html',
-  styleUrls: ['./subjects-info.component.css']
+  selector: 'app-so-folders-info',
+  templateUrl: './so-folders-info.component.html',
+  styleUrls: ['./so-folders-info.component.css']
 })
-export class SubjectsInfoComponent implements OnInit {
+export class SoFoldersInfoComponent implements OnInit {
 
   idPrograma
   indicador;
 
-  subjectInfoColumns: any[] = [
-    { "header": 'cursos.nombre_curso', "field": "curso", "width": "25%", "typeField": 'standard' },
-    { "header": 'carpeta_asig.nombre_docente', "field": "docente", "width": "40%", "typeField": 'standard' },
-    { "header": 'cursos.portada', "field": "portada", "width": "25%", "typeField": 'tag' }
+  SoFoldersColumns: any[] = [
+    { "header": 'main.nombre', "field": "nombre", "width": "25%", "typeField": 'standard' },
+    { "header": 'main.codigo', "field": "codigo", "width": "25%", "typeField": 'standard' },
+    { "header": 'carpeta_asig.nombre_docente', "field": "docente", "width": "40%", "typeField": 'standard' }
   ];
-  selectedSubjectInfoRow; // fila seleccionada
-  subjectInfoList: any[];
-  subjectInfoTablePaginator = false;
-  subjectInfoTableRows = 10;
+  selectedSoFolderRow; // fila seleccionada
+  SoFoldersList: any[];
+  SoFoldersTablePaginator = false;
+  SoFoldersTableRows = 10;
   
-  constructor(private subjectsInfoService: SubjectsInfoService, private toastr: ToastrService,
+  constructor(private soFoldersInfoService: SoFoldersInfoService, private toastr: ToastrService,
               private router: Router, private translate: TranslateService, private spinner: NgxSpinnerService,
               private subjectFolderService: SubjectFoldersService) { }
 
@@ -34,16 +35,16 @@ export class SubjectsInfoComponent implements OnInit {
     this.getProgramIndicator();
   }
 
-  getAllSubjectFoldersByProgram(){
-    this.subjectsInfoService.getAllSubjects(this.indicador).subscribe((res: any) => {
+  getAllSoFoldersByProgram(){
+    this.soFoldersInfoService.getAllSoFolders(this.indicador).subscribe((res: any) => {
       var auxres = res;
-      this.subjectInfoList = auxres.map((data) => ({
+      this.SoFoldersList = auxres.map((data) => ({
         id: data.id,
-        curso: data.asignatura.nombreEspaniol,
+        nombre: data.nombre,
+        codigo: data.codigo,
         docente: (data.usuario.segundoNombre)? data.usuario.primerNombre + ' ' + data.usuario.segundoNombre + ' ' + data.usuario.primerApellido + ' ' + data.usuario.segundoApellido: data.usuario.primerNombre + ' ' + data.usuario.primerApellido + ' ' + data.usuario.segundoApellido,
-        portada: (data.asignatura.filename)? 'Subida':'No subida'
       }));
-      this.subjectInfoTablePaginator = (res.length > this.subjectInfoTableRows) ? true : false;
+      this.SoFoldersTablePaginator = (res.length > this.SoFoldersTableRows) ? true : false;
       this.spinner.hide();
     },
     err => {
@@ -58,23 +59,23 @@ export class SubjectsInfoComponent implements OnInit {
       switch (res.nombre) {
         case 'Ingeniería de Sistemas':
           this.indicador = '220';
-          this.getAllSubjectFoldersByProgram();
+          this.getAllSoFoldersByProgram();
           break;
         case 'Ingeniería de Alimentos':
           this.indicador = '221';
-          this.getAllSubjectFoldersByProgram();
+          this.getAllSoFoldersByProgram();
           break;
         case 'Ingeniería Química':
           this.indicador = '222';
-          this.getAllSubjectFoldersByProgram();
+          this.getAllSoFoldersByProgram();
           break;
         case 'Ingeniería Civil':
           this.indicador = '223';
-          this.getAllSubjectFoldersByProgram();
+          this.getAllSoFoldersByProgram();
           break;
         case 'Química Farmacéutica':
           this.indicador = '224';
-          this.getAllSubjectFoldersByProgram();
+          this.getAllSoFoldersByProgram();
           break;
         default:
           break;
@@ -88,6 +89,7 @@ export class SubjectsInfoComponent implements OnInit {
   }
 
   onViewFolder(id){
-    this.router.navigate([`./app/subject-folder/${id}`]);
+    this.router.navigate([`./app/so-folder/${id}`]);
   }
+
 }

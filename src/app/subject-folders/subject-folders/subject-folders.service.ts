@@ -37,6 +37,11 @@ export class SubjectFoldersService {
     return this.http.get(`${this.gateway.url}/api/list-subject-folder/${idUsuario}`);
   }
 
+  //obtener lista de carpetas con detalles por programa
+  getAllSubjectsFoldersDetail(ind) {
+    return this.http.get(`${this.gateway.url}/api/list-folder-details-program/${ind}`);
+  }
+
   //obtener carpeta de asignatura por id
   getSubjectFolderById(id) {
     return this.http.get(`${this.gateway.url}/api/subject-folder/${id}`);

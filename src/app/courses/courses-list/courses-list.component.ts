@@ -18,9 +18,9 @@ export class CoursesListComponent implements OnInit {
 
   //aspectos de la tabla de cursos
   coursesColumns: any [] = [
-    { "header": 'main.codigo', "field": "codigo", "width": "15%" , "typeField" :'standard'},
-    { "header": 'main.nombre', "field": "nombreEspaniol", "width": "25%" , "typeField" :'standard'},
-    { "header": 'carpeta_asig.tipo_curso', "field": "tipoCurso", "width": "25%" , "typeField" :'standard'}
+    { "header": 'main.codigo', "field": "codigo", "width": "30%" , "typeField" :'standard'},
+    { "header": 'main.nombre', "field": "nombreEspaniol", "width": "40%" , "typeField" :'standard'},
+    { "header": 'carpeta_asig.tipo_curso', "field": "tipoCurso", "width": "20%" , "typeField" :'standard'}
   ];
   coursesList: any[];
   coursesTablePaginator = false;

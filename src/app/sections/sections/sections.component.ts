@@ -55,6 +55,15 @@ export class SectionsComponent implements OnInit {
   feedbackTableRows = 10;
   selectedFeedbackRow; // fila seleccionada
 
+  othersColumns: any[] = [
+    { "header": 'main.nombre', "field": "nombre", "width": "80%", "typeField": 'standard' },
+    { "header": 'main.fecha_creacion', "field": "created_at", "width": "20%", "typeField": 'date' }
+  ];
+  othersList: any[];
+  othersTablePaginator = false;
+  othersTableRows = 10;
+  selectedOtherRow; // fila seleccionada
+
   @ViewChild('mdStickUp', { static: false }) public mdStickUp: ModalDirective;
 
 
@@ -82,6 +91,7 @@ export class SectionsComponent implements OnInit {
       this.getFileStatementSamplesList();
       this.getFileStudentSamplesList();
       this.getFileFeedbackList();
+      this.getFileOthersList();
       this.spinner.hide();
     },
     err => {
@@ -317,6 +327,62 @@ export class SectionsComponent implements OnInit {
     });
   }
 
+  //Muestras de enunciado--------------------------------------------------------------
+  getFileOthersList(){
+    this.sectionService.getFileList(this.selectedSectionId, 'others').subscribe((res: any) => {
+      this.othersList = res;
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`)
+    });
+  }
+  
+  onNewOther() {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'others';
+  }
+
+  onSaveOther() {
+    this.mdStickUp.hide();
+    this.translate.get('success_upload').subscribe((res: string) => {
+      this.toastr.success(res);
+    });
+    this.getFileOthersList();
+  }
+
+  onDownloadOther(id, filename) {
+    this.spinner.show();
+    this.sectionService.getFileById(id).subscribe((res: any) => {
+      
+      var downloadURL = window.URL.createObjectURL(res);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = filename;
+      link.click();
+      this.spinner.hide();
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`)
+    });
+  }
+
+  onDeleteOther(id) {
+    this.sectionService.deleteFile(id).subscribe((res: any) => {
+      this.spinner.hide();
+      this.translate.get('success_delete').subscribe((res: string) => {
+        this.toastr.success(res);
+      });
+      this.getFileOthersList();
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`)
+    });
+  }
+
+
   confirmModal(confirmation: string, id, componentActive) {
     
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
@@ -332,6 +398,9 @@ export class SectionsComponent implements OnInit {
           break;
         case 'feedback':
           this.onDeleteFeedback(id);
+          break;
+        case 'others':
+          this.onDeleteOther(id);
           break;
         default:
           break;

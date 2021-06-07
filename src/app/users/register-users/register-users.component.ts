@@ -189,6 +189,12 @@ export class RegisterUsersComponent implements OnInit {
     this.spinner.show();
     this.registerUserService.getDetailsByName('Roles').subscribe((res: any) => {
       this.RolesList = res;
+      res.forEach(user => {
+        if(user.nombre === 'Administrador'){
+          var i = this.RolesList.indexOf( user );
+          this.RolesList.splice(i, 1);
+        }
+      });
       this.spinner.hide();
     },
     err => {
