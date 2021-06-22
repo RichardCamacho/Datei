@@ -42,15 +42,5 @@ export const DOCENTEROUTES: DocenteInfo[] = [
         labelClass: '',
         extralink: false,
         submenu: []
-    },
-    {
-        path: '/app/so-folder/list',
-        title: 'Carpetas de SO',
-        icon: 'folder',
-        class: '',
-        label: '',
-        labelClass: '',
-        extralink: false,
-        submenu: []
     }
 ];

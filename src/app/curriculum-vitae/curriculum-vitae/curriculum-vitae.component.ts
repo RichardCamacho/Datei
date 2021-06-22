@@ -23,7 +23,7 @@ export class CurriculumVitaeComponent implements OnInit {
   selectedCurriculumId; // registra el id seleccionado que viene en la URL.
   mode = ''; // identifica el modo de transaccion del componente: CREATE , UPDATE
 
-  fechaActaulizacion: string;
+  fechaActualizacion: string;
   user;//variable auxiliar para almacenar un usuario
   idUsuario;//id de usuario al cual se asocia la hoja de vida
   curriculum = new CurriculumVitae;//objeto hoja de vida
@@ -34,7 +34,6 @@ export class CurriculumVitaeComponent implements OnInit {
 
   modalComponetActive = '';
   timeLocale:any;//tiempo local
-  today:any;//hoy
 
   //parametros de translate
   param20 = {value: '20'};
@@ -75,8 +74,8 @@ export class CurriculumVitaeComponent implements OnInit {
 
   //Estudios
   schoolingColumns: any[] = [
-    { "header": 'main.anio', "field": "anioTerminacion", "width": "10%", "typeField": 'standard' },
-    { "header": 'curriculum.nombre_estudio', "field": "curso", "width": "30%", "typeField": 'standard' },
+    { "header": 'main.finalizado_en', "field": "anioTerminacion", "width": "15%", "typeField": 'date' },
+    { "header": 'curriculum.nombre_estudio', "field": "curso", "width": "35%", "typeField": 'standard' },
     { "header": 'main.disciplina', "field": "disciplina", "width": "30%", "typeField": 'standard' },
     { "header": 'main.institucion', "field": "institucion", "width": "30%", "typeField": 'standard' }
   ];
@@ -187,7 +186,7 @@ export class CurriculumVitaeComponent implements OnInit {
       this.mode = 'UPDATE';
       this.selectedCurriculumId = res.id;
       res.updated_at = new Date(res.updated_at);
-      this.fechaActaulizacion = (res.updated_at)? res.updated_at:res.created_at = new Date(res.created_at);
+      this.fechaActualizacion = (res.updated_at)? res.updated_at:res.created_at = new Date(res.created_at);
 
       this.getDetailsList();
       this.spinner.hide();
@@ -205,7 +204,7 @@ export class CurriculumVitaeComponent implements OnInit {
       this.user = res
       this.registerCurriculumVitaeForm.patchValue(this.user);
       this.mode = 'CREATE';
-      this.fechaActaulizacion = 'Nunca';
+      this.fechaActualizacion = 'Nunca';
       this.spinner.hide();
     },
     err => {

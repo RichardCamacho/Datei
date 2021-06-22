@@ -3,30 +3,32 @@
     <div class="card-body">
         <h4 class="card-title"><span class="lstick"></span>{{'curriculum.list_hoja_vida' | translate}}</h4>
         <h6 class="card-subtitle">{{programaTr | translate}}</h6>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover earning-box v-middle no-wrap">
-                <thead>
-                    <tr>
-                        <th colspan="2">{{'main.nombre' | translate}}</th>
-                        <th>{{'main.estado' | translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let faculty of facultiesList">
-                        <td>
-                            <h6 class="mb-0 font-medium">{{faculty.nombre}}</h6><small class="text-muted">{{faculty.rango | translate}}</small></td>
-                        <td>
-                        <td *ngIf="faculty.curriculum === 'Realizada'">
-                            <span class="label label-success">{{faculty.curriculum | translate}}</span>
-                        </td>
-                        <td *ngIf="faculty.curriculum === 'Pendiente'">
-                            <span class="label label-danger">{{faculty.curriculum | translate}}</span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <p-accordion>
+            <p-accordionTab  [selected]="true">
+                <div class="table-responsive">
+                    <table class="table table-hover earning-box v-middle no-wrap">
+                        <thead>
+                            <tr>
+                                <th colspan="2">{{'main.nombre' | translate}}</th>
+                                <th>{{'main.estado' | translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let faculty of facultiesList">
+                                <td>
+                                    <h6 class="mb-0 font-medium">{{faculty.nombre}}</h6><small class="text-muted">{{faculty.rango | translate}}</small></td>
+                                <td>
+                                <td *ngIf="faculty.curriculum === 'Realizada'">
+                                    <span class="label label-success">{{faculty.curriculum | translate}}</span>
+                                </td>
+                                <td *ngIf="faculty.curriculum === 'Pendiente'">
+                                    <span class="label label-danger">{{faculty.curriculum | translate}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
     </div>
 </div>

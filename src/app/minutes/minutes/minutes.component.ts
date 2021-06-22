@@ -11,6 +11,7 @@ import { MinutesService } from './minutes.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { DateHelp } from 'src/app/_helpers/date-helper';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
@@ -27,6 +28,8 @@ export class MinutesComponent implements OnInit {
   selectedSoFolderId;
   firmas: any[]  = [];
   mode = ''; // identifica el modo de transaccion del componente: CREATE , UPDATE
+  minDate: Date;
+  yearRange: any;
 
   minute: Minutes;// objeto acta con el que trabaja el componente
   modalComponetActive = '';
@@ -70,7 +73,7 @@ export class MinutesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router,
               private toastr: ToastrService, private minuteService: MinutesService,
               private modalService: NgbModal,  @Inject(LOCALE_ID) locale: string, private translate: TranslateService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService, private dateHelp: DateHelp) {
 
               this.spinner.show();
               //inicializando el componente en modo de creacion o actualizacion
@@ -90,6 +93,9 @@ export class MinutesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.minDate = this.dateHelp.maxDateToday;
+    this.yearRange = `${this.dateHelp.year}:${this.dateHelp.year + 2}`;
+
     this.registerMinuteForm = this.formBuilder.group({
       id: [],
       nombre: ["", [Validators.required, Validators.maxLength(100)]],
@@ -114,8 +120,8 @@ export class MinutesComponent implements OnInit {
   getMinute(id) {
     this.minuteService.getMinuteById(id).subscribe((res: any) => {
       this.minute = res;
-      res.fechaReunion = formatDate(res.fechaReunion, "yyyy-MM-dd", this.timeLocale);
-      res.fechaProxReunion = (res.fechaProxReunion !== null)? formatDate(res.fechaProxReunion, "yyyy-MM-dd", this.timeLocale):null;
+      res.fechaReunion = new Date(res.fechaReunion);
+      res.fechaProxReunion = (res.fechaProxReunion !== null)? new Date(res.fechaProxReunion):null;
       this.registerMinuteForm.patchValue(res);
       this.getDetailsList();
       this.spinner.hide();

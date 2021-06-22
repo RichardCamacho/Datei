@@ -19,6 +19,8 @@ import { Yes_NoPipe } from '../_shared/yes_no.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SignaturesComponent } from '../signatures/signatures/signatures.component';
+import { CalendarModule } from 'primeng/calendar';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { SignaturesComponent } from '../signatures/signatures/signatures.compone
     NgSelectModule,
     ModalModule,
     TranslateModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    CalendarModule,
+    AccordionModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService]

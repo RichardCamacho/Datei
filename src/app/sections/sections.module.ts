@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ConfirmationService } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     ModalModule,
     TranslateModule,
     DynamicDialogModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AccordionModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService]

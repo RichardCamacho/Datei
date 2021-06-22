@@ -13,7 +13,6 @@
                 <div class="card-body">
                     <h4 class="card-title ">{{'cursos.inf_basica' | translate}}</h4>
                     <div class="row">
-                    <!-- <div class="row" *ngIf="mode==='CREATE'"> -->
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-sm-12 col-lg-6">
@@ -145,55 +144,46 @@
                         </div>
                     </div>
                     <!-- TABLA DE DOCENTES -->
-                    <ngb-accordion #a="ngbAccordion">
-                        <ngb-panel>
-                            <ng-template ngbPanelHeader>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h4 class="card-title mb-0">{{'docente.docentes' | translate}} </h4>
-                                    <button ngbPanelToggle class="btn btn-info btn-rounded btn-xs"><i
-                                            class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                </div>
-                            </ng-template>
-                            <ng-template ngbPanelContent >
-                                <p-table #dt [columns]="facultyColumns" [value]="facultyList"
-                                    selectionMode="single" dataKey="id" [paginator]="facultyTablePaginator"
-                                    [rows]="facultyTableRows" [responsive]="true" [resizableColumns]="true"
-                                    [(selection)]="selectedFacultyRow" class="table table-striped">
-                                    <ng-template pTemplate="header" let-columns>
-                                        <tr>
-                                            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
-                                                [style.width]="col.width" pResizableColumn>
-                                                {{ col.header | translate}}
-                                                <p-sortIcon [field]="col.field"></p-sortIcon>
-                                            </th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                        <tr [pSelectableRow]="rowData">
-                                            <td *ngFor="let col of columns" class="ui-resizable-column"
-                                                [ngSwitch]="col.typeField">
-                                                <div *ngSwitchCase="'object'">
-                                                    <span class="p-column-title">{{ col.header | translate }}</span>{{
-                                                    rowData[col.field][col.fieldChild] }}
-                                                </div>
-                                                <div *ngSwitchCase="'standard'">
-                                                    <span class="p-column-title">{{ col.header | translate }}</span>{{
-                                                    rowData[col.field] | translate}}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="emptymessage" let-columns>
-                                        <tr>
-                                            <td [attr.colspan]="columns.length">
-                                                {{'main.no_registros' | translate}}
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </ng-template>
-                        </ngb-panel>
-                    </ngb-accordion>
+                    <p-accordion>
+                        <p-accordionTab  header="{{'docente.docentes' | translate}}">
+                            <p-table #dt [columns]="facultyColumns" [value]="facultyList"
+                            selectionMode="single" dataKey="id" [paginator]="facultyTablePaginator"
+                            [rows]="facultyTableRows" [responsive]="true" [resizableColumns]="true"
+                            [(selection)]="selectedFacultyRow" class="table table-striped">
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                            [style.width]="col.width" pResizableColumn>
+                                            {{ col.header | translate}}
+                                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                    <tr [pSelectableRow]="rowData">
+                                        <td *ngFor="let col of columns" class="ui-resizable-column"
+                                            [ngSwitch]="col.typeField">
+                                            <div *ngSwitchCase="'object'">
+                                                <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                                rowData[col.field][col.fieldChild] }}
+                                            </div>
+                                            <div *ngSwitchCase="'standard'">
+                                                <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                                rowData[col.field] | translate}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="emptymessage" let-columns>
+                                    <tr>
+                                        <td [attr.colspan]="columns.length">
+                                            {{'main.no_registros' | translate}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-accordionTab>
+                    </p-accordion>
                 </div>
                 <hr *ngIf="mode === 'UPDATE'">
                 <div class="card-body" *ngIf="mode === 'UPDATE'">
@@ -215,14 +205,7 @@
                                         <button type="submit" class="btn btn-block btn-info" *ngIf="f.filename.value"
                                             (click)="onDeleteCover()">{{'main.eliminar' | translate}}</button>
                                     </div>
-                                    <!-- <div class="col-lg-6">
-                                        <button type="button" class="btn btn-block btn-outline-secondary"
-                                            (click)="onCancel()">{{'main.cancelar' | translate}}</button>
-                                    </div> -->
                                 </div>
-                                <!-- <div class="input-group mb-3">
-                                          <input type="file" formControlName="filename" class="form-control-file" id="exampleFormControlFile1">
-                                </div> -->
                             </div>
                         </div>
                         <div class="col-lg-8 col-md-12">
@@ -270,7 +253,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <!-- <div class="form-group m-b-0 text-left"> -->
                     <div class="row button-group">
                         <div class="col-lg-2 col-md-6">
                             <button type="submit" class="btn btn-block btn-info"
@@ -286,466 +268,278 @@
 
             <div class="card-body" *ngIf="mode==='UPDATE'">
                 <h4 class="card-title ">{{'main.detalles' | translate}}</h4>
-                <!--- TABLA DE TEXTOS GUIA -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <ngb-accordion #a="ngbAccordion">
-                            <ngb-panel>
-                                <ng-template ngbPanelHeader>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <label class="card-title mb-0">{{'cursos.otros_textos' | translate}} [ {{((booksList) ?
-                                            booksList.length : 0)}} ]</label>
-                                        <button ngbPanelToggle class="btn btn-info btn-rounded btn-xs"><i
-                                                class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent class="p-0">
-                                    <p-table #dt [columns]="booksColumns" [value]="booksList" selectionMode="single"
-                                        dataKey="id" [paginator]="booksTablePaginator" [rows]="booksTableRows"
-                                        [responsive]="true" [resizableColumns]="true" [(selection)]="selectedBooksRow"
-                                        class="table table-striped">
-                                        <ng-template pTemplate="header" let-columns>
-                                            <tr>
-                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
-                                                    [style.width]="col.width" pResizableColumn>
-                                                    {{ col.header | translate}}
-                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                                                </th>
-                                                <th style="width:7em">{{'main.acciones' | translate}}</th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                            <tr [pSelectableRow]="rowData">
-                                                <td *ngFor="let col of columns" class="ui-resizable-column"
-                                                    [ngSwitch]="col.typeField">
-                                                    <div *ngSwitchCase="'object'">
-                                                        <span class="p-column-title">{{ col.header | translate}}</span>{{
-                                                        rowData[col.field][col.fieldChild] }}
-                                                    </div>
-                                                    <div *ngSwitchCase="'standard'">
-                                                        <span class="p-column-title">{{ col.header | translate}}</span>{{
-                                                        rowData[col.field] }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button type="button" id="edit_otros_textos_button"
-                                                        class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
-                                                        (click)="onEditBook(rowData.id)"><i class="fa fa-pencil-alt"
-                                                            aria-hidden="true"></i></button>
-                                                    <button type="button" id="delete_otros_textos_button"
-                                                        class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
-                                                        (click)="confirmModal(confirmation, rowData.id, 'books')"><i
-                                                            class="fa fa-trash-alt" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage" let-columns>
-                                            <tr>
-                                                <td [attr.colspan]="columns.length">
-                                                    {{'main.no_registros' | translate}}
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                    
-                                    <div class="p-t-10 p-b-10">
-                                        <button class="btn btn-info" (click)="onNewBook()" type="submit"
-                                            title="{{'main.nuevo_registro' | translate}}" label="{{'main.nuevo_registro' | translate}}"><i
-                                                class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>
-                                    </div>
-                                    <!-- MODAL DE CONFIRMACIÓN -->
-                                    <ng-template #confirmation let-modal>
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
-                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" style="text-align: center;">
-                                            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
-                                            <p>{{'main.conf_mensaje' | translate}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light btn-sm"
-                                                (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
-                                            <button type="button" class="btn  btn-light btn-sm"
-                                                (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
-                                        </div>
-                                    </ng-template>
-                                </ng-template>
-                            </ngb-panel>
-                        </ngb-accordion>
-                    </div>
-                </div>
-
-                <!--- TABLA DE PREREQUISITOS Y COREQUISITOS -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <ngb-accordion #a="ngbAccordion">
-                            <ngb-panel>
-                                <ng-template ngbPanelHeader>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <label class="card-title mb-0">{{'cursos.prereq_coreq' | translate}} [ {{((prerequisitesList) ?
-                                            prerequisitesList.length : 0)}} ]</label>
-                                        <button ngbPanelToggle class="btn btn-info btn-rounded btn-xs"><i
-                                                class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent class="p-0">
-                                    <p-table #dt [columns]="prerequisitesColumns" [value]="prerequisitesList" selectionMode="single"
-                                        dataKey="id" [paginator]="prerequisitesTablePaginator" [rows]="prerequisitesTableRows"
-                                        [responsive]="true" [resizableColumns]="true" [(selection)]="selectedPrerequisitesRow"
-                                        class="table table-striped">
-                                        <ng-template pTemplate="header" let-columns>
-                                            <tr>
-                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
-                                                    [style.width]="col.width" pResizableColumn>
-                                                    {{ col.header  | translate}}
-                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                                                </th>
-                                                <th style="width:7em">{{'main.acciones' | translate}}</th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                            <tr [pSelectableRow]="rowData">
-                                                <td *ngFor="let col of columns" class="ui-resizable-column"
-                                                    [ngSwitch]="col.typeField">
-                                                    <div *ngSwitchCase="'object'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field][col.fieldChild] }}
-                                                    </div>
-                                                    <div *ngSwitchCase="'standard'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field] }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button type="button" id="edit_prerequisites_detail_button"
-                                                        class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
-                                                        (click)="onEditPrerequisite(rowData.id)"><i class="fa fa-pencil-alt"
-                                                            aria-hidden="true"></i></button>
-                                                    <button type="button" id="delete_prerequisites_detail_button"
-                                                        class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
-                                                        (click)="confirmModal(confirmation, rowData.id, 'prerequisites')"><i
-                                                            class="fa fa-trash-alt" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage" let-columns>
-                                            <tr>
-                                                <td [attr.colspan]="columns.length">
-                                                    {{'main.no_registros' | translate}}
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                    
-                                    <div class="p-t-10 p-b-10">
-                                        <button class="btn btn-info" (click)="onNewPrerequisite()" type="submit"
-                                            title="{{'main.nuevo_registro' | translate}}" label="{{'main.nuevo_registro' | translate}}"><i
-                                                class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>
-                                    </div>
-                                    <!-- MODAL DE CONFIRMACIÓN -->
-                                    <ng-template #confirmation let-modal>
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
-                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" style="text-align: center;">
-                                            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
-                                            <p>{{'main.conf_mensaje' | translate}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light btn-sm"
-                                                (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
-                                            <button type="button" class="btn  btn-light btn-sm"
-                                                (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
-                                        </div>
-                                    </ng-template>
-                                </ng-template>
-                            </ngb-panel>
-                        </ngb-accordion>
-                    </div>
-                </div>
                 
-                <!--- TABLA DE OBJETIVOS ESPECIFICOS -->
                 <div class="row">
                     <div class="col-md-12">
-                        <ngb-accordion #a="ngbAccordion">
-                            <ngb-panel>
-                                <ng-template ngbPanelHeader>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <label class="card-title mb-0">{{'cursos.objetivos' | translate}} [ {{((specificObjectivesList) ?
-                                            specificObjectivesList.length : 0)}} ]</label>
-                                        <button ngbPanelToggle class="btn btn-info btn-rounded btn-xs"><i
-                                                class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent class="p-0">
-                                    <p-table #dt [columns]="specificObjectivesColumns" [value]="specificObjectivesList"
-                                        selectionMode="single" dataKey="id"
-                                        [paginator]="specificObjectivesTablePaginator"
-                                        [rows]="specificObjectivesTableRows" [responsive]="true"
-                                        [resizableColumns]="true" [(selection)]="selectedSpecificObjectivesRow"
-                                        class="table table-striped">
-                                        <ng-template pTemplate="header" let-columns>
-                                            <tr>
-                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
-                                                    [style.width]="col.width" pResizableColumn>
-                                                    {{ col.header  | translate}}
-                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                                                </th>
-                                                <th style="width:7em">{{'main.acciones' | translate}}</th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                            <tr [pSelectableRow]="rowData">
-                                                <td *ngFor="let col of columns" class="ui-resizable-column"
-                                                    [ngSwitch]="col.typeField">
-                                                    <div *ngSwitchCase="'object'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field][col.fieldChild] }}
-                                                    </div>
-                                                    <div *ngSwitchCase="'standard'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field] }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button type="button" id="edit_goal_button"
-                                                        class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
-                                                        (click)="onEditObjective(rowData.id)"><i
-                                                            class="fa fa-pencil-alt" aria-hidden="true"></i></button>
-                                                    <button type="button" id="delete_goal_button"
-                                                        class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
-                                                        (click)="confirmModal(confirmation, rowData.id, 'objectives')"><i
-                                                            class="fa fa-trash-alt" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage" let-columns>
-                                            <tr>
-                                                <td [attr.colspan]="columns.length">
-                                                    {{'main.no_registros' | translate}}
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                    
-                                    <div class="p-t-10 p-b-10">
-                                        <button class="btn btn-info" (click)="onNewObjective()" type="submit"
-                                            title="{{'cursos.nuevo_objetivo' | translate}}" label="{{'cursos.nuevo_objetivo' | translate}}"><i
-                                                class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'cursos.nuevo_objetivo' | translate}}</button>
-                                    </div>
-
-                                    <!-- MODAL DE CONFIRMACIÓN -->
-                                    <ng-template #confirmation let-modal>
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
-                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" style="text-align: center;">
-                                            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
-                                            <p>{{'main.conf_mensaje' | translate}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light btn-sm"
-                                                (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
-                                            <button type="button" class="btn  btn-light btn-sm"
-                                                (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
-                                        </div>
+                        <p-accordion>
+                            <!--- TABLA DE TEXTOS GUIA -->
+                            <p-accordionTab  header="{{'cursos.otros_textos' | translate}} [ {{((booksList) ? booksList.length : 0)}} ]">
+                                <p-table #dt [columns]="booksColumns" [value]="booksList" selectionMode="single"
+                                dataKey="id" [paginator]="booksTablePaginator" [rows]="booksTableRows"
+                                [responsive]="true" [resizableColumns]="true" [(selection)]="selectedBooksRow"
+                                class="table table-striped">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                [style.width]="col.width" pResizableColumn>
+                                                {{ col.header | translate}}
+                                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                                            </th>
+                                            <th style="width:7em">{{'main.acciones' | translate}}</th>
+                                        </tr>
                                     </ng-template>
-                                </ng-template>
-                            </ngb-panel>
-                        </ngb-accordion>
-                    </div>
-                </div>
-
-                <!--- TABLA DE STUDENT OUTCOMES -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <ngb-accordion #a="ngbAccordion">
-                            <ngb-panel>
-                                <ng-template ngbPanelHeader>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <label class="card-title mb-0">Student Outcomes [ {{((studentOutcomesList) ?
-                                            studentOutcomesList.length : 0)}} ]</label>
-                                        <button ngbPanelToggle class="btn btn-info btn-rounded btn-xs"><i
-                                                class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent class="p-0">
-                                    <p-table #dt [columns]="studentOutcomesColumns" [value]="studentOutcomesList"
-                                        selectionMode="single" dataKey="id" [paginator]="studentOutcomesTablePaginator"
-                                        [rows]="studentOutcomesTableRows" [responsive]="true" [resizableColumns]="true"
-                                        [(selection)]="selectedStudentOutcomesRow" class="table table-striped">
-                                        <ng-template pTemplate="header" let-columns>
-                                            <tr>
-                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
-                                                    [style.width]="col.width" pResizableColumn>
-                                                    {{ col.header  | translate}}
-                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                                                </th>
-                                                <th style="width:7em">{{'main.acciones' | translate}}</th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                            <tr [pSelectableRow]="rowData">
-                                                <td *ngFor="let col of columns" class="ui-resizable-column"
-                                                    [ngSwitch]="col.typeField">
-                                                    <div *ngSwitchCase="'object'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field][col.fieldChild] }}
-                                                    </div>
-                                                    <div *ngSwitchCase="'standard'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field] }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button type="button" id="edit_student_outcome_button"
-                                                        class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
-                                                        (click)="onEditStudentOutcome(rowData.id)"><i
-                                                            class="fa fa-pencil-alt" aria-hidden="true"></i></button>
-                                                    <button type="button" id="delete_student_outcome_button"
-                                                        class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
-                                                        (click)="confirmModal(confirmation, rowData.id, 'studentOutcomes')"><i
-                                                            class="fa fa-trash-alt" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage" let-columns>
-                                            <tr>
-                                                <td [attr.colspan]="columns.length">
-                                                    {{'main.no_registros' | translate}}
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                    
-                                    <div class="p-t-10 p-b-10">
-                                        <button class="btn btn-info" (click)="onNewStudentOutcome()" type="submit"
-                                            title="{{'main.nuevo_registro' | translate}}" label="{{'main.nuevo_registro' | translate}}"><i
-                                                class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>
-                                    </div>
-                                    <!-- MODAL DE CONFIRMACIÓN -->
-                                    <ng-template #confirmation let-modal>
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
-                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" style="text-align: center;">
-                                            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
-                                            <p>{{'main.conf_mensaje' | translate}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light btn-sm"
-                                                (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
-                                            <button type="button" class="btn  btn-light btn-sm"
-                                                (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
-                                        </div>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                        <tr [pSelectableRow]="rowData">
+                                            <td *ngFor="let col of columns" class="ui-resizable-column"
+                                                [ngSwitch]="col.typeField">
+                                                <div *ngSwitchCase="'object'">
+                                                    <span class="p-column-title">{{ col.header | translate}}</span>{{
+                                                    rowData[col.field][col.fieldChild] }}
+                                                </div>
+                                                <div *ngSwitchCase="'standard'">
+                                                    <span class="p-column-title">{{ col.header | translate}}</span>{{
+                                                    rowData[col.field] }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button type="button" id="edit_otros_textos_button"
+                                                    class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
+                                                    (click)="onEditBook(rowData.id)"><i class="fa fa-pencil-alt"
+                                                        aria-hidden="true"></i></button>
+                                                <button type="button" id="delete_otros_textos_button"
+                                                    class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
+                                                    (click)="confirmModal(confirmation, rowData.id, 'books')"><i
+                                                        class="fa fa-trash-alt" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
                                     </ng-template>
-                                </ng-template>
-                            </ngb-panel>
-                        </ngb-accordion>
-                    </div>
-                </div>
-
-                <!--- TABLA DE TEMAS DE CURSO -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <ngb-accordion #a="ngbAccordion">
-                            <ngb-panel>
-                                <ng-template ngbPanelHeader>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <label class="card-title mb-0">{{'cursos.temas' | translate}} [ {{((topicsList) ?
-                                            topicsList.length : 0)}} ]</label>
-                                        <button ngbPanelToggle class="btn btn-info btn-rounded btn-xs"><i
-                                                class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                    </div>
-                                </ng-template>
-                                <ng-template ngbPanelContent class="p-0">
-                                    <p-table #dt [columns]="topicsColumns" [value]="topicsList" selectionMode="single"
-                                        dataKey="id" [paginator]="topicsTablePaginator" [rows]="topicsTableRows"
-                                        [responsive]="true" [resizableColumns]="true" [(selection)]="selectedTopicsRow"
-                                        class="table table-striped">
-                                        <ng-template pTemplate="header" let-columns>
-                                            <tr>
-                                                <th *ngFor="let col of columns" [pSortableColumn]="col.field"
-                                                    [style.width]="col.width" pResizableColumn>
-                                                    {{ col.header  | translate}}
-                                                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                                                </th>
-                                                <th style="width:7em">{{'main.acciones' | translate}}</th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                            <tr [pSelectableRow]="rowData">
-                                                <td *ngFor="let col of columns" class="ui-resizable-column"
-                                                    [ngSwitch]="col.typeField">
-                                                    <div *ngSwitchCase="'object'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field][col.fieldChild] }}
-                                                    </div>
-                                                    <div *ngSwitchCase="'standard'">
-                                                        <span class="p-column-title">{{ col.header  | translate}}</span>{{
-                                                        rowData[col.field] }}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <button type="button" id="edit_reference_type_detail_button"
-                                                        class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
-                                                        (click)="onEditTopic(rowData.id)"><i class="fa fa-pencil-alt"
-                                                            aria-hidden="true"></i></button>
-                                                    <button type="button" id="delete_reference_type_detail_button"
-                                                        class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
-                                                        (click)="confirmModal(confirmation, rowData.id, 'topics')"><i
-                                                            class="fa fa-trash-alt" aria-hidden="true"></i></button>
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="emptymessage" let-columns>
-                                            <tr>
-                                                <td [attr.colspan]="columns.length">
-                                                    {{'main.no_registros' | translate}}
-                                                </td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                    
-                                    <div class="p-t-10 p-b-10">
-                                        <button class="btn btn-info" (click)="onNewTopic()" type="submit"
-                                            title="{{'main.nuevo_registro' | translate}}" label="{{'main.nuevo_registro' | translate}}"><i
-                                                class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>
-                                    </div>
-                                    <!-- MODAL DE CONFIRMACIÓN -->
-                                    <ng-template #confirmation let-modal>
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
-                                            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body" style="text-align: center;">
-                                            <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
-                                            <p>{{'main.conf_mensaje' | translate}}</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light btn-sm"
-                                                (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
-                                            <button type="button" class="btn  btn-light btn-sm"
-                                                (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
-                                        </div>
+                                    <ng-template pTemplate="emptymessage" let-columns>
+                                        <tr>
+                                            <td [attr.colspan]="columns.length">
+                                                {{'main.no_registros' | translate}}
+                                            </td>
+                                        </tr>
                                     </ng-template>
+                                </p-table>
+                                <div class="p-t-10 p-b-10">
+                                    <button class="btn btn-info" (click)="onNewBook()" type="submit"
+                                        title="{{'main.nuevo_registro' | translate}}" label="{{'main.nuevo_registro' | translate}}"><i
+                                            class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>
+                                </div>
+                                <!-- MODAL DE CONFIRMACIÓN -->
+                                <ng-template #confirmation let-modal>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
+                                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="text-align: center;">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
+                                        <p>{{'main.conf_mensaje' | translate}}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light btn-sm"
+                                            (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
+                                        <button type="button" class="btn  btn-light btn-sm"
+                                            (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
+                                    </div>
                                 </ng-template>
-                            </ngb-panel>
-                        </ngb-accordion>
+                            </p-accordionTab>
+                            <!--- TABLA DE STUDENT OUTCOMES -->
+                            <p-accordionTab  header="Student Outcomes [ {{((studentOutcomesList) ? studentOutcomesList.length : 0)}} ]">
+                                <p-table #dt [columns]="studentOutcomesColumns" [value]="studentOutcomesList"
+                                selectionMode="single" dataKey="id" [paginator]="studentOutcomesTablePaginator"
+                                [rows]="studentOutcomesTableRows" [responsive]="true" [resizableColumns]="true"
+                                [(selection)]="selectedStudentOutcomesRow" class="table table-striped">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                [style.width]="col.width" pResizableColumn>
+                                                {{ col.header  | translate}}
+                                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                                            </th>
+                                            <th style="width:7em">{{'main.acciones' | translate}}</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                        <tr [pSelectableRow]="rowData">
+                                            <td *ngFor="let col of columns" class="ui-resizable-column"
+                                                [ngSwitch]="col.typeField">
+                                                <div *ngSwitchCase="'object'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field][col.fieldChild] }}
+                                                </div>
+                                                <div *ngSwitchCase="'standard'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field] }}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <button type="button" id="edit_student_outcome_button"
+                                                    class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
+                                                    (click)="onEditStudentOutcome(rowData.id)"><i
+                                                        class="fa fa-pencil-alt" aria-hidden="true"></i></button>
+                                                <button type="button" id="delete_student_outcome_button"
+                                                    class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
+                                                    (click)="confirmModal(confirmation, rowData.id, 'studentOutcomes')"><i
+                                                        class="fa fa-trash-alt" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-columns>
+                                        <tr>
+                                            <td [attr.colspan]="columns.length">
+                                                {{'main.no_registros' | translate}}
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                <div class="p-t-10 p-b-10">
+                                    <button class="btn btn-info" (click)="onNewStudentOutcome()" type="submit"
+                                        title="{{'main.nuevo_registro' | translate}}" label="{{'main.nuevo_registro' | translate}}"><i
+                                            class="fa fa-plus-circle pr-2" aria-hidden="true"></i>{{'main.nuevo_registro' | translate}}</button>
+                                </div>
+                                <!-- MODAL DE CONFIRMACIÓN -->
+                                <ng-template #confirmation let-modal>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
+                                        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="text-align: center;">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
+                                        <p>{{'main.conf_mensaje' | translate}}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light btn-sm"
+                                            (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
+                                        <button type="button" class="btn  btn-light btn-sm"
+                                            (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
+                                    </div>
+                                </ng-template>
+                            </p-accordionTab>
+                            <!--- TABLA DE PREREQUISITOS Y COREQUISITOS -->
+                            <p-accordionTab  header="{{'cursos.prereq_coreq' | translate}} [ {{((prerequisitesList) ? prerequisitesList.length : 0)}} ]">
+                                <p-table #dt [columns]="prerequisitesColumns" [value]="prerequisitesList" selectionMode="single"
+                                dataKey="id" [paginator]="prerequisitesTablePaginator" [rows]="prerequisitesTableRows"
+                                [responsive]="true" [resizableColumns]="true" [(selection)]="selectedPrerequisitesRow"
+                                class="table table-striped">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                [style.width]="col.width" pResizableColumn>
+                                                {{ col.header  | translate}}
+                                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                        <tr [pSelectableRow]="rowData">
+                                            <td *ngFor="let col of columns" class="ui-resizable-column"
+                                                [ngSwitch]="col.typeField">
+                                                <div *ngSwitchCase="'object'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field][col.fieldChild] }}
+                                                </div>
+                                                <div *ngSwitchCase="'standard'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field] }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-columns>
+                                        <tr>
+                                            <td [attr.colspan]="columns.length">
+                                                {{'main.no_registros' | translate}}
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </p-accordionTab>
+                            <!--- TABLA DE OBJETIVOS ESPECIFICOS -->
+                            <p-accordionTab  header="{{'cursos.objetivos' | translate}} [ {{((specificObjectivesList) ? specificObjectivesList.length : 0)}} ]">
+                                <p-table #dt [columns]="specificObjectivesColumns" [value]="specificObjectivesList"
+                                selectionMode="single" dataKey="id"
+                                [paginator]="specificObjectivesTablePaginator"
+                                [rows]="specificObjectivesTableRows" [responsive]="true"
+                                [resizableColumns]="true" [(selection)]="selectedSpecificObjectivesRow"
+                                class="table table-striped">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                [style.width]="col.width" pResizableColumn>
+                                                {{ col.header  | translate}}
+                                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                        <tr [pSelectableRow]="rowData">
+                                            <td *ngFor="let col of columns" class="ui-resizable-column"
+                                                [ngSwitch]="col.typeField">
+                                                <div *ngSwitchCase="'object'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field][col.fieldChild] }}
+                                                </div>
+                                                <div *ngSwitchCase="'standard'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field] }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-columns>
+                                        <tr>
+                                            <td [attr.colspan]="columns.length">
+                                                {{'main.no_registros' | translate}}
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </p-accordionTab>
+                            <!--- TABLA DE TEMAS DE CURSO -->
+                            <p-accordionTab  header="{{'cursos.temas' | translate}} [ {{((topicsList) ? topicsList.length : 0)}} ]">
+                                <p-table #dt [columns]="topicsColumns" [value]="topicsList" selectionMode="single"
+                                dataKey="id" [paginator]="topicsTablePaginator" [rows]="topicsTableRows"
+                                [responsive]="true" [resizableColumns]="true" [(selection)]="selectedTopicsRow"
+                                class="table table-striped">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                                                [style.width]="col.width" pResizableColumn>
+                                                {{ col.header  | translate}}
+                                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                                            </th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                        <tr [pSelectableRow]="rowData">
+                                            <td *ngFor="let col of columns" class="ui-resizable-column"
+                                                [ngSwitch]="col.typeField">
+                                                <div *ngSwitchCase="'object'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field][col.fieldChild] }}
+                                                </div>
+                                                <div *ngSwitchCase="'standard'">
+                                                    <span class="p-column-title">{{ col.header  | translate}}</span>{{
+                                                    rowData[col.field] }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="emptymessage" let-columns>
+                                        <tr>
+                                            <td [attr.colspan]="columns.length">
+                                                {{'main.no_registros' | translate}}
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </p-accordionTab>
+                        </p-accordion>
                     </div>
                 </div>
             </div>
@@ -775,29 +569,11 @@
                                 [selectedBookId]="selectedBookId" (onEventCancel)="mdStickUp.hide()"
                                 (onEventSave)="onSaveBook()"></app-books>
                         </ng-container>
-                        <ng-container *ngIf="modalComponetActive === 'prerequisites'">
-                            <app-prerequisites [selectedSubjectId]="selectedSubjectId"
-                                [selectedPrerequisiteId]="selectedPrerequisiteId"
-                                (onEventCancel)="mdStickUp.hide()" (onEventSave)="onSavePrerequisite()">
-                            </app-prerequisites>
-                        </ng-container>
-                        <ng-container *ngIf="modalComponetActive === 'objectives'">
-                            <app-specific-objectives [selectedSubjectId]="selectedSubjectId"
-                                [selectedObjectiveId]="selectedObjectiveId"
-                                (onEventCancel)="mdStickUp.hide()" (onEventSave)="onSaveObjective()">
-                            </app-specific-objectives>
-                        </ng-container>
                         <ng-container *ngIf="modalComponetActive === 'studentOutcomes'">
                             <app-student-outcomes [selectedSubjectId]="selectedSubjectId"
                                 [selectedStudentOutcomeId]="selectedStudentOutcomeId" (onEventCancel)="mdStickUp.hide()"
                                 (onEventSave)="onSaveStudentOutcome()">
                             </app-student-outcomes>
-                        </ng-container>
-                        <ng-container *ngIf="modalComponetActive === 'topics'">
-                            <app-topics [selectedSubjectId]="selectedSubjectId"
-                                [selectedTopicId]="selectedTopicId"
-                                (onEventCancel)="mdStickUp.hide()" (onEventSave)="onSaveTopic()">
-                            </app-topics>
                         </ng-container>
                         <ng-container *ngIf="modalComponetActive === 'cover'">
                             <app-file-upload  (onEventCancel) ="mdStickUp.hide()" (onEventSave) ="onSaveCover($event)" 

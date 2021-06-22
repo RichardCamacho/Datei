@@ -22,10 +22,11 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 col-lg-4">
-                            <div class="form-group" [class.has-error]="submitted && f.fecha.errors">
+                            <div class="form-group">
                                 <label>{{'main.fecha' | translate}}*</label>
-                                <input type="date" class="form-control" name="{{'main.fecha' | translate}}"
-                                formControlName="fecha" id="fecha" [ngClass]="{ 'is-invalid': submitted && f.fecha.errors }">
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [minDate]="minDate" inputId="fecha" 
+                                [showButtonBar]="true" name="fecha" formControlName="fecha" id="fecha" [class.has-error]="submitted && f.fecha.errors"
+                                [style]="{'width':'100%'}"  dateFormat="dd/mm/yy" [ngClass]="{ 'is-invalid': submitted && f.fecha.errors }"></p-calendar>
                                 <div *ngIf="submitted && f.fecha.errors" >
                                     <small class="form-text text-danger" *ngIf="f.fecha.errors.required">{{'main.campo_requerido' | translate}}</small>
                                 </div>

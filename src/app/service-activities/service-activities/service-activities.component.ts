@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ServiceActivity } from './service-activities.model';
 import { ServiceActivitiesService } from './service-activities.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DateHelp } from 'src/app/_helpers/date-helper';
 
 @Component({
   selector: 'app-service-activities',
@@ -20,6 +21,8 @@ export class ServiceActivitiesComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
+  maxDate: Date;
+  yearRange: any;
 
   serviceActiv: ServiceActivity;// objeto Actividad de servicio  con el que trabaja el componente
 
@@ -47,13 +50,16 @@ export class ServiceActivitiesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
               private activatedRoute: ActivatedRoute, public serviceActivService: ServiceActivitiesService,
               private toastr: ToastrService, @Inject(LOCALE_ID) locale: string, private translate: TranslateService,
-              private spinner: NgxSpinnerService) { 
+              private spinner: NgxSpinnerService,  private dateHelp: DateHelp) { 
 
               this.timeLocale = locale;
               this.spinner.show(); 
               }
 
   ngOnInit(): void {
+    this.maxDate = this.dateHelp.maxDateToday;
+    this.yearRange = `1950:${this.dateHelp.year}`;
+    
     //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedServiceActivityId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
@@ -99,8 +105,8 @@ export class ServiceActivitiesComponent implements OnInit {
   //obtiene la actividad de servicio indicada por id en el estado de UPDATE
   getServiceActiv(id) {
     this.serviceActivService.getServiceActivityById(id).subscribe((res: any) => {
-      res.fechaFinalizacion = formatDate(res.fechaFinalizacion, "yyyy-MM-dd", this.timeLocale);
-      res.fechaInicio = formatDate(res.fechaInicio, "yyyy-MM-dd", this.timeLocale);
+      res.fechaFinalizacion = new Date(res.fechaFinalizacion);
+      res.fechaInicio = new Date(res.fechaInicio);
       this.registerServiceActivForm.patchValue(res);
       this.spinner.hide();
     },

@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfessionalActivity } from './professional-activities.model';
 import { ProfessionalActivitiesService } from './professional-activities.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DateHelp } from 'src/app/_helpers/date-helper';
 
 @Component({
   selector: 'app-professional-activities',
@@ -20,6 +21,8 @@ export class ProfessionalActivitiesComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
+  maxDate: Date;
+  yearRange: any;
 
   professionalActiv: ProfessionalActivity;// objeto actividad profesional con el que trabaja el componente
 
@@ -47,13 +50,16 @@ export class ProfessionalActivitiesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
               private activatedRoute: ActivatedRoute, public professionalActivService: ProfessionalActivitiesService,
               private toastr: ToastrService, @Inject(LOCALE_ID) locale: string, private translate: TranslateService,
-              private spinner: NgxSpinnerService) { 
+              private spinner: NgxSpinnerService, private dateHelp: DateHelp) { 
 
               this.timeLocale = locale;
               this.spinner.show();
   }
 
   ngOnInit(): void {
+    this.maxDate = this.dateHelp.maxDateToday;
+    this.yearRange = `1950:${this.dateHelp.year}`;
+    
     //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedProfessionalActivityId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
@@ -98,8 +104,8 @@ export class ProfessionalActivitiesComponent implements OnInit {
   //obtiene la actividad profesional indicada por id en el estado de UPDATE
   getProfessionalActiv(id) {
     this.professionalActivService.getProfessionalActivityById(id).subscribe((res: any) => {
-      res.fechaFinalizacion = formatDate(res.fechaFinalizacion, "yyyy-MM-dd", this.timeLocale);
-      res.fechaInicio = formatDate(res.fechaInicio, "yyyy-MM-dd", this.timeLocale);
+      res.fechaFinalizacion = new Date(res.fechaFinalizacion);
+      res.fechaInicio = new Date(res.fechaInicio);
       this.registerProfessionalActivForm.patchValue(res);
       this.spinner.hide();
     },

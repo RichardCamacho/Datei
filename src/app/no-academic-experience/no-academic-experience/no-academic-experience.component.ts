@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NoAcademicExperience } from './no-academic-experience.model';
 import { NoAcademicExperienceService } from './no-academic-experience.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DateHelp } from 'src/app/_helpers/date-helper';
 
 @Component({
   selector: 'app-no-academic-experience',
@@ -20,7 +21,9 @@ export class NoAcademicExperienceComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
-
+  maxDate: Date;
+  yearRange: any;
+  
   noAcademicExp: NoAcademicExperience;// objeto experiencia no academica con el que trabaja el componente
 
   //parametros de translate
@@ -45,14 +48,15 @@ export class NoAcademicExperienceComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
               private activatedRoute: ActivatedRoute, public noAcademicExpService: NoAcademicExperienceService,
               private toastr: ToastrService, @Inject(LOCALE_ID) locale: string, private translate: TranslateService,
-              private spinner: NgxSpinnerService) { 
+              private spinner: NgxSpinnerService, private dateHelp: DateHelp) { 
 
               this.timeLocale = locale;
               this.spinner.show();  
   }
 
   ngOnInit(): void {
-
+    this.maxDate = this.dateHelp.maxDateToday;
+    this.yearRange = `1950:${this.dateHelp.year}`;
     //listas
     this.getTiempo();
     //inicializando el componente en modo de creacion o actualizacion
@@ -102,8 +106,8 @@ export class NoAcademicExperienceComponent implements OnInit {
   //obtiene la experiencia no academica indicada por id en el estado de UPDATE
   getNoAcademicExp(id) {
     this.noAcademicExpService.getNoAcademicExpById(id).subscribe((res: any) => {
-      res.fechaFinalizacion = formatDate(res.fechaFinalizacion, "yyyy-MM-dd", this.timeLocale);
-      res.fechaInicio = formatDate(res.fechaInicio, "yyyy-MM-dd", this.timeLocale);
+      res.fechaFinalizacion = new Date(res.fechaFinalizacion);
+      res.fechaInicio = new Date(res.fechaInicio);
       this.registerNoAcademicExpForm.patchValue(res);
       this.spinner.hide();
     },

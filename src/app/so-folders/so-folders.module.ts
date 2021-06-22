@@ -16,6 +16,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { SoFolderRoutes } from './so-folders-routing';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgSelectModule,
     ModalModule,
     TranslateModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AccordionModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService]

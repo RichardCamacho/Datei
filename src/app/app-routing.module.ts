@@ -53,31 +53,31 @@ export const Approutes: Routes = [
 			{ 	path: 'curriculum-vitae',
 				loadChildren: () => import('./curriculum-vitae/curriculum-vitae.module').then(m => m.CurriculumVitaeModule),
 				data: {
-					role: ['Coordinador', 'Docente']
+					role: ['Coordinador', 'Docente', 'Lider de SO']
 				} 
 			},
 			{ 	path: 'subject-folder',
 				loadChildren: () => import('./subject-folders/subject-folders.module').then(m => m.SubjectFoldersModule),
 				data: {
-					role: ['Coordinador', 'Docente']
+					role: ['Coordinador', 'Docente', 'Lider de SO']
 				}  
 			},
 			{ 	path: 'section',
 				loadChildren: () => import('./sections/sections.module').then(m => m.SectionsModule),
 				data: {
-					role: ['Coordinador', 'Docente']
+					role: ['Coordinador', 'Docente', 'Lider de SO']
 				}  
 			},
 			{ 	path: 'subject-information',
 				loadChildren: () => import('./subject-information/subject-information.module').then(m => m.SubjectInformationModule),
 				data: {
-					role: ['Coordinador', 'Docente']
+					role: ['Coordinador', 'Docente', 'Lider de SO']
 				} 
 			},
 			{ 	path: 'so-folder',
 				loadChildren: () => import('./so-folders/so-folders.module').then(m => m.SoFoldersModule),
 				data: {
-					role: ['Coordinador', 'Docente']
+					role: ['Coordinador', 'Lider de SO']
 				}  
 			},
 			{ 	path: 'folders',
@@ -89,19 +89,19 @@ export const Approutes: Routes = [
 			{ 	path: 'minute',
 				loadChildren: () => import('./minutes/minutes.module').then(m => m.MinutesModule),
 				data: {
-					role: ['Coordinador', 'Docente']
+					role: ['Coordinador', 'Lider de SO']
 				}  
 			},
 			{ 	path: 'continuous-improvement',
 				loadChildren: () => import('./continuous-improvement/continuous-improvement.module').then(m => m.ContinuousImprovementModule),
 				data: {
-					role: ['Coordinador', 'Docente']
+					role: ['Coordinador', 'Lider de SO']
 				}  
 			},
 			{ 	path: 'configuration',
 				loadChildren: () => import('./change-password/change-password.module').then(m => m.ChangePasswordModule),
 				data: {
-					role: ['Coordinador', 'Docente', 'Administrador']
+					role: ['Coordinador', 'Docente', 'Administrador', 'Lider de SO']
 				}  
 			}
 		]

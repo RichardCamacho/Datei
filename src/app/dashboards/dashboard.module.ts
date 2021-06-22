@@ -20,6 +20,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DropdownModule } from 'primeng/dropdown';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SoFoldersInfoComponent } from './dashboard-components/so-folders-info/so-folders-info.component';
+import { FacultiesCurriculumChartComponent } from './dashboard-components/faculties-curriculum-chart/faculties-curriculum-chart.component';
+import { FacultiesChartComponent } from './dashboard-components/faculties-chart/faculties-chart.component';
+import {AccordionModule} from 'primeng/accordion';
 
 @NgModule({
   imports: [
@@ -37,7 +40,8 @@ import { SoFoldersInfoComponent } from './dashboard-components/so-folders-info/s
     NgApexchartsModule, 
     RouterModule.forChild(DashboardRoutes), 
     PerfectScrollbarModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    AccordionModule
   ],
   declarations: [
     Dashboard1Component,
@@ -45,6 +49,8 @@ import { SoFoldersInfoComponent } from './dashboard-components/so-folders-info/s
     FacultiesCurriculumComponent,
     SubjectsInfoComponent,
     SoFoldersInfoComponent,
+    FacultiesCurriculumChartComponent,
+    FacultiesChartComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

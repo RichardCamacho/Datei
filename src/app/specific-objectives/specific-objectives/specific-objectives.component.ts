@@ -29,7 +29,7 @@ export class SpecificObjectivesComponent implements OnInit {
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedSubjectId; // id del curso o asignatura con el que se está trabajando
+  @Input() public selectedCourseId; // id del curso o asignatura con el que se está trabajando
   @Input() public selectedObjectiveId; // id del objetivo selecciconado
 
   @Output() onEventSave = new EventEmitter<boolean>();
@@ -85,7 +85,7 @@ export class SpecificObjectivesComponent implements OnInit {
     }
     this.submittedUp = true;
     this.objective = this.registerObjectiveForm.value;
-    this.objective.curso = this.selectedSubjectId;
+    this.objective.curso = this.selectedCourseId;
     this.onCreateObjective();
   }
   

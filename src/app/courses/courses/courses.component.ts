@@ -21,12 +21,13 @@ export class CoursesComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   selectedCourseId; // registra el id seleccionado que viene en la URL.
   mode = ''; // identifica el modo de transaccion del componente: CREATE , UPDATE
-
+  modalComponetActive = '';// manejo de la ventana modal
   course: Course;
-
   tipoCursoList: any[];//lista de tipos de curso
   docentesList: any[];//lista de docentes
   
+  auxgrupos: any[];
+
   param20 = {value: '20'};
   param100 = {value: '100'};
   param200 = {value: '200'};
@@ -42,7 +43,6 @@ export class CoursesComponent implements OnInit {
   @ViewChild('mdStickUp', { static: false }) public mdStickUp: ModalDirective;
 
   
-
   facultyColumns: any[] = [
     { "header": 'main.nombre', "field": "nombre", "width": "50%", "typeField": 'standard' },
     { "header": 'docente.grupo', "field": "grupo", "width": "50%", "typeField": 'standard' }
@@ -51,6 +51,34 @@ export class CoursesComponent implements OnInit {
   facultyList: any[];
   facultyTablePaginator = false;
   facultyTableRows = 10;
+
+  //prerequisitos y corequisitos
+  prerequisitesColumns: any[] = [
+    { "header": 'main.nombre', "field": "nombre", "width": "90%", "typeField": 'standard' },
+    { "header": 'main.tipo', "field": "tipo", "width": "90%", "typeField": 'standard' }
+  ];
+  prerequisitesList: any[];
+  prerequisitesTablePaginator = false;
+  prerequisitesTableRows = 10;
+  selectedPrerequisiteId;
+
+  //objetivos especificos
+  specificObjectivesColumns: any[] = [
+    { "header": 'main.nombre', "field": "nombre", "width": "90%", "typeField": 'standard' }
+  ];
+  specificObjectivesList: any[];
+  specificObjectivesTablePaginator = false;
+  specificObjectivesTableRows = 10;
+  selectedObjectiveId;
+
+  //temas de curso
+  topicsColumns: any[] = [
+    { "header": 'main.nombre', "field": "nombre", "width": "90%", "typeField": 'standard' }
+  ];
+  topicsList: any[];
+  topicsTablePaginator = false;
+  topicsTableRows = 10;
+  selectedTopicId;
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router,
     private toastr: ToastrService, private courseService: CoursesService,
@@ -66,7 +94,7 @@ export class CoursesComponent implements OnInit {
       } else {
         this.mode = 'UPDATE';
         this.getCourse(this.selectedCourseId);
-        this.getDocentes();
+        this.getDetalles();
       }
     });
 
@@ -102,6 +130,13 @@ export class CoursesComponent implements OnInit {
       this.spinner.hide();
       this.toastr.error(`Error, ${err.error.message}`);
     });
+  }
+
+  getDetalles(){
+    this.getDocentes();
+    this.getPrerequisites();
+    this.getObjectives();
+    this.getTopics();
   }
 
   //metodo para el control de envio de la información del formulario
@@ -189,6 +224,11 @@ export class CoursesComponent implements OnInit {
         nombre: data.nombre,
         grupo: data.grupo.nombre
       }));
+
+      this.auxgrupos = res.map((data) => ({
+        nombre: data.grupo.nombre
+      }));
+
       this.facultyTablePaginator = (res.length > this.facultyTableRows) ? true : false;
       this.spinner.hide();
     },
@@ -201,6 +241,7 @@ export class CoursesComponent implements OnInit {
   //agregar un docente
   onNewFaculty() {
     this.mdStickUp.show();
+    this.modalComponetActive = 'faculties';
     this.selectedFacultyId = null;
   }
 
@@ -213,6 +254,7 @@ export class CoursesComponent implements OnInit {
   //editar un docente
   onEditFaculty(id) {
     this.mdStickUp.show();
+    this.modalComponetActive = 'faculties';
     this.selectedFacultyId = id;
   }
 
@@ -221,20 +263,188 @@ export class CoursesComponent implements OnInit {
     this.spinner.show();
     this.courseService.deleteFaculty(id).subscribe((res: any) => {
       this.getDocentes();
+      this.spinner.hide();
       this.translate.get('success_delete').subscribe((res: string) => {
         this.toastr.success(res);
       });
     },
       err => {
+        this.spinner.hide();
         this.toastr.error(`Error, ${err.error.message}`)
       });
   }
 
-  confirmModal(confirmation: string, id) {
-    this.modalService.open(confirmation, { centered: true }).result.then((result) => {
-      this.onDeleteFaculty(id);
-    }, (reason) => {
+  // //Prerequisitos y corequisitos-------------------------------------------------------------------------------------------------------
+  getPrerequisites(){
+    this.courseService.getPrerequisites(this.selectedCourseId).subscribe((res: any) => {
+      this.prerequisitesList = res.map((data) => ({
+        id: data.id,
+        nombre: data.nombre,
+        tipo: data.tipo.nombre
+      }));
+      this.prerequisitesTablePaginator = (res.length > this.prerequisitesTableRows) ? true : false;
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`);
     });
+  }
+
+  //agregando un nuevo detalle
+  onNewPrerequisite() {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'prerequisites';
+    this.selectedPrerequisiteId = null;
+  }
+
+  //guardado del detalle
+  onSavePrerequisite() {
+    this.mdStickUp.hide();
+    this.getPrerequisites();
+  }
+
+  // edicion de detalle
+  onEditPrerequisite(id) {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'prerequisites';
+    this.selectedPrerequisiteId = id;
+  }
+
+  //borrar un registro de prerequisitos
+  onDeletePrerequisite(id) {
+    this.spinner.show();
+    this.courseService.deletePrerequisite(id).subscribe((res: any) => {
+      this.getPrerequisites();
+      this.spinner.hide();
+      this.translate.get('success_delete').subscribe((res: string) => {
+        this.toastr.success(res);
+      });
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`)
+    });
+  }
+
+  // //Objetivos-------------------------------------------------------------------------------------------------------
+  getObjectives(){
+    this.courseService.getObjectives(this.selectedCourseId).subscribe((res: any) => {
+      this.specificObjectivesList = res;
+      this.specificObjectivesTablePaginator = (res.length > this.specificObjectivesTableRows) ? true : false;
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`);
+    });
+  }
+
+  //agregando un nuevo detalle
+  onNewObjective() {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'objectives';
+    this.selectedObjectiveId = null;
+  }
+
+  //guardado del detalle
+  onSaveObjective() {
+    this.mdStickUp.hide();
+    this.getObjectives();
+  }
+
+  // edicion de detalle
+  onEditObjective(id) {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'objectives';
+    this.selectedObjectiveId = id;
+  }
+
+  //borrar un registro de objetivo
+  onDeleteObjective(id) {
+    this.spinner.show();
+    this.courseService.deleteObjective(id).subscribe((res: any) => {
+      this.getObjectives();
+      this.spinner.hide();
+      this.translate.get('success_delete').subscribe((res: string) => {
+        this.toastr.success(res);
+      });
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`)
+    });
+  }
+
+  //Temas de Curso-------------------------------------------------------------------------------------------------------
+  getTopics(){
+    this.courseService.getTopics(this.selectedCourseId).subscribe((res: any) => {
+      this.topicsList = res;
+      this.topicsTablePaginator = (res.length > this.topicsTableRows) ? true : false;
+      //spinner
+    },
+    err => {
+      //spinner
+      this.toastr.error(`Error, ${err.error.message}`);
+    });
+  }
+
+  //agregando un nuevo detalle
+  onNewTopic() {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'topics';
+    this.selectedTopicId = null;
+  }
+
+  //guardado del detalle
+  onSaveTopic() {
+    this.mdStickUp.hide();
+    this.getTopics();
+  }
+
+  // edicion de detalle
+  onEditTopic(id) {
+    this.mdStickUp.show();
+    this.modalComponetActive = 'topics';
+    this.selectedTopicId = id;
+  }
+
+  //borrar un registro de objetivo
+  onDeleteTopic(id) {
+    this.spinner.show();
+    this.courseService.deleteTopic(id).subscribe((res: any) => {
+      this.getTopics();
+      this.spinner.hide();
+      this.translate.get('success_delete').subscribe((res: string) => {
+        this.toastr.success(res);
+      });
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`)
+    });
+  }
+
+  //confirmacion del modal de eliminacion
+  confirmModal(confirmation: string, id, componentActive) {
+    this.modalService.open(confirmation, { centered: true }).result.then((result) => {
+			switch (componentActive) {
+        case 'faculties':
+          this.onDeleteFaculty(id);
+          break;
+        case 'prerequisites':
+          this.onDeletePrerequisite(id);
+          break;
+        case 'objectives':
+          this.onDeleteObjective(id);
+          break;
+        case 'topics':
+          this.onDeleteTopic(id);
+          break;
+        default:
+          break;
+      }
+		}, (reason) => {
+			// console.log("pasado");
+		});
   }
 
   //previene que en los campos se incluyan caracteres diferentes a los numericos

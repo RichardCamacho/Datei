@@ -29,7 +29,6 @@ export class FacultiesCurriculumComponent implements OnInit {
   getAllFacultiesByProgram(){
     this.spinner.show();
     this.facultiesCurriculumService.getAllUsersCurriculum(this.idPrograma).subscribe((res: any) => {
-      
       this.facultiesList = res.map((data) => ({
         id: data.id,
         rango: data.rango.nombre,

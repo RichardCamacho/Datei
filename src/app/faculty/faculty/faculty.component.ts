@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Docente } from './faculty.model';
 import { FacultyService } from './faculty.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogLookupComponent } from 'src/app/shared/dialog-lookup/dialog-lookup.component';
 
 @Component({
   selector: 'app-faculty',
@@ -17,12 +19,12 @@ export class FacultyComponent implements OnInit {
   registerFacultyForm: FormGroup;
   submitted = false; //identifica el estado del formulario
   submittedUp = false; //auxiliar - identifica el estado del formulario
-
   faculty: Docente;// objeto docente con el que trabaja el componente
-
+  ref: DynamicDialogRef;
+  docente: string = '';
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
-  grupoList: any[];//lista de tipos de curso
+  grupoList: any[] = [];//lista de tipos de curso
   
   //parametros de translate
   param100 = {value: '100'};
@@ -32,6 +34,7 @@ export class FacultyComponent implements OnInit {
   
   @Input() public selectedCourseId; // id de la asignatura con la que se trabaja
   @Input() public selectedFacultyId; // id del docente seleccionado
+  @Input() public grupos; // auxiliar para saber si hay grupos seleccionados
 
   @Output() onEventSave = new EventEmitter<boolean>();
   @Output() onEventCancel = new EventEmitter<boolean>();
@@ -43,7 +46,7 @@ export class FacultyComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
               private activatedRoute: ActivatedRoute, public facultyService: FacultyService,
               private toastr: ToastrService, private translate: TranslateService,
-              private spinner: NgxSpinnerService) { 
+              private spinner: NgxSpinnerService,  public dialogService: DialogService) { 
 
               this.spinner.show();  
   }
@@ -148,12 +151,47 @@ export class FacultyComponent implements OnInit {
     this.spinner.show();
     this.facultyService.getDetailsByName('Grupos').subscribe((res: any) => {
       this.grupoList = res;
+      //limitar los grupos que ya esten registrados
+      for (let j = 0; j < this.grupos.length; j++) {
+        res.forEach(data => {
+          if(data.nombre === this.grupos[j].nombre){
+            var i = this.grupoList.indexOf( data );
+            this.grupoList.splice(i, 1);
+          }
+        });
+      }
       this.spinner.hide();
     },
     err => {
       this.spinner.hide();
       this.toastr.error(`Error, ${err.error.message}`);
     });
+  }
+
+  lookUpDocentes() {
+    const cols = [
+      { field: 'primerNombre', header: 'users.primer_nombre' , width: '15%'},
+      { field: 'primerApellido', header: 'users.primer_apell' , width: '15%'},
+      { field: 'segundoApellido', header: 'users.seg_apellido' , width: '15%'}
+    ];
+    this.ref = this.dialogService.open(DialogLookupComponent, {
+        header: 'Seleccione un docente de la lista',
+        width: '70%',
+        baseZIndex: 100,
+        contentStyle: {'max-height': '450px' },
+        data: { service: '/api/list-users', cols}
+    });
+
+    this.ref.onClose.subscribe(item => {
+      if (item) {
+          this.setiInfoDocente(item);
+      }
+    });
+  }
+
+  setiInfoDocente(item) {
+    this.docente = (item) ? `${item.primerNombre} ${item.primerApellido} ${item.segundoApellido}` : '' ;
+    this.f.nombre.setValue(this.docente);
   }
 
 }

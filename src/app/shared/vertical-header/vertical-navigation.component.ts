@@ -9,6 +9,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginService } from 'src/app/_services/login.service';
 import { Router } from '@angular/router';
+import { PrimeNGConfig } from 'primeng/api';
 declare var $: any;
 
 @Component({
@@ -55,8 +56,9 @@ export class VerticalNavigationComponent implements AfterViewInit {
   nombre; email;
 
   constructor(private modalService: NgbModal, private translate: TranslateService, private loginService: LoginService,
-              private router: Router) {
+              private router: Router, private primeConfig: PrimeNGConfig) {
     translate.setDefaultLang('es');
+    this.translate.get('primeng').subscribe(res => this.primeConfig.setTranslation(res));
     this.nombre = sessionStorage.getItem('nombre');
     this.email = sessionStorage.getItem('email');
   }
@@ -64,6 +66,7 @@ export class VerticalNavigationComponent implements AfterViewInit {
   changeLanguage(lang: any) {
     this.translate.use(lang.code)
     this.selectedLanguage = lang;
+    this.translate.get('primeng').subscribe(res => this.primeConfig.setTranslation(res));
   }
 
   ngAfterViewInit() { 

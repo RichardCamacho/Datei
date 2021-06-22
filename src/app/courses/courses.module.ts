@@ -17,12 +17,21 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmationService } from 'primeng/api';
 import { FacultyComponent } from '../faculty/faculty/faculty.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { PrerequisitesComponent } from '../prerequisites/prerequisites/prerequisites.component';
+import { SpecificObjectivesComponent } from '../specific-objectives/specific-objectives/specific-objectives.component';
+import { TopicsComponent } from '../topics/topics/topics.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
     CoursesListComponent, 
     CoursesComponent,
-    FacultyComponent
+    FacultyComponent,
+    PrerequisitesComponent,
+    SpecificObjectivesComponent,
+    TopicsComponent
   ],
   imports: [
     CommonModule,
@@ -38,10 +47,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgSelectModule,
     ModalModule,
     NgbAccordionModule,
+    HttpClientModule,
     TranslateModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    DynamicDialogModule,
+    AccordionModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, DialogService]
 })
 export class CoursesModule { }

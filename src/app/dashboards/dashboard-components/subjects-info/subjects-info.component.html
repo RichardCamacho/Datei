@@ -1,8 +1,6 @@
 <div class="card">
     <div class="card-body">
         <h4 class="card-title"><span class="lstick"></span>{{'cursos.list_cursos' | translate}}</h4>  
-    </div>
-    <div class="card-body">
         <p-table #dt [columns]="subjectInfoColumns" [value]="subjectInfoList"
                 selectionMode="single" dataKey="id" [paginator]="subjectInfoTablePaginator"
                 [rows]="subjectInfoTableRows" [responsive]="true" [resizableColumns]="true"

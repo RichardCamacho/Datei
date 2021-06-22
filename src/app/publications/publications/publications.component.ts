@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Publications } from './publications.model';
 import { PublicationsService } from './publications.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DateHelp } from 'src/app/_helpers/date-helper';
 
 @Component({
   selector: 'app-publications',
@@ -22,6 +23,8 @@ export class PublicationsComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
+  maxDate: Date;
+  yearRange: any;
 
   publication: Publications;// objeto publicacion con el que trabaja el componente
 
@@ -57,13 +60,16 @@ export class PublicationsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
               private activatedRoute: ActivatedRoute, public publicationService: PublicationsService,
               private toastr: ToastrService, @Inject(LOCALE_ID) locale: string, private modalService: NgbModal
-              , private translate: TranslateService, private spinner: NgxSpinnerService) { 
+              , private translate: TranslateService, private spinner: NgxSpinnerService, private dateHelp: DateHelp) { 
 
               this.timeLocale = locale;
               this.spinner.show(); 
               }
 
   ngOnInit(): void {
+    this.maxDate = this.dateHelp.maxDateToday;
+    this.yearRange = `1950:${this.dateHelp.year}`;
+
     //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedPublicationId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
@@ -87,7 +93,7 @@ export class PublicationsComponent implements OnInit {
   getPublication(id) {
     this.publicationService.getPublicationById(id).subscribe((res: any) => {
       this.publication = res;
-      res.fechaPublicacion = formatDate(res.fechaPublicacion, "yyyy-MM-dd", this.timeLocale);
+      res.fechaPublicacion = new Date(res.fechaPublicacion);
       this.registerPublicationForm.patchValue(res);
       this.getCoauthors();
       this.spinner.hide();

@@ -11,8 +11,8 @@
                             <div class="col-lg-6">
                                 <div class="form-group" [class.has-error]="submitted && f.nombre.errors">
                                     <label>{{'main.nombre' | translate}}*</label>
-                                    <input type="text" class="form-control" placeholder="{{'main.nombre' | translate}}" name="nombre"
-                                        formControlName="nombre" id="nombre"
+                                    <input type="text" class="form-control" name="nombre"
+                                        formControlName="nombre" id="nombre" (click) ="lookUpDocentes()" readonly value="docente"
                                         [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }">
                                     <div *ngIf="submitted && f.nombre.errors">
                                         <small class="form-text text-danger" *ngIf="f.nombre.errors.required">{{'main.campo_requerido' | translate}}</small>
@@ -33,6 +33,11 @@
                                         <small class="form-text text-danger" *ngIf="f.grupo.errors.required">{{'main.campo_requerido' | translate}}</small>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="grupoList.length === 0">
+                            <div class="col-lg-12" style="display: flex; justify-content: center">
+                                <span class="badge badge-info px-3 font-medium">{{'main.inf_grupos' | translate}}</span>
                             </div>
                         </div>
                     </div>

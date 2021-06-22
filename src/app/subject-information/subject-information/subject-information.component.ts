@@ -200,12 +200,12 @@ export class SubjectInformationComponent implements OnInit {
   getDetails(){
     this.spinner.show();
     this.getDocentes(this.subject.idCurso);
+    this.getPrerequisitos(this.subject.idCurso);
+    this.getObjetivos(this.subject.idCurso);
+    this.getTemas(this.subject.idCurso);
     this.getCover();
     this.getBooks();
-    this.getPrerequisites();
-    this.getObjectives();
     this.getStudentOutcomes();
-    this.getTopics();
     this.spinner.hide();
   }
 
@@ -331,6 +331,9 @@ export class SubjectInformationComponent implements OnInit {
       this.f.tipoCurso.setValue(data.tipo_curso);
       this.f.informacion.setValue(data.informacion);
       this.getDocentes(data.id);
+      this.getPrerequisitos(data.id);
+      this.getObjetivos(data.id);
+      this.getTemas(data.id);
     }else{
       this.f.codigo.setValue('');
       this.f.nombreEspaniol.setValue('');
@@ -352,6 +355,52 @@ export class SubjectInformationComponent implements OnInit {
         grupo: data.grupo.nombre
       }));
       this.facultyTablePaginator = (res.length > this.facultyTableRows) ? true : false;
+      this.spinner.hide();
+    },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(`Error, ${err.error.message}`);
+      });
+  }
+
+  //obteniendo la lista de prerequisitos del curso seleccionado
+  getPrerequisitos(id){
+    this.spinner.show();
+    this.subjectInformationService.getPrerequisites(id).subscribe((res: any) => {
+      this.prerequisitesList = res.map((data) => ({
+        id: data.id,
+        nombre: data.nombre,
+        tipo: data.tipo.nombre
+      }));
+      this.prerequisitesTablePaginator = (res.length > this.prerequisitesTableRows) ? true : false;
+      this.spinner.hide();
+    },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(`Error, ${err.error.message}`);
+      });
+  }
+
+  //obteniendo la lista de objetivos del curso seleccionado
+  getObjetivos(id){
+    this.spinner.show();
+    this.subjectInformationService.getObjectives(id).subscribe((res: any) => {
+      this.specificObjectivesList = res;
+      this.specificObjectivesTablePaginator = (res.length > this.specificObjectivesTableRows) ? true : false;
+      this.spinner.hide();
+    },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(`Error, ${err.error.message}`);
+      });
+  }
+  
+  //obteniendo la lista de temas del curso seleccionado
+  getTemas(id){
+    this.spinner.show();
+    this.subjectInformationService.getTopics(id).subscribe((res: any) => {
+      this.topicsList = res;
+      this.topicsTablePaginator = (res.length > this.topicsTableRows) ? true : false;
       this.spinner.hide();
     },
       err => {
@@ -395,107 +444,9 @@ export class SubjectInformationComponent implements OnInit {
 
   //borrar un registro de libro
   onDeleteBook(id) {
+    this.spinner.show();
     this.subjectInformationService.deleteBook(id).subscribe((res: any) => {
       this.getBooks();
-      this.spinner.hide();
-      this.translate.get('success_delete').subscribe((res: string) => {
-        this.toastr.success(res);
-      });
-    },
-    err => {
-      this.spinner.hide();
-      this.toastr.error(`Error, ${err.error.message}`)
-    });
-  }
-
-  // //Prerequisitos y corequisitos-------------------------------------------------------------------------------------------------------
-  getPrerequisites(){
-    this.subjectInformationService.getPrerequisites(this.subject.id).subscribe((res: any) => {
-      this.prerequisitesList = res.map((data) => ({
-        id: data.id,
-        nombre: data.nombre,
-        tipo: data.tipo.nombre
-      }));
-      this.prerequisitesTablePaginator = (res.length > this.prerequisitesTableRows) ? true : false;
-    },
-    err => {
-      this.spinner.hide();
-      this.toastr.error(`Error, ${err.error.message}`);
-    });
-  }
-
-  //agregando un nuevo detalle
-  onNewPrerequisite() {
-    this.mdStickUp.show();
-    this.modalComponetActive = 'prerequisites';
-    this.selectedPrerequisiteId = null;
-  }
-
-  //guardado del detalle
-  onSavePrerequisite() {
-    //spinner
-    this.mdStickUp.hide();
-    this.getPrerequisites();
-  }
-
-  // edicion de detalle
-  onEditPrerequisite(id) {
-    this.mdStickUp.show();
-    this.modalComponetActive = 'prerequisites';
-    this.selectedPrerequisiteId = id;
-  }
-
-  //borrar un registro de prerequisitos
-  onDeletePrerequisite(id) {
-    this.subjectInformationService.deletePrerequisite(id).subscribe((res: any) => {
-      this.getPrerequisites();
-      this.spinner.hide();
-      this.translate.get('success_delete').subscribe((res: string) => {
-        this.toastr.success(res);
-      });
-    },
-    err => {
-      this.spinner.hide();
-      this.toastr.error(`Error, ${err.error.message}`)
-    });
-  }
-
-  // //Objetivos-------------------------------------------------------------------------------------------------------
-  getObjectives(){
-    this.subjectInformationService.getObjectives(this.subject.id).subscribe((res: any) => {
-      this.specificObjectivesList = res;
-      this.specificObjectivesTablePaginator = (res.length > this.specificObjectivesTableRows) ? true : false;
-    },
-    err => {
-      this.spinner.hide();
-      this.toastr.error(`Error, ${err.error.message}`);
-    });
-  }
-
-  //agregando un nuevo detalle
-  onNewObjective() {
-    this.mdStickUp.show();
-    this.modalComponetActive = 'objectives';
-    this.selectedObjectiveId = null;
-  }
-
-  //guardado del detalle
-  onSaveObjective() {
-    this.mdStickUp.hide();
-    this.getObjectives();
-  }
-
-  // edicion de detalle
-  onEditObjective(id) {
-    this.mdStickUp.show();
-    this.modalComponetActive = 'objectives';
-    this.selectedObjectiveId = id;
-  }
-
-  //borrar un registro de objetivo
-  onDeleteObjective(id) {
-    this.subjectInformationService.deleteObjective(id).subscribe((res: any) => {
-      this.getObjectives();
       this.spinner.hide();
       this.translate.get('success_delete').subscribe((res: string) => {
         this.toastr.success(res);
@@ -542,6 +493,7 @@ export class SubjectInformationComponent implements OnInit {
 
   //borrar un registro de objetivo
   onDeleteStudentOutcome(id) {
+    this.spinner.show();
     this.subjectInformationService.deleteStudentOutcome(id).subscribe((res: any) => {
       this.getStudentOutcomes();
       this.spinner.hide();
@@ -555,54 +507,7 @@ export class SubjectInformationComponent implements OnInit {
     });
   }
 
-  //Temas de Curso-------------------------------------------------------------------------------------------------------
-  getTopics(){
-    this.subjectInformationService.getTopics(this.subject.id).subscribe((res: any) => {
-      this.topicsList = res;
-      this.topicsTablePaginator = (res.length > this.topicsTableRows) ? true : false;
-      //spinner
-    },
-    err => {
-      //spinner
-      this.toastr.error(`Error, ${err.error.message}`);
-    });
-  }
-
-  //agregando un nuevo detalle
-  onNewTopic() {
-    this.mdStickUp.show();
-    this.modalComponetActive = 'topics';
-    this.selectedTopicId = null;
-  }
-
-  //guardado del detalle
-  onSaveTopic() {
-    this.mdStickUp.hide();
-    this.getTopics();
-  }
-
-  // edicion de detalle
-  onEditTopic(id) {
-    this.mdStickUp.show();
-    this.modalComponetActive = 'topics';
-    this.selectedTopicId = id;
-  }
-
-  //borrar un registro de objetivo
-  onDeleteTopic(id) {
-    this.subjectInformationService.deleteTopic(id).subscribe((res: any) => {
-      this.getTopics();
-      this.spinner.hide();
-      this.translate.get('success_delete').subscribe((res: string) => {
-        this.toastr.success(res);
-      });
-    },
-    err => {
-      this.spinner.hide();
-      this.toastr.error(`Error, ${err.error.message}`)
-    });
-  }
-
+  
   //Portada-------------------------------------------------------------------------------------------------------
   transformBase64(blob){//procesa el blob para convertirlo en una imagen para mostrar
     var reader = new FileReader();
@@ -659,6 +564,7 @@ export class SubjectInformationComponent implements OnInit {
 
   //borrar un registro de objetivo
   onDeleteCover() {
+    this.spinner.show();
     this.subjectInformationService.deleteCover(this.subject.id).subscribe((res: any) => {
       this.spinner.hide();
       this.f.filename.setValue(null);
@@ -678,23 +584,13 @@ export class SubjectInformationComponent implements OnInit {
 
   //confirmacion del modal de eliminacion
   confirmModal(confirmation: string, id, componentActive) {
-    this.spinner.show();
     this.modalService.open(confirmation, { centered: true }).result.then((result) => {
 			switch (componentActive) {
         case 'books':
           this.onDeleteBook(id);
           break;
-        case 'prerequisites':
-          this.onDeletePrerequisite(id);
-          break;
-        case 'objectives':
-          this.onDeleteObjective(id);
-          break;
         case 'studentOutcomes':
           this.onDeleteStudentOutcome(id);
-          break;
-        case 'topics':
-          this.onDeleteTopic(id);
           break;
         case 'cover':
             this.onDeleteCover();

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CoursesService } from 'src/app/courses/courses/courses.service';
 import { CurriculumVitaeService } from 'src/app/curriculum-vitae/curriculum-vitae/curriculum-vitae.service';
 import { ReferencesTypeDetailService } from 'src/app/references-type/references-type-detail/references-type-detail.service';
 import { SectionsService } from 'src/app/sections/sections/sections.service';
@@ -17,7 +18,8 @@ export class SubjectFoldersService {
               private curriculumViateService: CurriculumVitaeService,
               private subjectService: SubjectInformationService,
               private sectionService: SectionsService, 
-              private referencesTypeDetailService: ReferencesTypeDetailService) { }
+              private referencesTypeDetailService: ReferencesTypeDetailService,
+              private courseService: CoursesService) { }
 
   //registrar carpeta de asignatura
   registerSubjectFolder(dataArgs) {
@@ -79,6 +81,23 @@ export class SubjectFoldersService {
     return this.subjectService.getSubjectDetailsById(id);
   }
 
+  //obtiene los docentes
+  getFaculty(id){
+    return this.courseService.getFaculty(id);
+  }
+  //obtiene los prerequisitos
+  getPrerequisites(id){
+    return this.courseService.getPrerequisites(id);
+  }
+  //obtiene los objetivos
+  getObjectives(id){
+    return this.courseService.getObjectives(id);
+  }
+  //obtiene los temas
+  getTopics(id){
+    return this.courseService.getTopics(id);
+  }
+  
   //secciones
   getSectionByC(idC){
     return this.sectionService.getSectionByC(idC);

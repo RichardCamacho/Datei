@@ -40,6 +40,21 @@ export class VerticalSidebarComponent {
           this.addExpandClass(this.path);
         })
       break;
+      case 'Lider de SO':
+        this.menuServise.lideritems.subscribe(menuItems => {
+          this.sidebarnavItems = menuItems;
+          
+          // Active menu 
+          this.sidebarnavItems.filter(m => m.submenu.filter(
+            (s) => {
+              if (s.path === this.router.url) {
+                this.path = m.title;
+              }
+            }
+          ));
+          this.addExpandClass(this.path);
+        })
+      break;
       case 'Docente':
         this.menuServise.docenteitems.subscribe(menuItems => {
           this.sidebarnavItems = menuItems;

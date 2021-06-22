@@ -30,6 +30,11 @@ export class SubjectFoldersComponent implements OnInit {
   subjectFolder = new SubjectFolder;
   InstructoresList: any[];//lista de instructores
 
+  facultyList: any[] = []; //lista de docentes del curso
+  prerequisitesList: any[] = [];//lista de prerequisitos y corequisitos del curso
+  specificObjectivesList: any[] = [];//lista de objetivos especificos del curso
+  topicsList: any[] = [];//lista de temas del curso
+
   curriculum: any = null;//hoja de vida que se asocia a la carpeta
   curriculumstate: boolean = true;//estado de la hoja de vida
   cursosList: any[];//lista de cursos registrados por el usuario
@@ -222,6 +227,10 @@ export class SubjectFoldersComponent implements OnInit {
     this.spinner.show();
     this.subjectFolderService.getSubjectDetById(id).subscribe((res: any) => {
       this.subject = res;
+      this.getDocentes(res.idCurso);
+      this.getPrerequisitos(res.idCurso);
+      this.getObjetivos(res.idCurso);
+      this.getTemas(res.idCurso);
       this.spinner.hide();
     },
     err => {
@@ -230,6 +239,65 @@ export class SubjectFoldersComponent implements OnInit {
     });
   }
 
+  //obteniendo la lista de docentes del curso seleccionado
+  getDocentes(id){
+    this.spinner.show();
+    this.subjectFolderService.getFaculty(id).subscribe((res: any) => {
+      this.facultyList = res.map((data) => ({
+        id: data.id,
+        nombre: data.nombre,
+        grupo: data.grupo.nombre
+      }));
+      this.spinner.hide();
+    },
+    err => {
+      this.spinner.hide();
+      this.toastr.error(`Error, ${err.error.message}`);
+    });
+  }
+  //obteniendo la lista de prerequisitos del curso seleccionado
+  getPrerequisitos(id){
+    this.spinner.show();
+    this.subjectFolderService.getPrerequisites(id).subscribe((res: any) => {
+      this.prerequisitesList = res.map((data) => ({
+        id: data.id,
+        nombre: data.nombre,
+        tipo: data.tipo.nombre
+      }));
+      this.spinner.hide();
+    },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(`Error, ${err.error.message}`);
+      });
+  }
+
+  //obteniendo la lista de objetivos del curso seleccionado
+  getObjetivos(id){
+    this.spinner.show();
+    this.subjectFolderService.getObjectives(id).subscribe((res: any) => {
+      this.specificObjectivesList = res;
+      this.spinner.hide();
+    },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(`Error, ${err.error.message}`);
+      });
+  }
+  
+  //obteniendo la lista de temas del curso seleccionado
+  getTemas(id){
+    this.spinner.show();
+    this.subjectFolderService.getTopics(id).subscribe((res: any) => {
+      this.topicsList = res;
+      this.spinner.hide();
+    },
+      err => {
+        this.spinner.hide();
+        this.toastr.error(`Error, ${err.error.message}`);
+      });
+  }
+  
   //metodo para el control de envio de la información del formulario
   onSubmit(){
     this.submitted = true;
@@ -387,7 +455,7 @@ export class SubjectFoldersComponent implements OnInit {
     pdfMake.createPdf(documentDefinition).open();
   }
 
-  //descragar pdf del apendice A - Informacion de curso
+  //descargar pdf del apendice A - Informacion de curso
   buildingPDFApendixA(){
     this.spinner.show();
     var facultad, programa, acreditacion, docentes, cod_nombre_curso,
@@ -489,10 +557,10 @@ export class SubjectFoldersComponent implements OnInit {
       temas = res;
     });
     
-    autor = (this.subject.autor)? this.subject.autor:'';
-    titulo = (this.subject.titulo)? this.subject.titulo:'';
-    editorial = (this.subject.editorial)? this.subject.editorial:'';
-    anio = (this.subject.anio)? this.subject.anio:'';
+    // autor = (this.subject.autor)? this.subject.autor:'';
+    // titulo = (this.subject.titulo)? this.subject.titulo:'';
+    // editorial = (this.subject.editorial)? this.subject.editorial:'';
+    // anio = (this.subject.anio)? this.subject.anio:'';
 
     this.spinner.hide();
     return {
@@ -550,7 +618,7 @@ export class SubjectFoldersComponent implements OnInit {
         },
         {
           columns: [
-            this.getFaultyList(this.subject.docentes)
+            this.getFaultyList()
           ]
         },
         //Libro del curso
@@ -558,10 +626,7 @@ export class SubjectFoldersComponent implements OnInit {
           text: '4. ' + libro,
           style: 'subtitle'
         },
-        {
-          text: autor + ', ' + titulo + ', ' + editorial + ', ' + anio,
-          fontSize: 9,
-        },
+        this.getBook(),
         //Otros materiales
         {
           columns: [
@@ -598,7 +663,7 @@ export class SubjectFoldersComponent implements OnInit {
         },
         {
           columns: [
-            this.getPrerequisitesList(this.subject.prerequisitos)
+            this.getPrerequisitesList()
           ]
         },
         //Tipo de Curso
@@ -622,7 +687,7 @@ export class SubjectFoldersComponent implements OnInit {
         },
         {
           columns: [
-            this.getObjectivesList(this.subject.objetivos)
+            this.getObjectivesList()
           ]
         },
         //Student Outcomes
@@ -652,7 +717,7 @@ export class SubjectFoldersComponent implements OnInit {
         },
         {
           columns: [
-            this.getTopicsList(this.subject.temas_curso)
+            this.getTopicsList()
           ]
         }
       ],
@@ -675,22 +740,55 @@ export class SubjectFoldersComponent implements OnInit {
     }
   }
 
-  getFaultyList(facultyList){
+  getFaultyList(){
     const content = [];
-    facultyList.forEach(faculty => {
-      content.push(
-        {
-          text: faculty.nombre,
-          fontSize: 9,
-          margin: [0, 0, 0, 2]
-        }
-      )
-    });
+    if(this.facultyList.length !== 0){
+      this.facultyList.forEach(faculty => {
+        content.push(
+          {
+            text: faculty.nombre,
+            fontSize: 9,
+            margin: [0, 0, 0, 2]
+          }
+        )
+      });
+  
+      return{
+        ul:[
+          ...content
+        ]
+      }
+    }else{
+      var ninguno
+      this.translate.get('main.ninguno').subscribe((res: string) => {
+        ninguno = res;
+      });
 
-    return{
-      ul:[
-        ...content
-      ]
+      return{
+          text: ninguno,
+          fontSize: 9,
+      }
+    }
+    
+  }
+
+  getBook(){
+    const content = [];
+    if(this.subject.titulo){
+      return{
+        text: this.subject.autor + ', ' + this.subject.titulo + ', ' + this.subject.editorial + ', ' + this.subject.anio,
+        fontSize: 9,
+      }
+    }else{
+      var ninguno
+      this.translate.get('main.ninguno').subscribe((res: string) => {
+        ninguno = res;
+      });
+
+      return{
+          text: ninguno,
+          fontSize: 9,
+      }
     }
   }
 
@@ -726,11 +824,11 @@ export class SubjectFoldersComponent implements OnInit {
     }
   }
 
-  getPrerequisitesList(prerequisitesList){
+  getPrerequisitesList(){
     const content = [];
 
-    if(prerequisitesList.length !== 0){
-      prerequisitesList.forEach(prerequisite => {
+    if(this.prerequisitesList.length !== 0){
+      this.prerequisitesList.forEach(prerequisite => {
         content.push(
           {
             text: prerequisite.nombre,
@@ -758,10 +856,10 @@ export class SubjectFoldersComponent implements OnInit {
     }
   }
 
-  getObjectivesList(objectivesList){
+  getObjectivesList(){
     const content = [];
-    if(objectivesList.length !== 0){
-      objectivesList.forEach(objective => {
+    if(this.specificObjectivesList.length !== 0){
+      this.specificObjectivesList.forEach(objective => {
         content.push(
           {
             text: objective.nombre,
@@ -820,10 +918,10 @@ export class SubjectFoldersComponent implements OnInit {
     }
   }
 
-  getTopicsList(topicsList){
+  getTopicsList(){
     const content = [];
-    if(topicsList.length !== 0){
-      topicsList.forEach(topic => {
+    if(this.topicsList.length !== 0){
+      this.topicsList.forEach(topic => {
         content.push(
           {
             text: topic.nombre,
@@ -1084,9 +1182,10 @@ export class SubjectFoldersComponent implements OnInit {
     const content = [];
     if(schoolingList.length !== 0){
         schoolingList.forEach(schooling => {
+          var fecha = formatDate(schooling.anioTerminacion, 'yyyy', this.timeLocale);
         content.push(
           {
-            text: schooling.curso + ', ' + schooling.disciplina + ', ' + schooling.institucion + ', ' + schooling.anioTerminacion,
+            text: schooling.curso + ', ' + schooling.disciplina + ', ' + schooling.institucion + ', ' + fecha,
             fontSize: 9,
             margin: [0, 0, 0, 2]
           }

@@ -9,20 +9,22 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
-                            <div class="form-group" [class.has-error]="submitted && f.fechaInicio.errors">
+                            <div class="form-group">
                                 <label>{{'main.fecha_inicio' | translate}}*</label>
-                                <input type="date" class="form-control" name="fechaInicio"
-                                formControlName="fechaInicio" id="fechaInicio" [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }">
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [maxDate]="maxDate" inputId="fechaInicio"
+                                [showButtonBar]="true" name="fechaInicio" formControlName="fechaInicio" id="fechaInicio" [class.has-error]="submitted && f.fechaInicio.errors"
+                                [style]="{'width':'100%'}"  dateFormat="dd/mm/yy" [ngClass]="{ 'is-invalid': submitted && f.fechaInicio.errors }"></p-calendar>
                                 <div *ngIf="submitted && f.fechaInicio.errors" >
                                     <small class="form-text text-danger" *ngIf="f.fechaInicio.errors.required">{{'main.campo_requerido' | translate}}</small>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-6">
-                            <div class="form-group" [class.has-error]="submitted && f.fechaFinalizacion.errors">
+                            <div class="form-group">
                                 <label>{{'main.fecha_final' | translate}}*</label>
-                                <input type="date" class="form-control" name="fechaFinalizacion"
-                                formControlName="fechaFinalizacion" id="fechaFinalizacion" [ngClass]="{ 'is-invalid': submitted && f.fechaFinalizacion.errors }">
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [maxDate]="maxDate" inputId="fechaFinalizacion" 
+                                [showButtonBar]="true" name="fechaFinalizacion" formControlName="fechaFinalizacion" id="fechaFinalizacion" [class.has-error]="submitted && f.fechaFinalizacion.errors"
+                                [style]="{'width':'100%'}"  dateFormat="dd/mm/yy" [ngClass]="{ 'is-invalid': submitted && f.fechaFinalizacion.errors }"></p-calendar>
                                 <div *ngIf="submitted && f.fechaFinalizacion.errors" >
                                     <small class="form-text text-danger" *ngIf="f.fechaFinalizacion.errors.required">{{'main.campo_requerido' | translate}}</small>
                                 </div>

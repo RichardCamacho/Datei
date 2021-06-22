@@ -31,10 +31,11 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-lg-3">
-                            <div class="form-group" [class.has-error]="submitted && f.anioTerminacion.errors">
-                                <label>{{'main.anio_terminacion' | translate}}*</label>
-                                <input type="text" class="form-control" placeholder="{{'main.anio_terminacion' | translate}}"
-                                formControlName="anioTerminacion" id="anioTerminacion" [ngClass]="{ 'is-invalid': submitted && f.anioTerminacion.errors }" (keypress)="keyPress($event)">
+                            <div class="form-group">
+                                <label>{{'main.fecha_final' | translate}}*</label>
+                                <p-calendar [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange" [maxDate]="maxDate" inputId="anioTerminacion" 
+                                [showButtonBar]="true" name="anioTerminacion" formControlName="anioTerminacion" id="anioTerminacion" [class.has-error]="submitted && f.anioTerminacion.errors"
+                                [style]="{'width':'100%'}" dateFormat="mm/yy" view="month" [ngClass]="{ 'is-invalid': submitted && f.anioTerminacion.errors }"></p-calendar>
                                 <div *ngIf="submitted && f.anioTerminacion.errors">
                                     <small class="form-text text-danger" *ngIf="f.anioTerminacion.errors.required">{{'main.campo_requerido' | translate}}</small>
                                 </div>

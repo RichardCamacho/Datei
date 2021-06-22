@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Schooling } from './schooling.model';
 import { SchoolingService } from './schooling.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DateHelp } from 'src/app/_helpers/date-helper';
 
 @Component({
   selector: 'app-schooling',
@@ -19,6 +20,8 @@ export class SchoolingComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
+  maxDate: Date;
+  yearRange: any;
 
   schooling: Schooling;// objeto escolaridad con el que trabaja el componente
 
@@ -42,12 +45,15 @@ export class SchoolingComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
               private activatedRoute: ActivatedRoute, public schoolingService: SchoolingService,
               private toastr: ToastrService, private translate: TranslateService,
-              private spinner: NgxSpinnerService) { 
+              private spinner: NgxSpinnerService, private dateHelp: DateHelp) { 
 
               this.spinner.show();
   }
 
   ngOnInit(): void {
+    this.maxDate = this.dateHelp.maxDateToday;
+    this.yearRange = `1950:${this.dateHelp.year}`;
+
     //inicializando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedSchoolingId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
@@ -70,6 +76,7 @@ export class SchoolingComponent implements OnInit {
   //obtiene la escolaridad indicada por id en el estado de UPDATE
   getSchooling(id) {
     this.schoolingService.getSchoolingById(id).subscribe((res: any) => {
+      res.anioTerminacion = new Date(res.anioTerminacion);
       this.registerSchoolingForm.patchValue(res);
       this.spinner.hide();
     },

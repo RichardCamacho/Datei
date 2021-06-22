@@ -29,7 +29,7 @@ export class TopicsComponent implements OnInit {
   param500 = {value: '500'};
   param1000 = {value: '1000'};
   
-  @Input() public selectedSubjectId; // id de la asignatura con la que se esta trabajando
+  @Input() public selectedCourseId; // id de la asignatura con la que se esta trabajando
   @Input() public selectedTopicId; // id del tema seleccionado
 
   @Output() onEventSave = new EventEmitter<boolean>();
@@ -86,7 +86,7 @@ export class TopicsComponent implements OnInit {
     }
     this.submittedUp = true;
     this.topic = this.registerTopicForm.value;
-    this.topic.curso = this.selectedSubjectId;
+    this.topic.curso = this.selectedCourseId;
     this.onCreateTopic();
   }
 

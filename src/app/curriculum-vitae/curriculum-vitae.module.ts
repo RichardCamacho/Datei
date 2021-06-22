@@ -25,6 +25,8 @@ import { AwardsComponent } from '../awards/awards/awards.component';
 import { ServiceActivitiesComponent } from '../service-activities/service-activities/service-activities.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { CalendarModule } from 'primeng/calendar';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { NgxSpinnerModule } from "ngx-spinner";
     ModalModule,
     NgbAccordionModule,
     TranslateModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    CalendarModule,
+    AccordionModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService]

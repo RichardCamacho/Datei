@@ -1,8 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title"><span class="lstick"></span>{{'carpeta_so.carp_so' | translate}}</h4>  
-    </div>
-    <div class="card-body">
+        <h4 class="card-title"><span class="lstick"></span>{{'carpeta_so.carp_so' | translate}}</h4>
         <p-table #dt [columns]="SoFoldersColumns" [value]="SoFoldersList"
                 selectionMode="single" dataKey="id" [paginator]="SoFoldersTablePaginator"
                 [rows]="SoFoldersTableRows" [responsive]="true" [resizableColumns]="true"

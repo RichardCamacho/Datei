@@ -1,0 +1,47 @@
+<p-toolbar>
+     <div class="row">
+         <div class="col-md-6 pt-1">
+           <input  #searchId type="text" class="form-control" id="search-txt" placeholder="{{'main.buscar' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')" >
+         </div>
+       </div>
+ </p-toolbar>
+
+<div class="p-t-10">
+        <p-table #dt [columns]="cols" [value]="items" selectionMode="single" dataKey="id" [(selection)]="selectedItem" 
+            [paginator]="paginatorStatus" [rows]="rowsDetail" [responsive]="true"
+            [resizableColumns]="true" [scrollable]="true" [style]="{width:'100%'}" [loading]="loading" >
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [style.width]="col.width"
+                        pResizableColumn>
+                        {{ col.header | translate }}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                    <th style="width:6%">{{'main.acciones' | translate}}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.typeField" [style.width]="col.width">
+                        <div>
+                            <span class="p-column-title">{{ col.header | translate}}</span>{{ rowData[col.field]
+                            | translate}}
+                        </div>
+                    </td>
+                    <td style="width:6%">
+                        <button type="button" id="select_user_button" class="btn btn-outline-info btn-rounded btn-xs"
+                            title="{{'main.seleccionar' | translate}}" (click)='selectRow(rowData)'><i
+                                class="fas fa-check" aria-hidden="true"></i></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="columns.length">
+                        {{'main.no_registros' | translate}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    <br>
+</div>

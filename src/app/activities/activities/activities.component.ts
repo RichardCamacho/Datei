@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Activities } from './activities.model';
 import { ActivitiesService } from './activities.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { DateHelp } from 'src/app/_helpers/date-helper';
 
 @Component({
   selector: 'app-activities',
@@ -20,6 +21,8 @@ export class ActivitiesComponent implements OnInit {
   submittedUp = false; //auxiliar - identifica el estado del formulario
   mode = '' ; // identifica el modo de transaccion del componente: CREATE , UPDATE
   SelectedId: number; // Id del registro seleccionado
+  minDate: Date;
+  yearRange: any;
 
   activity: Activities;// objeto actividad con el que trabaja el componente
 
@@ -45,13 +48,16 @@ export class ActivitiesComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private router: Router,
               private activatedRoute: ActivatedRoute, public activitysService: ActivitiesService,
               private toastr: ToastrService, @Inject(LOCALE_ID) locale: string, private translate: TranslateService,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService, private dateHelp: DateHelp) {
 
               this.timeLocale = locale;
               this.spinner.show();
   }
 
   ngOnInit(): void {
+    this.minDate = this.dateHelp.maxDateToday;
+    this.yearRange = `${this.dateHelp.year}:${this.dateHelp.year + 2}`;
+
     //iniicalizando el componente en modo de creacion o actualizacion
     this.SelectedId = this.selectedActivityId ;
     if (this.SelectedId === undefined || this.SelectedId == null) {
@@ -75,7 +81,7 @@ export class ActivitiesComponent implements OnInit {
   getActivity(id) {
     this.activitysService.getActivityById(id).subscribe((res: any) => {
       this.activity = res;
-      res.fecha = formatDate(res.fecha, "yyyy-MM-dd", this.timeLocale);
+      res.fecha = new Date(res.fecha);
       this.registerActivityForm.patchValue(res);
       this.spinner.hide();
     },

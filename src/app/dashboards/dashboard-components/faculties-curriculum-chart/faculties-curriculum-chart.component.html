@@ -1,0 +1,11 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title"><span class="lstick"></span>{{'carpeta_asig.hojas_vida' | translate}}</h4>
+        <h6 class="card-subtitle">{{programaTr | translate}}</h6>
+    </div>
+    <div class="card-body">
+        <canvas *ngIf="chartReady" baseChart height="150px" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
+            (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)" [colors]="[{backgroundColor: ['#06d79d', '#ee534f']}]">
+        </canvas>
+    </div>
+</div>

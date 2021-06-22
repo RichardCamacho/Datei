@@ -15,10 +15,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ConfirmationService } from 'primeng/api';
 import { SubjectInformationListComponent } from './subject-information-list/subject-information-list.component';
 import { BooksComponent } from '../books/books/books.component';
-import { PrerequisitesComponent } from '../prerequisites/prerequisites/prerequisites.component';
-import { SpecificObjectivesComponent } from '../specific-objectives/specific-objectives/specific-objectives.component';
 import { StudentOutcomesComponent } from '../student-outcomes/student-outcomes/student-outcomes.component';
-import { TopicsComponent } from '../topics/topics/topics.component';
 import { CoversComponent } from '../covers/covers/covers.component';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
@@ -26,16 +23,14 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SharedModule } from '../shared/shared.module';
 import { FileUploadModule } from 'primeng/fileupload';
+import { AccordionModule } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
     SubjectInformationComponent,
     SubjectInformationListComponent,
     BooksComponent,
-    PrerequisitesComponent,
-    SpecificObjectivesComponent,
     StudentOutcomesComponent,
-    TopicsComponent,
     CoversComponent
   ],
   imports: [
@@ -57,7 +52,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     TranslateModule,
     DynamicDialogModule,
     NgxSpinnerModule,
-    FileUploadModule
+    FileUploadModule,
+    AccordionModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   providers: [ConfirmationService]

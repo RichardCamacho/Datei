@@ -62,21 +62,13 @@
     <div class="col-md-12">
         <div class="card" *ngIf="mode==='UPDATE'">
             <div class="card-body">
-                <ngb-accordion #a="ngbAccordion">
-                    <ngb-panel>
-                        <ng-template ngbPanelHeader>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h4 class="card-title mb-0">{{'main.detalles' | translate}} </h4>
-                                <button ngbPanelToggle class="btn btn-info btn-rounded btn-xs"><i
-                                        class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                            </div>
-                        </ng-template>
-                        <ng-template ngbPanelContent class="p-0">
-                            <p-table #dt [columns]="referencesTypeDetailsColumns" [value]="referencesTypeDetailsList"
-                                selectionMode="single" dataKey="id" [paginator]="referencesTypeDetailsTablePaginator"
-                                [rows]="referencesTypeDetailsTableRows" [responsive]="true" [resizableColumns]="true"
-                                [(selection)]="selectedReferenceTypeDetailsRow" class="table table-striped">
-                                <ng-template pTemplate="header" let-columns>
+                <p-accordion>
+                    <p-accordionTab  header="{{'main.detalles' | translate}}">
+                        <p-table #dt [columns]="referencesTypeDetailsColumns" [value]="referencesTypeDetailsList"
+                        selectionMode="single" dataKey="id" [paginator]="referencesTypeDetailsTablePaginator"
+                        [rows]="referencesTypeDetailsTableRows" [responsive]="true" [resizableColumns]="true"
+                        [(selection)]="selectedReferenceTypeDetailsRow" class="table table-striped">
+                            <ng-template pTemplate="header" let-columns>
                                     <tr>
                                         <th *ngFor="let col of columns" [pSortableColumn]="col.field"
                                             [style.width]="col.width" pResizableColumn>
@@ -85,68 +77,67 @@
                                         </th>
                                         <th style="width:7em">{{'main.acciones' | translate}}</th>
                                     </tr>
-                                </ng-template>
-                                <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                    <tr [pSelectableRow]="rowData">
-                                        <td *ngFor="let col of columns" class="ui-resizable-column"
-                                            [ngSwitch]="col.typeField">
-                                            <div *ngSwitchCase="'object'">
-                                                <span class="p-column-title">{{ col.header | translate }}</span>{{
-                                                rowData[col.field][col.fieldChild] }}
-                                            </div>
-                                            <div *ngSwitchCase="'standard'">
-                                                <span class="p-column-title">{{ col.header | translate }}</span>{{
-                                                rowData[col.field] | translate}}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <button type="button" id="edit_reference_type_detail_button"
-                                                class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
-                                                (click)="onEditReferenceTypeDetail(rowData.id)"><i
-                                                    class="fa fa-pencil-alt" aria-hidden="true"></i></button>
-                                            <button type="button" id="delete_reference_type_detail_button"
-                                                class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
-                                                (click)="confirmModal(confirmation, rowData.id)"><i
-                                                    class="fa fa-trash-alt" aria-hidden="true"></i></button>
-                                        </td>
-                                    </tr>
-                                </ng-template>
-                                <ng-template pTemplate="emptymessage" let-columns>
-                                    <tr>
-                                        <td [attr.colspan]="columns.length">
-                                            {{'main.no_registros' | translate}}
-                                        </td>
-                                    </tr>
-                                </ng-template>
-                            </p-table>
-                            <hr>
-                            <div class="p-t-10 p-b-10">
-                                <button class="btn btn-info" (click)="onNewReferenceTypeDetail()" type="submit"
-                                    title="{{'main.nuevo_detalle' | translate}}" label="{{'main.nuevo_detalle' | translate}}"><i class="fa fa-plus-circle pr-2"
-                                        aria-hidden="true"></i>{{'main.nuevo_detalle' | translate}}</button>
-                            </div>
-                            <!-- MODAL DE CONFIRMACIÓN -->
-                            <ng-template #confirmation let-modal>
-                                <div class="modal-header">
-                                    <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
-                                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body" style="text-align: center;">
-                                    <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
-                                    <p>{{'main.conf_mensaje' | translate}}</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light btn-sm"
-                                        (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
-                                    <button type="button" class="btn  btn-light btn-sm"
-                                        (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
-                                </div>
                             </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr [pSelectableRow]="rowData">
+                                    <td *ngFor="let col of columns" class="ui-resizable-column"
+                                        [ngSwitch]="col.typeField">
+                                        <div *ngSwitchCase="'object'">
+                                            <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                            rowData[col.field][col.fieldChild] }}
+                                        </div>
+                                        <div *ngSwitchCase="'standard'">
+                                            <span class="p-column-title">{{ col.header | translate }}</span>{{
+                                            rowData[col.field] | translate}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" id="edit_reference_type_detail_button"
+                                            class="btn btn-outline-info btn-rounded btn-xs" title="{{'main.editar' | translate}}"
+                                            (click)="onEditReferenceTypeDetail(rowData.id)"><i
+                                                class="fa fa-pencil-alt" aria-hidden="true"></i></button>
+                                        <button type="button" id="delete_reference_type_detail_button"
+                                            class="btn btn-outline-danger btn-rounded btn-xs" title="{{'main.eliminar' | translate}}"
+                                            (click)="confirmModal(confirmation, rowData.id)"><i
+                                                class="fa fa-trash-alt" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage" let-columns>
+                                <tr>
+                                    <td [attr.colspan]="columns.length">
+                                        {{'main.no_registros' | translate}}
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <hr>
+                        <div class="p-t-10 p-b-10">
+                            <button class="btn btn-info" (click)="onNewReferenceTypeDetail()" type="submit"
+                                title="{{'main.nuevo_detalle' | translate}}" label="{{'main.nuevo_detalle' | translate}}"><i class="fa fa-plus-circle pr-2"
+                                    aria-hidden="true"></i>{{'main.nuevo_detalle' | translate}}</button>
+                        </div>
+                        <!-- MODAL DE CONFIRMACIÓN -->
+                        <ng-template #confirmation let-modal>
+                            <div class="modal-header">
+                                <h4 class="modal-title">{{'main.confirmar' | translate}}</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="text-align: center;">
+                                <i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-size: large;"></i>
+                                <p>{{'main.conf_mensaje' | translate}}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light btn-sm"
+                                    (click)="modal.close('Acept button click')">{{'main.aceptar' | translate}}</button>
+                                <button type="button" class="btn  btn-light btn-sm"
+                                    (click)="modal.dismiss('Cancel click')">{{'main.cancelar' | translate}}</button>
+                            </div>
                         </ng-template>
-                    </ngb-panel>
-                </ngb-accordion>
+                    </p-accordionTab>
+                </p-accordion>
             </div>
         </div>
     </div>

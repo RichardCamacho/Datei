@@ -4,17 +4,23 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FileUploadModule } from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
+import { DialogLookupComponent } from './dialog-lookup/dialog-lookup.component';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
   declarations: [
-    FileUploadComponent
+    FileUploadComponent,
+    DialogLookupComponent
   ],
   imports: [
     CommonModule,
     TranslateModule,
     FileUploadModule,
-    HttpClientModule
+    HttpClientModule,
+    DynamicDialogModule,
+    TableModule
   ],
   exports: [
     FileUploadComponent

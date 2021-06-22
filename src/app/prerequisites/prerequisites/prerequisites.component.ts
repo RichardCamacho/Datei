@@ -31,7 +31,7 @@ export class PrerequisitesComponent implements OnInit {
   
   tipoList:any[];
 
-  @Input() public selectedSubjectId; // id del curso o asignatura con la que se trabaja
+  @Input() public selectedCourseId; // id del curso o asignatura con la que se trabaja
   @Input() public selectedPrerequisiteId; // id del prerequisito seleccionado
 
   @Output() onEventSave = new EventEmitter<boolean>();
@@ -89,7 +89,7 @@ export class PrerequisitesComponent implements OnInit {
     }
     this.submittedUp = true;
     this.prerequisite = this.registerPrerequisiteForm.value;
-    this.prerequisite.curso = this.selectedSubjectId;
+    this.prerequisite.curso = this.selectedCourseId;
     this.onCreatePrerequisite();
   }
 

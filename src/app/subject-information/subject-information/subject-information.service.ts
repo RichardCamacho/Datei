@@ -19,10 +19,7 @@ export class SubjectInformationService {
 
   constructor(private http: HttpClient, private referencesTypeService: ReferencesTypeService,
               private booksService: BooksService,
-              private objectiveService: SpecificObjectivesService,
               private studentOutcomeService: StudentOutcomesService,
-              private prerequisiteService: PrerequisitesService,
-              private topicService: TopicsService,
               private coverService: CoversService,
               private courseService: CoursesService) { }
 
@@ -75,6 +72,18 @@ export class SubjectInformationService {
   getFaculty(id){
     return this.courseService.getFaculty(id);
   }
+  //obtiene los prerequisitos
+  getPrerequisites(id){
+    return this.courseService.getPrerequisites(id);
+  }
+  //obtiene los objetivos
+  getObjectives(id){
+    return this.courseService.getObjectives(id);
+  }
+  //obtiene los temas
+  getTopics(id){
+    return this.courseService.getTopics(id);
+  }
 
   //libros
   getBooks(idC){
@@ -84,36 +93,12 @@ export class SubjectInformationService {
     return this.booksService.deleteBook(id);
   }
 
-  //Prerequisitos y corequsitos
-  getPrerequisites(idC){
-    return this.prerequisiteService.getPrerequisiteByC(idC);
-  }
-  deletePrerequisite(id){
-    return this.prerequisiteService.deletePrerequisite(id);
-  }
-
-  //Objetivos
-  getObjectives(idC){
-    return this.objectiveService.getObjectiveByC(idC);
-  }
-  deleteObjective(id){
-    return this.objectiveService.deleteObjective(id);
-  }
-
   //Student Outcome
   getStudentOutcomes(idC){
     return this.studentOutcomeService.getStudentOutcomeByC(idC);
   }
   deleteStudentOutcome(id){
     return this.studentOutcomeService.deleteStudentOutcome(id);
-  }
-
-  //Temas de curso
-  getTopics(idC){
-    return this.topicService.getTopicByC(idC);
-  }
-  deleteTopic(id){
-    return this.topicService.deleteTopic(id);
   }
 
   //Portada-----------------------------------------------------------------------
