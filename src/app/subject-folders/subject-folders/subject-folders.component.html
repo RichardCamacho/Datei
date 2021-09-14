@@ -160,10 +160,10 @@
                                                             <div class="col-lg-12">
                                                                 <div class="form-group">
                                                                     <label>4. {{'carpeta_asig.libro' | translate}}</label>
-                                                                    <p *ngIf="subject.titulo">{{subject.autor}}, {{subject.titulo}}, {{subject.editorial}}, {{subject.anio}}</p>
-                                                                </div>
-                                                                <div *ngIf="!subject.titulo">
-                                                                    <p>{{'main.ninguno' | translate}}</p>
+                                                                    <div *ngIf="subject">
+                                                                        <p *ngIf="subject.titulo">{{subject.autor}}, {{subject.titulo}}, {{subject.editorial}}, {{subject.anio}}</p>
+                                                                        <p *ngIf="!subject.titulo">{{'main.ninguno' | translate}}</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -89,7 +89,7 @@ export class SpecificObjectivesComponent implements OnInit {
     this.onCreateObjective();
   }
   
-  //metodo para crear / actualizar el objeto experiencia academica
+  //metodo para crear / actualizar el objeto objetivo
   onCreateObjective() {
     this.spinner.show();
     if (this.mode === 'CREATE') {
